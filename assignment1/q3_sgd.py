@@ -1,6 +1,7 @@
 # Save parameters every a few SGD iterations as fail-safe
 SAVE_PARAMS_EVERY = 1000
 
+from time import time
 import glob
 import random
 import numpy as np
@@ -14,7 +15,7 @@ def load_saved_params():
         iter = int(op.splitext(op.basename(f))[0].split("_")[2])
         if (iter > st):
             st = iter
-            
+
     if st > 0:
         with open("saved_params_%d.npy" % st, "r") as f:
             params = pickle.load(f)
@@ -22,7 +23,7 @@ def load_saved_params():
         return st, params, state
     else:
         return st, None, None
-    
+
 def save_params(iter, params):
     with open("saved_params_%d.npy" % iter, "w") as f:
         pickle.dump(params, f)
@@ -30,67 +31,75 @@ def save_params(iter, params):
 
 def sgd(f, x0, step, iterations, postprocessing = None, useSaved = False, PRINT_EVERY=10):
     """ Stochastic Gradient Descent """
-    # Implement the stochastic gradient descent method in this        
-    # function.                                                       
-    
-    # Inputs:                                                         
-    # - f: the function to optimize, it should take a single        
-    #     argument and yield two outputs, a cost and the gradient  
-    #     with respect to the arguments                            
-    # - x0: the initial point to start SGD from                     
-    # - step: the step size for SGD                                 
-    # - iterations: total iterations to run SGD for                 
-    # - postprocessing: postprocessing function for the parameters  
-    #     if necessary. In the case of word2vec we will need to    
-    #     normalize the word vectors to have unit length.          
-    # - PRINT_EVERY: specifies every how many iterations to output  
+    # Implement the stochastic gradient descent method in this
+    # function.
 
-    # Output:                                                         
-    # - x: the parameter value after SGD finishes  
-    
+    # Inputs:
+    # - f: the function to optimize, it should take a single
+    #     argument and yield two outputs, a cost and the gradient
+    #     with respect to the arguments
+    # - x0: the initial point to start SGD from
+    # - step: the step size for SGD
+    # - iterations: total iterations to run SGD for
+    # - postprocessing: postprocessing function for the parameters
+    #     if necessary. In the case of word2vec we will need to
+    #     normalize the word vectors to have unit length.
+    # - PRINT_EVERY: specifies every how many iterations to output
+
+    # Output:
+    # - x: the parameter value after SGD finishes
+
     # Anneal learning rate every several iterations
     ANNEAL_EVERY = 20000
-    
+
     if useSaved:
         start_iter, oldx, state = load_saved_params()
         if start_iter > 0:
             x0 = oldx;
             step *= 0.5 ** (start_iter / ANNEAL_EVERY)
-            
+
         if state:
             random.setstate(state)
     else:
         start_iter = 0
-    
+
     x = x0
-    
+
     if not postprocessing:
-        postprocessing = lambda x: x
-    
+        postprocessing = lambda x: normalizeRows(x)
+
     expcost = None
-    
+
     for iter in xrange(start_iter + 1, iterations + 1):
         ### Don't forget to apply the postprocessing after every iteration!
         ### You might want to print the progress every few iterations.
 
         cost = None
-        ### YOUR CODE HERE
-        raise NotImplementedError
-        ### END YOUR CODE
-        
+        start = time()
+        cost, grad = f(x)
+        end = time()
+        ## HACK my code returns an array of costs (figure out why)
+        #cost = cost[0]
+        x = x - step * grad
+        postprocessing(x)
+
         if iter % PRINT_EVERY == 0:
-            if not expcost:
+            # A HACK changes this from just "if not expcost"
+            if type(expcost) is type(None):
                 expcost = cost
             else:
                 expcost = .95 * expcost + .05 * cost
-            print "iter %d: %f" % (iter, expcost)
-        
+            #import pdb; pdb.set_trace()
+            print "iter %d: %s" % (iter, expcost)
+            it_will_take = (end - start) * (iterations - iter) / 1000 / 60
+            print "It will take %f minutes" % it_will_take
+
         if iter % SAVE_PARAMS_EVERY == 0 and useSaved:
             save_params(iter, x)
-            
+
         if iter % ANNEAL_EVERY == 0:
             step *= 0.5
-    
+
     return x
 
 def sanity_check():
@@ -108,13 +117,13 @@ def sanity_check():
     t3 = sgd(quad, -1.5, 0.01, 1000, PRINT_EVERY=100)
     print "test 3 result:", t3
     assert abs(t3) <= 1e-6
-    
+
     print ""
 
-def your_sanity_checks(): 
+def your_sanity_checks():
     """
     Use this space add any additional sanity checks by running:
-        python q3_sgd.py 
+        python q3_sgd.py
     This function will not be called by the autograder, nor will
     your additional tests be graded.
     """
@@ -126,3 +135,4 @@ def your_sanity_checks():
 if __name__ == "__main__":
     sanity_check();
     your_sanity_checks();
+    x = x0
