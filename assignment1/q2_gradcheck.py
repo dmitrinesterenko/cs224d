@@ -23,23 +23,31 @@ def gradcheck_naive(f, x):
         ### try modifying x[ix] with h defined above to compute numerical gradients
         ### make sure you call random.setstate(rndstate) before calling f(x) each time, this will make it
         ### possible to test cost functions with built in randomness later
-        random.setstate(rndstate)
         print("IX {ix}".format(ix=ix))
 
-       # _, numgrad = f(x[ix]+h)
-       # _, numgrad_h = f(x[ix]-h)
-        _, numgrad = f(x+h)
-        _, numgrad_h = f(x-h)
-
+        x[ix] += h
+        random.setstate(rndstate)
+        numgrad, _ = f(x)
+        x[ix] -= 2*h
+        random.setstate(rndstate)
+        numgrad_h, _ = f(x)
+        x[ix] += h # restore to previous value so that we're not altering x with
+                   # our test
 
         # Compare gradients
-        reldiff = (numgrad - numgrad_h) / 2*h
-        #reldiff = abs(numgrad - grad[ix]) / max(1, abs(numgrad), abs(grad[ix]))
+
+        numgrad = (numgrad - numgrad_h) / (2*h)
+        try:
+            reldiff = abs(numgrad - grad[ix]) / max(1, abs(numgrad), abs(grad[ix]))
+        except ValueError:
+            import pdb; pdb.set_trace()
+
         print reldiff
-        if (reldiff > 1e-5).any(): # changed this from reldiff > 1e-5
+        if reldiff > 1e-5: # changed this from reldiff > 1e-5
             print "Gradient check failed."
             print "First gradient error found at index %s" % str(ix)
             print "Your gradient: %f \t Numerical gradient: %f" % (grad[ix], numgrad)
+            import pdb; pdb.set_trace()
             return
 
         it.iternext() # Step to next dimension

@@ -7,6 +7,7 @@ import random
 import numpy as np
 import os.path as op
 import cPickle as pickle
+from q3_word2vec import normalizeRows
 
 def load_saved_params():
     """ A helper function that loads previously saved parameters and resets iteration start """
@@ -66,7 +67,8 @@ def sgd(f, x0, step, iterations, postprocessing = None, useSaved = False, PRINT_
     x = x0
 
     if not postprocessing:
-        postprocessing = lambda x: normalizeRows(x)
+        postprocessing = lambda x: x
+        #postprocessing = lambda x: normalizeRows(x)
 
     expcost = None
 
@@ -77,6 +79,8 @@ def sgd(f, x0, step, iterations, postprocessing = None, useSaved = False, PRINT_
         cost = None
         start = time()
         cost, grad = f(x)
+        #import pdb; pdb.set_trace()
+
         end = time()
         ## HACK my code returns an array of costs (figure out why)
         #cost = cost[0]

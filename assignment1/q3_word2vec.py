@@ -50,15 +50,30 @@ def softmaxCostAndGradient(predicted, target, outputVectors, dataset):
     v_c = predicted
     uws = outputVectors
     u_0 = target
+    # this is from https://github.com/Khabermas/NLP_ps1
+    probabilities = softmax(predicted.dot(outputVectors.T))
+    cost = -np.log(probabilities[target])
+    delta = probabilities
+    delta[target] -= 1
+    N = delta.shape[0]
+    D = predicted.shape[0]
+    grad = delta.reshape((N,1)) * predicted.reshape((1,D))
+    gradPred = (delta.reshape((1,N)).dot(outputVectors)).flatten()
 
-    y_0 = softmaxCost(u_0, v_c, uws) ##np.exp(u_0 * v_c ) / np.sum(u_ws, axis=len(x.shape)-1, keepdims=True)
-    cost = y_0
+    #y_0 = softmaxCost(u_0, v_c, uws) ##np.exp(u_0 * v_c ) / np.sum(u_ws, axis=len(x.shape)-1, keepdims=True)
+    ## TODO: hack np.summing here, but should be done in
+    ## softmaxCost
+    ##cost = np.sum(y_0)
 
-    grad_vc = -u_0 + sum(softmaxCost(uws, v_c, uws))*uws
-    gradPred = grad_vc
-    dce_duw = -v_c*sum(softmaxCost(uws, v_c, uws))
-    dce_duo = -v_c
-    grad = [dce_duw, dce_duo]
+    ## this is the full cost formula
+    ##cost = -u_0 * v_c + np.log(np.sum(np.exp(uws * v_c)))
+    #cost = np.sum(np.exp(uws * v_c))
+
+    #grad_vc = -u_0 + np.sum(softmaxCost(uws, v_c, uws))*uws
+    #gradPred = grad_vc
+    #dce_duw = -v_c*np.sum(softmaxCost(uws, v_c, uws))
+    #dce_duo = -v_c
+    #grad = [dce_duw, dce_duo]
 
     return cost, gradPred, grad
 
@@ -83,21 +98,21 @@ def negSamplingCostAndGradient(predicted, target, outputVectors, dataset,
     uws = outputVectors
     u_0 = target
 
-    u_k = np.zeroes(10, v_c.shape(0))
+    u_k = np.zeros((K, v_c.shape[0]))
     for i in xrange(K):
         u_k[i] = outputVectors[dataset.sampleTokenIdx()]
 
-    cost = np.log(sigmoid(u_0 * v_c)) - np.sum(np.log(sigmoid(-u_k *
-v_c)), axis=len(v_c.shape)-1, keepdims=True)
+    #cost = np.log(sigmoid(u_0 * v_c)) - np.sum(np.log(sigmoid(u_k * v_c)))
+    cost = np.log(sigmoid(u_0 * v_c)) - np.sum(np.log(sigmoid(u_k * v_c)))
+    cost = np.sum(cost)
+    #dce_vc = - (1-sigmoid(u_0 * v_c)) - np.sum(1-sigmoid(-u_k * v_c))
 
-    dce_vc = - (1-sigmoid(u_0 * v_c)) - np.sum(1-sigmoid(-u_k (
-v_c)), axis=len(v_c.shape)-1, keepdims=True)
-    gradPred = dce_vc
+    gradPred = - (1-sigmoid(u_0 * v_c)) - np.sum(1-sigmoid(u_k * v_c))
 
     dce_uo = -(1-sigmoid(u_0 * v_c)) * v_c
 
     dce_uk = - (np.sum(-v_c + v_c * sigmoid(-u_k * v_c)))
-
+    #grad = np.sum(v_c - v_c * sigmoid(-u_k * v_c))
     grad = [dce_uo, dce_uk]
     return cost, gradPred, grad
 
@@ -133,23 +148,22 @@ def skipgram(currentWord, C, contextWords, tokens, inputVectors, outputVectors,
     # assignment!
     uws = outputVectors # rows
     vc = inputVectors[tokens[currentWord]]
-
-    cost = 0
+    gradIn = np.zeros(inputVectors.shape)
+    gradOut = np.zeros(outputVectors.shape)
+    cost = 0.0
     #           vc,        u0,     uws
     # softmax(predicted, target, outputVectors, dataset)
     # return cost, gradPred (grad_vc), grad (grad uw, uo)
-    for i in xrange(C):
-        uo = inputVectors[i]
-        # if on current word in the context then the "answer" is correct and y_i
-        # = 1
-        if i == tokens[currentWord]:
-            y_i = 1
-        else:
-            y_i = 0
-        costfromSoftmax, gradIn, gradOut = softmaxCostAndGradient(vc, uo, uws, dataset)
-        cost -= y_i * np.log(costfromSoftmax)
-        gradIn += gradIn
-        gradOut += gradOut
+    for cwd in contextWords:
+        #uo = inputVectors[i]
+        uo = tokens[cwd]
+        single_cost, single_gin, single_gout = word2vecCostAndGradient(vc, uo, uws, dataset)
+        cost += single_cost
+        try:
+            gradIn[tokens[currentWord],:] += single_gin
+            gradOut += single_gout[0]
+        except TypeError:
+            import pdb; pdb.set_trace()
 
     return cost, gradIn, gradOut
 
@@ -183,7 +197,6 @@ def cbow(currentWord, C, contextWords, tokens, inputVectors, outputVectors,
 #############################################
 
 def word2vec_sgd_wrapper(word2vecModel, tokens, wordVectors, dataset, C, word2vecCostAndGradient = softmaxCostAndGradient):
-    #import pdb; pdb.set_trace()
     batchsize = 50
     cost = 0.0
     grad = np.zeros(wordVectors.shape)
@@ -203,7 +216,7 @@ def word2vec_sgd_wrapper(word2vecModel, tokens, wordVectors, dataset, C, word2ve
         cost += c / batchsize / denom
         # HACK, I am returning multiple gradients because currently dce/duw and
         # dce / duo are returned separately, this might be incorrect
-        gout = gout[1]
+        #gout = gout[1]
         grad[:N/2, :] += gin / batchsize / denom
         grad[N/2:, :] += gout / batchsize / denom
 
@@ -228,7 +241,7 @@ def test_word2vec():
     dummy_tokens = dict([("a",0), ("b",1), ("c",2),("d",3),("e",4)])
     print "==== Gradient check for skip-gram ===="
 
-    gradcheck_naive(lambda vec: word2vec_sgd_wrapper(skipgram, dummy_tokens, vec, dataset, 5), dummy_vectors)
+    gradcheck_naive(lambda vec: word2vec_sgd_wrapper(skipgram, dummy_tokens, vec, dataset, 5, softmaxCostAndGradient), dummy_vectors)
     gradcheck_naive(lambda vec: word2vec_sgd_wrapper(skipgram, dummy_tokens, vec, dataset, 5, negSamplingCostAndGradient), dummy_vectors)
     #print "\n==== Gradient check for CBOW      ===="
     #gradcheck_naive(lambda vec: word2vec_sgd_wrapper(cbow, dummy_tokens, vec, dataset, 5), dummy_vectors)
@@ -239,7 +252,7 @@ def test_word2vec():
     print "\n=== Softmax ==="
     print skipgram("c", 3, ["a", "b", "e", "d", "b", "c"], dummy_tokens, dummy_vectors[:5,:], dummy_vectors[5:,:], dataset)
     print "\n=== Negative Sampling ===="
-    print skipgram("c", 3, ["a", "b", "e", "d", "b", "c"], dummy_tokens, dummy_vectors[:5,:], dummy_vectors[5:,:], dataset, negSamplingCostAndGradient)
+    print skipgram("a", 3, ["a", "b", "c", "d", "b", "e"], dummy_tokens, dummy_vectors[:5,:], dummy_vectors[5:,:], dataset, negSamplingCostAndGradient)
 
     print skipgram("c", 1, ["a", "b"], dummy_tokens, dummy_vectors[:5,:], dummy_vectors[5:,:], dataset, negSamplingCostAndGradient)
     #print cbow("a", 2, ["a", "b", "c", "a"], dummy_tokens, dummy_vectors[:5,:], dummy_vectors[5:,:], dataset)
