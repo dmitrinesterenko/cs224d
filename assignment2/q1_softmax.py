@@ -27,17 +27,16 @@ def softmax(x):
   # learn about the properties of our input
   print(x)
   print(x.shape)
-  sess = tf.Session()
+  #sess = tf.Session()
   # since x is already a tf.Tensor it can be passed directly to the operation
   maxes = tf.reduce_max(x, axis=len(x.shape)-1, keep_dims=True)
   x = x - maxes
   exp = tf.exp(x)
   out = exp / tf.reduce_sum(exp,axis=len(x.shape)-1, keep_dims=True)
-  #tf.update(x, x-max_value)
-  print(sess.run(maxes))
-  print(sess.run(x))
-  print(sess.run(exp))
-  print(sess.run(out))
+  #print(sess.run(maxes))
+  #print(sess.run(x))
+  #print(sess.run(exp))
+  #print(sess.run(out))
   ### END YOUR CODE
 
   return out
@@ -65,7 +64,10 @@ def cross_entropy_loss(y, yhat):
           tensor in the problem.
   """
   ### YOUR CODE HERE
-  raise NotImplementedError
+  print(y)
+  print(yhat)
+  #out = - tf.reduce_sum(tf.matmul(tf.to_float(y), tf.log(yhat)))
+  out = -tf.reduce_sum(tf.to_float(y) * tf.log(yhat))
   ### END YOUR CODE
   return out
 
@@ -106,6 +108,8 @@ def test_cross_entropy_loss_basic():
   with tf.Session():
     test1 = test1.eval()
   result = -3 * np.log(.5)
+  print(test1)
+  print(result)
   assert np.amax(np.fabs(test1 - result)) <= 1e-6
   print "Basic (non-exhaustive) cross-entropy tests pass\n"
 

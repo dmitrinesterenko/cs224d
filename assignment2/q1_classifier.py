@@ -21,7 +21,8 @@ class Config(object):
   # You may adjust the max_epochs to ensure convergence.
   max_epochs = 50
   # You may adjust this learning rate to ensure convergence.
-  lr = 1e-4 
+  lr = 1e-4
+  global_step = 0
 
 class SoftmaxModel(Model):
   """Implements a Softmax classifier with cross-entropy loss."""
@@ -47,14 +48,20 @@ class SoftmaxModel(Model):
                        (batch_size, n_classes), type tf.int32
 
     Add these placeholders to self as the instance variables
-  
+
       self.input_placeholder
       self.labels_placeholder
 
     (Don't change the variable names)
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+
+    self.input_placeholder = tf.placeholder(tf.float32, \
+             shape=(self.config.batch_size, self.config.n_features) , \
+             name='input_placeholder')
+    self.labels_placeholder = tf.placeholder(tf.float32, \
+             shape=(self.config.batch_size, self.config.n_classes),  \
+             name="labels_placeholder")
     ### END YOUR CODE
 
   def create_feed_dict(self, input_batch, label_batch):
@@ -79,7 +86,11 @@ class SoftmaxModel(Model):
       feed_dict: The feed dictionary mapping from placeholders to values.
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+
+    feed_dict = {
+        self.input_placeholder: input_batch,
+        self.labels_placeholder: label_batch
+    }
     ### END YOUR CODE
     return feed_dict
 
@@ -103,7 +114,9 @@ class SoftmaxModel(Model):
       train_op: The Op for training.
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+    optimizer = tf.train.GradientDescentOptimizer(self.config.lr)
+    train_op = optimizer.minimize(loss,  \
+                colocate_gradients_with_ops=True, name='sgd')
     ### END YOUR CODE
     return train_op
 
@@ -127,7 +140,28 @@ class SoftmaxModel(Model):
       out: A tensor of shape (batch_size, n_classes)
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+
+    #a more exhaustive example with tf.name_scope(None, "softmax", [weights, biases, out]) as scope:
+    # scope adds "softmax/" to all of the defined variables making it easier to
+    # understand where certain values are set when troubleshooting later
+    with tf.name_scope("softmax"):
+        # weights learn about the features and "convert" them to classes of things
+        weights = tf.Variable(tf.random_normal(
+            [self.config.n_features, self.config.n_classes], stddev=0.5), \
+            name="weights")
+            # biases add a bias for each of the items in the batch to "correct" toward a
+        # particular class (N.B. I am not confident if this is the best
+        # explanation)
+        biases = tf.Variable(tf.zeros([self.config.batch_size, self.config.n_classes]), name="biases")
+        print(input_data)
+        print(weights)
+        print(biases)
+        # out is going to be our predictions for each item in the batch
+        # we are going to have a probability distribution
+        out = tf.Variable(tf.zeros([self.config.batch_size, self.config.n_classes]), name="out")
+
+        out = softmax(tf.add(tf.matmul(input_data, weights), biases))
+        print(out)
     ### END YOUR CODE
     return out
 
@@ -142,7 +176,11 @@ class SoftmaxModel(Model):
       loss: A 0-d tensor (scalar)
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+    # pass in our predicted probability distribution along with the real values
+    # for y in the labels_placeholder variable to calculate a single scalar
+    # value that determines how far off we are in being good at predicting in
+    # our model
+    loss = cross_entropy_loss(self.labels_placeholder, pred)
     ### END YOUR CODE
     return loss
 
@@ -211,23 +249,25 @@ class SoftmaxModel(Model):
     # Generate placeholders for the images and labels.
     self.load_data()
     self.add_placeholders()
+
     self.pred = self.add_model(self.input_placeholder)
     self.loss = self.add_loss_op(self.pred)
     self.train_op = self.add_training_op(self.loss)
-  
+
 def test_SoftmaxModel():
   """Train softmax model for a number of steps."""
   config = Config()
   with tf.Graph().as_default():
     model = SoftmaxModel(config)
-  
+
     # Create a session for running Ops on the Graph.
     sess = tf.Session()
-  
+
     # Run the Op to initialize the variables.
-    init = tf.initialize_all_variables()
+    # init = tf.initialize_all_variables()
+    init = tf.global_variables_initializer()
     sess.run(init)
-  
+
     losses = model.fit(sess, model.input_data, model.input_labels)
 
   # If ops are implemented correctly, the average loss should fall close to zero
