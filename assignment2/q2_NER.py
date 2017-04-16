@@ -6,6 +6,7 @@ import time
 import numpy as np
 import tensorflow as tf
 from q2_initialization import xavier_weight_init
+from q1_softmax import softmax
 import data_utils.utils as du
 import data_utils.ner as ner
 from utils import data_iterator
@@ -22,7 +23,7 @@ class Config(object):
   batch_size = 64
   label_size = 5
   hidden_size = 100
-  max_epochs = 24 
+  max_epochs = 1 #24
   early_stopping = 2
   dropout = 0.9
   lr = 0.001
@@ -92,7 +93,12 @@ class NERModel(LanguageModel):
     (Don't change the variable names)
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+    self.input_placeholder = tf.placeholder(tf.int32,(None, self.config.window_size),name="input_placeholder")
+    self.labels_placeholder = tf.placeholder(tf.float32,(None, \
+        self.config.label_size),name="labels_placeholder")
+    self.dropout_placeholder = tf.placeholder(tf.float32,name="dropout_placeholder")
+
+
     ### END YOUR CODE
 
   def create_feed_dict(self, input_batch, dropout, label_batch=None):
@@ -117,7 +123,18 @@ class NERModel(LanguageModel):
       feed_dict: The feed dictionary mapping from placeholders to values.
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+
+    if label_batch != None:
+        feed_dict = {
+            self.input_placeholder: input_batch,
+            self.labels_placeholder: label_batch,
+            self.dropout_placeholder: dropout
+        }
+    else:
+        feed_dict = {
+            self.input_placeholder: input_batch,
+            self.dropout_placeholder: dropout
+        }
     ### END YOUR CODE
     return feed_dict
 
@@ -148,7 +165,14 @@ class NERModel(LanguageModel):
     # The embedding lookup is currently only implemented for the CPU
     with tf.device('/cpu:0'):
       ### YOUR CODE HERE
-      raise NotImplementedError
+      # init the embeddings to random values between -1 and 1 for our chosen
+      # vocabulary (len(self.wv)) and for our embed_size (50) from the configuration
+      embeddings = tf.Variable(tf.random_uniform([len(self.wv), \
+        self.config.embed_size], -1, 1))
+      import pdb; pdb.set_trace()
+
+      window = tf.reshape(tf.nn.embedding_lookup(embeddings, \
+        self.input_placeholder), (-1, self.config.window_size * self.config.embed_size))
       ### END YOUR CODE
       return window
 
@@ -180,9 +204,39 @@ class NERModel(LanguageModel):
       output: tf.Tensor of shape (batch_size, label_size)
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+    xavier_initializer = xavier_weight_init()
+
+    def weight_init(name, shape):
+        #weight = tf.get_variable(name, shape, tf.float32)
+        weight = xavier_initializer(shape)
+        return weight
+
+    def bias_init(name, shape):
+        return tf.get_variable(name, shape, \
+            tf.float32) #, initializer=tf.random_normal_initializer)
+
+    with tf.variable_scope("hidden_layer"):
+
+        weights = weight_init("weights", \
+            (self.config.window_size * self.config.embed_size, self.config.hidden_size))
+        biases = bias_init("biases", self.config.hidden_size)
+        import pdb; pdb.set_trace()
+        # using sigmoid?
+        hidden_out = tf.add(tf.matmul(window, weights), biases)
+        weight_regularization = tf.get_variable("weight_regularization", 1)
+        weight_regularization = self.config.l2 * np.sum((weights**2))/2
+    with tf.variable_scope("answer_layer"):
+        weights = weight_init("weights", \
+            (self.config.hidden_size, self.config.label_size))
+        biases = bias_init("biases", self.config.label_size)
+        output = tf.get_variable("output", (self.config.window_size, self.config.label_size))
+        # the softmax is applied later on based on the results of this model
+        output = tf.add(tf.matmul(hidden_out, weights), biases)
+        weight_regularization = tf.get_variable("weight_regularization", 1)
+        weight_regularization = self.config.l2 * np.sum((weights**2))/2
+
     ### END YOUR CODE
-    return output 
+    return output
 
   def add_loss_op(self, y):
     """Adds cross_entropy_loss ops to the computational graph.
@@ -195,7 +249,10 @@ class NERModel(LanguageModel):
       loss: A 0-d tensor (scalar)
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+    import pdb; pdb.set_trace()
+    # TODO add the two weight regularizations from the model. Use variable
+    # scopet to get their values
+    loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=self.labels_placeholder, logits=y))
     ### END YOUR CODE
     return loss
 
@@ -219,7 +276,9 @@ class NERModel(LanguageModel):
       train_op: The Op for training.
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+
+    adamOptimizer = tf.train.AdamOptimizer(self.config.lr)
+    train_op = adamOptimizer.minimize(loss)
     ### END YOUR CODE
     return train_op
 
@@ -252,6 +311,7 @@ class NERModel(LanguageModel):
       data_iterator(orig_X, orig_y, batch_size=self.config.batch_size,
                    label_size=self.config.label_size, shuffle=shuffle)):
       feed = self.create_feed_dict(input_batch=x, dropout=dp, label_batch=y)
+
       loss, total_correct, _ = session.run(
           [self.loss, self.correct_predictions, self.train_op],
           feed_dict=feed)
@@ -333,7 +393,7 @@ def test_NER():
   with tf.Graph().as_default():
     model = NERModel(config)
 
-    init = tf.initialize_all_variables()
+    init = tf.global_variables_initializer()
     saver = tf.train.Saver()
 
     with tf.Session() as session:
