@@ -24,7 +24,7 @@ class Config(object):
   label_size = 5
   hidden_size = 100
   max_epochs = 1 #24
-  early_stopping = 2
+  early_stopping = 3
   dropout = 0.9
   lr = 0.001
   l2 = 0.001
@@ -124,7 +124,7 @@ class NERModel(LanguageModel):
     """
     ### YOUR CODE HERE
 
-    if label_batch != None:
+    if label_batch is not None:
         feed_dict = {
             self.input_placeholder: input_batch,
             self.labels_placeholder: label_batch,
@@ -169,7 +169,6 @@ class NERModel(LanguageModel):
       # vocabulary (len(self.wv)) and for our embed_size (50) from the configuration
       embeddings = tf.Variable(tf.random_uniform([len(self.wv), \
         self.config.embed_size], -1, 1))
-      import pdb; pdb.set_trace()
 
       window = tf.reshape(tf.nn.embedding_lookup(embeddings, \
         self.input_placeholder), (-1, self.config.window_size * self.config.embed_size))
@@ -220,20 +219,29 @@ class NERModel(LanguageModel):
         weights = weight_init("weights", \
             (self.config.window_size * self.config.embed_size, self.config.hidden_size))
         biases = bias_init("biases", self.config.hidden_size)
-        import pdb; pdb.set_trace()
         # using sigmoid?
+        # Dropout our weights
+        weights = tf.nn.dropout(weights, self.config.dropout, name="hidden_weights_dropout")
         hidden_out = tf.add(tf.matmul(window, weights), biases)
         weight_regularization = tf.get_variable("weight_regularization", 1)
-        weight_regularization = self.config.l2 * np.sum((weights**2))/2
+        weight_regularization = self.config.l2 * tf.reduce_sum((weights**2))/2
+        tf.add_to_collection("total_loss", weight_regularization)
+        print("Reg 1")
+        print(tf.get_collection("total_loss"))
     with tf.variable_scope("answer_layer"):
         weights = weight_init("weights", \
             (self.config.hidden_size, self.config.label_size))
         biases = bias_init("biases", self.config.label_size)
         output = tf.get_variable("output", (self.config.window_size, self.config.label_size))
+        # Dropout our weights
+        weights = tf.nn.dropout(weights, self.config.dropout, name="hidden_weights_dropout")
         # the softmax is applied later on based on the results of this model
         output = tf.add(tf.matmul(hidden_out, weights), biases)
         weight_regularization = tf.get_variable("weight_regularization", 1)
-        weight_regularization = self.config.l2 * np.sum((weights**2))/2
+        weight_regularization = self.config.l2 * tf.reduce_sum((weights**2))/2
+        tf.add_to_collection("total_loss", weight_regularization)
+        print("Reg 2")
+        print(tf.get_collection("total_loss"))
 
     ### END YOUR CODE
     return output
@@ -249,10 +257,14 @@ class NERModel(LanguageModel):
       loss: A 0-d tensor (scalar)
     """
     ### YOUR CODE HERE
-    import pdb; pdb.set_trace()
     # TODO add the two weight regularizations from the model. Use variable
     # scopet to get their values
-    loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=self.labels_placeholder, logits=y))
+    loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=self.labels_placeholder,
+logits=y))
+    loss += tf.get_collection("total_loss")
+    print("Reg total")
+    print(tf.get_collection("total_loss"))
+    tf.add_to_collection("total_loss", loss)
     ### END YOUR CODE
     return loss
 
@@ -406,7 +418,7 @@ def test_NER():
         start = time.time()
         ###
         train_loss, train_acc = model.run_epoch(session, model.X_train,
-                                                model.y_train)
+                                                model.y_train, verbose=100)
         val_loss, predictions = model.predict(session, model.X_dev, model.y_dev)
         print 'Training loss: {}'.format(train_loss)
         print 'Training acc: {}'.format(train_acc)
