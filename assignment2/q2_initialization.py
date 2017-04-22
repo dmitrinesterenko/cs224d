@@ -24,7 +24,12 @@ def xavier_weight_init():
       out: tf.Tensor of specified shape sampled from Xavier distribution.
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+    #import pdb; pdb.set_trace()
+    eta = tf.sqrt(6.0) / tf.sqrt(tf.to_float(sum(shape)))
+    with tf.variable_scope(''.join(map(str, shape))):
+        out = tf.get_variable("xavier_weights", shape, \
+            initializer=tf.random_uniform_initializer(-eta, eta))
+        tf.get_variable_scope().reuse_variables()
     ### END YOUR CODE
     return out
   # Returns defined initializer function.
@@ -46,16 +51,32 @@ def test_initialization_basic():
   print "Basic (non-exhaustive) Xavier initialization tests pass\n"
 
 def test_initialization():
-  """ 
+  """
   Use this space to test your Xavier initialization code by running:
-      python q1_initialization.py 
+      python q1_initialization.py
   This function will not be called by the autograder, nor will
   your tests be graded.
   """
   print "Running your tests..."
   ### YOUR CODE HERE
-  raise NotImplementedError
-  ### END YOUR CODE  
+  with tf.variable_scope("init_tests"):
+    xavier_initializer = xavier_weight_init()
+    shape = (1, 2, 3)
+    xavier_mat = xavier_initializer(shape)
+    print(xavier_mat)
+    shape = (10000, 20, 30)
+    large_mat = xavier_initializer(shape)
+    init = tf.initialize_all_variables()
+    sess = tf.Session()
+    sess.run(init)
+    print(sess.run(xavier_mat))
+    print(sess.run(large_mat))
+
+
+
+
+  ### END YOUR CODE
 
 if __name__ == "__main__":
     test_initialization_basic()
+    test_initialization()

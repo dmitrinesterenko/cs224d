@@ -6,6 +6,7 @@ import time
 import numpy as np
 import tensorflow as tf
 from q2_initialization import xavier_weight_init
+from q1_softmax import softmax
 import data_utils.utils as du
 import data_utils.ner as ner
 from utils import data_iterator
@@ -22,8 +23,8 @@ class Config(object):
   batch_size = 64
   label_size = 5
   hidden_size = 100
-  max_epochs = 24 
-  early_stopping = 2
+  max_epochs = 1 #24
+  early_stopping = 3
   dropout = 0.9
   lr = 0.001
   l2 = 0.001
@@ -84,7 +85,7 @@ class NERModel(LanguageModel):
                          type tf.float32
 
     Add these placeholders to self as the instance variables
-  
+
       self.input_placeholder
       self.labels_placeholder
       self.dropout_placeholder
@@ -92,7 +93,12 @@ class NERModel(LanguageModel):
     (Don't change the variable names)
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+    self.input_placeholder = tf.placeholder(tf.int32,(None, self.config.window_size),name="input_placeholder")
+    self.labels_placeholder = tf.placeholder(tf.float32,(None, \
+        self.config.label_size),name="labels_placeholder")
+    self.dropout_placeholder = tf.placeholder(tf.float32,name="dropout_placeholder")
+
+
     ### END YOUR CODE
 
   def create_feed_dict(self, input_batch, dropout, label_batch=None):
@@ -109,7 +115,7 @@ class NERModel(LanguageModel):
     Hint: The keys for the feed_dict should be a subset of the placeholder
           tensors created in add_placeholders.
     Hint: When label_batch is None, don't add a labels entry to the feed_dict.
-    
+
     Args:
       input_batch: A batch of input data.
       label_batch: A batch of label data.
@@ -117,7 +123,18 @@ class NERModel(LanguageModel):
       feed_dict: The feed dictionary mapping from placeholders to values.
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+
+    if label_batch is not None:
+        feed_dict = {
+            self.input_placeholder: input_batch,
+            self.labels_placeholder: label_batch,
+            self.dropout_placeholder: dropout
+        }
+    else:
+        feed_dict = {
+            self.input_placeholder: input_batch,
+            self.dropout_placeholder: dropout
+        }
     ### END YOUR CODE
     return feed_dict
 
@@ -148,7 +165,13 @@ class NERModel(LanguageModel):
     # The embedding lookup is currently only implemented for the CPU
     with tf.device('/cpu:0'):
       ### YOUR CODE HERE
-      raise NotImplementedError
+      # init the embeddings to random values between -1 and 1 for our chosen
+      # vocabulary (len(self.wv)) and for our embed_size (50) from the configuration
+      embeddings = tf.Variable(tf.random_uniform([len(self.wv), \
+        self.config.embed_size], -1, 1))
+
+      window = tf.reshape(tf.nn.embedding_lookup(embeddings, \
+        self.input_placeholder), (-1, self.config.window_size * self.config.embed_size))
       ### END YOUR CODE
       return window
 
@@ -180,9 +203,48 @@ class NERModel(LanguageModel):
       output: tf.Tensor of shape (batch_size, label_size)
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+    xavier_initializer = xavier_weight_init()
+
+    def weight_init(name, shape):
+        #weight = tf.get_variable(name, shape, tf.float32)
+        weight = xavier_initializer(shape)
+        return weight
+
+    def bias_init(name, shape):
+        return tf.get_variable(name, shape, \
+            tf.float32) #, initializer=tf.random_normal_initializer)
+
+    with tf.variable_scope("hidden_layer"):
+
+        weights = weight_init("weights", \
+            (self.config.window_size * self.config.embed_size, self.config.hidden_size))
+        biases = bias_init("biases", self.config.hidden_size)
+        # using sigmoid?
+        # Dropout our weights
+        weights = tf.nn.dropout(weights, self.config.dropout, name="hidden_weights_dropout")
+        hidden_out = tf.add(tf.matmul(window, weights), biases)
+        weight_regularization = tf.get_variable("weight_regularization", 1)
+        weight_regularization = self.config.l2 * tf.reduce_sum((weights**2))/2
+        tf.add_to_collection("total_loss", weight_regularization)
+        print("Reg 1")
+        print(tf.get_collection("total_loss"))
+    with tf.variable_scope("answer_layer"):
+        weights = weight_init("weights", \
+            (self.config.hidden_size, self.config.label_size))
+        biases = bias_init("biases", self.config.label_size)
+        output = tf.get_variable("output", (self.config.window_size, self.config.label_size))
+        # Dropout our weights
+        weights = tf.nn.dropout(weights, self.config.dropout, name="hidden_weights_dropout")
+        # the softmax is applied later on based on the results of this model
+        output = tf.add(tf.matmul(hidden_out, weights), biases)
+        weight_regularization = tf.get_variable("weight_regularization", 1)
+        weight_regularization = self.config.l2 * tf.reduce_sum((weights**2))/2
+        tf.add_to_collection("total_loss", weight_regularization)
+        print("Reg 2")
+        print(tf.get_collection("total_loss"))
+
     ### END YOUR CODE
-    return output 
+    return output
 
   def add_loss_op(self, y):
     """Adds cross_entropy_loss ops to the computational graph.
@@ -195,7 +257,14 @@ class NERModel(LanguageModel):
       loss: A 0-d tensor (scalar)
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+    # TODO add the two weight regularizations from the model. Use variable
+    # scopet to get their values
+    loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=self.labels_placeholder,
+logits=y))
+    loss += tf.get_collection("total_loss")
+    print("Reg total")
+    print(tf.get_collection("total_loss"))
+    tf.add_to_collection("total_loss", loss)
     ### END YOUR CODE
     return loss
 
@@ -204,7 +273,7 @@ class NERModel(LanguageModel):
 
     Creates an optimizer and applies the gradients to all trainable variables.
     The Op returned by this function is what must be passed to the
-    `sess.run()` call to cause the model to train. See 
+    `sess.run()` call to cause the model to train. See
 
     https://www.tensorflow.org/versions/r0.7/api_docs/python/train.html#Optimizer
 
@@ -219,7 +288,9 @@ class NERModel(LanguageModel):
       train_op: The Op for training.
     """
     ### YOUR CODE HERE
-    raise NotImplementedError
+
+    adamOptimizer = tf.train.AdamOptimizer(self.config.lr)
+    train_op = adamOptimizer.minimize(loss)
     ### END YOUR CODE
     return train_op
 
@@ -252,6 +323,7 @@ class NERModel(LanguageModel):
       data_iterator(orig_X, orig_y, batch_size=self.config.batch_size,
                    label_size=self.config.label_size, shuffle=shuffle)):
       feed = self.create_feed_dict(input_batch=x, dropout=dp, label_batch=y)
+
       loss, total_correct, _ = session.run(
           [self.loss, self.correct_predictions, self.train_op],
           feed_dict=feed)
@@ -333,7 +405,7 @@ def test_NER():
   with tf.Graph().as_default():
     model = NERModel(config)
 
-    init = tf.initialize_all_variables()
+    init = tf.global_variables_initializer()
     saver = tf.train.Saver()
 
     with tf.Session() as session:
@@ -346,7 +418,7 @@ def test_NER():
         start = time.time()
         ###
         train_loss, train_acc = model.run_epoch(session, model.X_train,
-                                                model.y_train)
+                                                model.y_train, verbose=100)
         val_loss, predictions = model.predict(session, model.X_dev, model.y_dev)
         print 'Training loss: {}'.format(train_loss)
         print 'Training acc: {}'.format(train_acc)
@@ -356,15 +428,16 @@ def test_NER():
           best_val_epoch = epoch
           if not os.path.exists("./weights"):
             os.makedirs("./weights")
-        
+
           saver.save(session, './weights/ner.weights')
         if epoch - best_val_epoch > config.early_stopping:
+          print("I am stopping early. {0} - {1} = {2}".format(epoch, best_val_epoch, epoch - best_val_epoch))
           break
         ###
         confusion = calculate_confusion(config, predictions, model.y_dev)
         print_confusion(confusion, model.num_to_tag)
         print 'Total time: {}'.format(time.time() - start)
-      
+
       saver.restore(session, './weights/ner.weights')
       print 'Test'
       print '=-=-='
