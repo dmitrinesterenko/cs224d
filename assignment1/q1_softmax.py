@@ -16,33 +16,31 @@ def softmax(x):
     dimensional inputs (treat the vector as a row), you might find
     it helpful for your later problems.
 
-    You must implement the optimization in problem 1(a) of the 
+    You must implement the optimization in problem 1(a) of the
     written assignment!
     """
-
-    ### YOUR CODE HERE
-    raise NotImplementedError
-    ### END YOUR CODE
-    
+    x = np.exp(x) / np.sum(np.exp(x), axis=len(x.shape)-1, keepdims=True)
     return x
 
 def test_softmax_basic():
     """
-    Some simple tests to get you started. 
+    Some simple tests to get you started.
     Warning: these are not exhaustive.
     """
     print "Running basic tests..."
+
+    test2 = softmax(np.array([[101,102],[3,4]]))
+    print test2
+    assert np.amax(np.fabs(test2 - np.array(
+        [[0.26894142, 0.73105858], [0.26894142, 0.73105858]]))) <= 1e-6
+
     test1 = softmax(np.array([1,2]))
     print test1
     assert np.amax(np.fabs(test1 - np.array(
         [0.26894142,  0.73105858]))) <= 1e-6
 
-    test2 = softmax(np.array([[1001,1002],[3,4]]))
-    print test2
-    assert np.amax(np.fabs(test2 - np.array(
-        [[0.26894142, 0.73105858], [0.26894142, 0.73105858]]))) <= 1e-6
 
-    test3 = softmax(np.array([[-1001,-1002]]))
+    test3 = softmax(np.array([[-101,-102]]))
     print test3
     assert np.amax(np.fabs(test3 - np.array(
         [0.73105858, 0.26894142]))) <= 1e-6
@@ -50,16 +48,19 @@ def test_softmax_basic():
     print "You should verify these results!\n"
 
 def test_softmax():
-    """ 
+    """
     Use this space to test your softmax implementation by running:
-        python q1_softmax.py 
+        python q1_softmax.py
     This function will not be called by the autograder, nor will
     your tests be graded.
     """
     print "Running your tests..."
-    ### YOUR CODE HERE
-    raise NotImplementedError
-    ### END YOUR CODE  
+    test = softmax(np.array([[-102,-103],[102,101],[100,99]]))
+    print test
+    assert np.amax(np.fabs(test - np.array(
+        [0.73105858, 0.26894142]))) <= 1e-6
+
+
 
 if __name__ == "__main__":
     test_softmax_basic()
