@@ -1,0 +1,286 @@
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcublas.so.7.5 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcudnn.so.5 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcufft.so.7.5 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcurand.so.7.5 locally
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:910] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:885] Found device 0 with properties: 
+name: Tesla K80
+major: 3 minor: 7 memoryClockRate (GHz) 0.8235
+pciBusID 0000:00:1e.0
+Total memory: 11.17GiB
+Free memory: 11.11GiB
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:906] DMA: 0 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:916] 0:   Y 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcublas.so.7.5 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcudnn.so.5 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcufft.so.7.5 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcurand.so.7.5 locally
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:910] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:885] Found device 0 with properties: 
+name: Tesla K80
+major: 3 minor: 7 memoryClockRate (GHz) 0.8235
+pciBusID 0000:00:1e.0
+Total memory: 11.17GiB
+Free memory: 11.11GiB
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:906] DMA: 0 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:916] 0:   Y 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+300
+100
+Reg 1
+[<tf.Tensor 'hidden_layer/div_1:0' shape=() dtype=float32>]
+Reg 2
+[<tf.Tensor 'hidden_layer/div_1:0' shape=() dtype=float32>, <tf.Tensor 'answer_layer/div_1:0' shape=() dtype=float32>]
+Reg total
+[<tf.Tensor 'hidden_layer/div_1:0' shape=() dtype=float32>, <tf.Tensor 'answer_layer/div_1:0' shape=() dtype=float32>]
+Epoch 0
+0 / 1590 : loss = 2.84203767776100 / 1590 : loss = 0.960169732571200 / 1590 : loss = 0.786303460598300 / 1590 : loss = 0.69580501318400 / 1590 : loss = 0.64033806324500 / 1590 : loss = 0.598922133446600 / 1590 : loss = 0.566679358482700 / 1590 : loss = 0.539765059948800 / 1590 : loss = 0.517147123814900 / 1590 : loss = 0.4988575577741000 / 1590 : loss = 0.4814747869971100 / 1590 : loss = 0.4669976532461200 / 1590 : loss = 0.4537955224511300 / 1590 : loss = 0.4409137070181400 / 1590 : loss = 0.429390937091500 / 1590 : loss = 0.418801963329Training loss: 0.409055709839
+Training acc: 0.883371557943
+Validation loss: 0.296204328537
+
+[[41985   151   131   264   228]
+ [  295  1621    23   105    50]
+ [  356    47   785    45    35]
+ [  781   178    56   982    95]
+ [  968    77    26   145  1933]]
+Tag: O - P 0.9459 / R 0.9819
+Tag: LOC - P 0.7816 / R 0.7741
+Tag: MISC - P 0.7689 / R 0.6191
+Tag: ORG - P 0.6372 / R 0.4694
+Tag: PER - P 0.8257 / R 0.6138
+Total time: 325.040647984
+Epoch 1
+0 / 1590 : loss = 0.134409546852100 / 1590 : loss = 0.222365155816200 / 1590 : loss = 0.215185344219300 / 1590 : loss = 0.214088186622400 / 1590 : loss = 0.213251069188500 / 1590 : loss = 0.212377667427600 / 1590 : loss = 0.21082264185700 / 1590 : loss = 0.208646893501800 / 1590 : loss = 0.207114294171900 / 1590 : loss = 0.2044949382541000 / 1590 : loss = 0.2028511911631100 / 1590 : loss = 0.2016806453471200 / 1590 : loss = 0.2008447349071300 / 1590 : loss = 0.1991215944291400 / 1590 : loss = 0.1979406327011500 / 1590 : loss = 0.196531459689Training loss: 0.195358157158
+Training acc: 0.949293049342
+Validation loss: 0.24501247704
+
+[[41829   145   157   375   253]
+ [  183  1704    23   123    61]
+ [  286    43   864    45    30]
+ [  566   132    55  1253    86]
+ [  591    77    30   149  2302]]
+Tag: O - P 0.9626 / R 0.9783
+Tag: LOC - P 0.8110 / R 0.8138
+Tag: MISC - P 0.7653 / R 0.6814
+Tag: ORG - P 0.6442 / R 0.5989
+Tag: PER - P 0.8426 / R 0.7310
+Total time: 329.276453018
+Epoch 2
+0 / 1590 : loss = 0.150919735432100 / 1590 : loss = 0.14202862978200 / 1590 : loss = 0.141709059477300 / 1590 : loss = 0.144761264324400 / 1590 : loss = 0.143154174089500 / 1590 : loss = 0.142345800996600 / 1590 : loss = 0.14265203476700 / 1590 : loss = 0.142378613353800 / 1590 : loss = 0.142097279429900 / 1590 : loss = 0.1421826630831000 / 1590 : loss = 0.1425519287591100 / 1590 : loss = 0.1415666341781200 / 1590 : loss = 0.1418245136741300 / 1590 : loss = 0.1416888982061400 / 1590 : loss = 0.1412336230281500 / 1590 : loss = 0.140962123871Training loss: 0.140377447009
+Training acc: 0.963731638682
+Validation loss: 0.235819116235
+
+[[41856   148   128   446   181]
+ [  168  1726     8   153    39]
+ [  287    31   865    56    29]
+ [  496   114    41  1372    69]
+ [  518    66    14   172  2379]]
+Tag: O - P 0.9661 / R 0.9789
+Tag: LOC - P 0.8278 / R 0.8243
+Tag: MISC - P 0.8191 / R 0.6822
+Tag: ORG - P 0.6239 / R 0.6558
+Tag: PER - P 0.8821 / R 0.7555
+Total time: 328.816545963
+Epoch 3
+0 / 1590 : loss = 0.259014010429100 / 1590 : loss = 0.11603217572200 / 1590 : loss = 0.115729488432300 / 1590 : loss = 0.116210177541400 / 1590 : loss = 0.115875735879500 / 1590 : loss = 0.114939972758600 / 1590 : loss = 0.1165875718700 / 1590 : loss = 0.11696638912800 / 1590 : loss = 0.118215754628900 / 1590 : loss = 0.1176953762771000 / 1590 : loss = 0.1179861575371100 / 1590 : loss = 0.1179070919751200 / 1590 : loss = 0.1180327162151300 / 1590 : loss = 0.1177174970511400 / 1590 : loss = 0.1175628677011500 / 1590 : loss = 0.117511063814Training loss: 0.117245234549
+Training acc: 0.97009149351
+Validation loss: 0.21464446187
+
+[[42010   145   147   231   226]
+ [  143  1752    11   118    70]
+ [  242    28   935    38    25]
+ [  520   142    42  1281   107]
+ [  388    42    16    80  2623]]
+Tag: O - P 0.9701 / R 0.9825
+Tag: LOC - P 0.8307 / R 0.8367
+Tag: MISC - P 0.8123 / R 0.7374
+Tag: ORG - P 0.7328 / R 0.6123
+Tag: PER - P 0.8597 / R 0.8330
+Total time: 330.432156086
+Epoch 4
+0 / 1590 : loss = 0.128601655364100 / 1590 : loss = 0.103550620377200 / 1590 : loss = 0.102975144982300 / 1590 : loss = 0.101737111807400 / 1590 : loss = 0.102656945586500 / 1590 : loss = 0.103419594467600 / 1590 : loss = 0.10310754925700 / 1590 : loss = 0.103222824633800 / 1590 : loss = 0.102622330189900 / 1590 : loss = 0.1025418266651000 / 1590 : loss = 0.1027131900191100 / 1590 : loss = 0.1030273810031200 / 1590 : loss = 0.1024991273881300 / 1590 : loss = 0.10285667331400 / 1590 : loss = 0.1035125628111500 / 1590 : loss = 0.103970915079Training loss: 0.104043126106
+Training acc: 0.973303342975
+Validation loss: 0.215205579996
+
+[[42132    89   108   236   194]
+ [  171  1719    28   122    54]
+ [  262    28   899    47    32]
+ [  531   103    32  1343    83]
+ [  524    28    10    77  2510]]
+Tag: O - P 0.9659 / R 0.9853
+Tag: LOC - P 0.8739 / R 0.8209
+Tag: MISC - P 0.8347 / R 0.7090
+Tag: ORG - P 0.7359 / R 0.6420
+Tag: PER - P 0.8737 / R 0.7971
+Total time: 326.154064894
+Epoch 5
+0 / 1590 : loss = 0.0346313901246100 / 1590 : loss = 0.0940779522061200 / 1590 : loss = 0.0939205959439300 / 1590 : loss = 0.0926835611463400 / 1590 : loss = 0.0936077535152500 / 1590 : loss = 0.0948801487684600 / 1590 : loss = 0.0947018861771700 / 1590 : loss = 0.0946005955338800 / 1590 : loss = 0.0946250557899900 / 1590 : loss = 0.09452750533821000 / 1590 : loss = 0.09539601206781100 / 1590 : loss = 0.09514746069911200 / 1590 : loss = 0.09499615430831300 / 1590 : loss = 0.09491223841911400 / 1590 : loss = 0.09489785134791500 / 1590 : loss = 0.0947835743427Training loss: 0.0952420607209
+Training acc: 0.975228488221
+Validation loss: 0.214939400554
+
+[[42090   131   124   261   153]
+ [  142  1763    19   128    42]
+ [  254    28   925    43    18]
+ [  533    98    42  1334    85]
+ [  472    51    22    79  2525]]
+Tag: O - P 0.9678 / R 0.9844
+Tag: LOC - P 0.8513 / R 0.8419
+Tag: MISC - P 0.8171 / R 0.7295
+Tag: ORG - P 0.7230 / R 0.6377
+Tag: PER - P 0.8944 / R 0.8018
+Total time: 325.666771173
+Epoch 6
+0 / 1590 : loss = 0.0484580956399100 / 1590 : loss = 0.0782553330064200 / 1590 : loss = 0.0853238254786300 / 1590 : loss = 0.0846339985728400 / 1590 : loss = 0.0845180600882500 / 1590 : loss = 0.0857751816511600 / 1590 : loss = 0.085561260581700 / 1590 : loss = 0.0869599580765800 / 1590 : loss = 0.087097145617900 / 1590 : loss = 0.08744431287051000 / 1590 : loss = 0.08775874972341100 / 1590 : loss = 0.08828214555981200 / 1590 : loss = 0.088128156961300 / 1590 : loss = 0.08837255835531400 / 1590 : loss = 0.08851018548011500 / 1590 : loss = 0.0888946726918Training loss: 0.0896093323827
+Training acc: 0.976431703999
+Validation loss: 0.212581276894
+
+[[42031   111   139   297   181]
+ [  140  1743    17   129    65]
+ [  261    24   915    45    23]
+ [  508   103    35  1334   112]
+ [  454    21    17    66  2591]]
+Tag: O - P 0.9686 / R 0.9830
+Tag: LOC - P 0.8706 / R 0.8324
+Tag: MISC - P 0.8148 / R 0.7216
+Tag: ORG - P 0.7130 / R 0.6377
+Tag: PER - P 0.8718 / R 0.8228
+Total time: 329.100618839
+Epoch 7
+0 / 1590 : loss = 0.0313703864813100 / 1590 : loss = 0.0804221481085200 / 1590 : loss = 0.0778928697109300 / 1590 : loss = 0.0800716653466400 / 1590 : loss = 0.0810964480042500 / 1590 : loss = 0.0825001001358600 / 1590 : loss = 0.0816212520003700 / 1590 : loss = 0.0825605094433800 / 1590 : loss = 0.0834801495075900 / 1590 : loss = 0.08292698115111000 / 1590 : loss = 0.08308142423631100 / 1590 : loss = 0.08347717672591200 / 1590 : loss = 0.08386144042021300 / 1590 : loss = 0.08426782488821400 / 1590 : loss = 0.08435837924481500 / 1590 : loss = 0.0845114216208Training loss: 0.0848526880145
+Training acc: 0.977114344788
+Validation loss: 0.207228854299
+
+[[42020   138   149   326   126]
+ [  143  1822    19    72    38]
+ [  242    30   925    48    23]
+ [  478   181    40  1304    89]
+ [  468    45    25    75  2536]]
+Tag: O - P 0.9693 / R 0.9827
+Tag: LOC - P 0.8222 / R 0.8701
+Tag: MISC - P 0.7988 / R 0.7295
+Tag: ORG - P 0.7145 / R 0.6233
+Tag: PER - P 0.9018 / R 0.8053
+Total time: 331.380845785
+Epoch 8
+0 / 1590 : loss = 0.0644667223096100 / 1590 : loss = 0.0744760334492200 / 1590 : loss = 0.0765927806497300 / 1590 : loss = 0.0783158391714400 / 1590 : loss = 0.079689450562500 / 1590 : loss = 0.0802136734128600 / 1590 : loss = 0.0796170979738700 / 1590 : loss = 0.0805388838053800 / 1590 : loss = 0.0803966373205900 / 1590 : loss = 0.08039710670711000 / 1590 : loss = 0.08032973855731100 / 1590 : loss = 0.0807412639261200 / 1590 : loss = 0.08065763860941300 / 1590 : loss = 0.08058287203311400 / 1590 : loss = 0.08094213902951500 / 1590 : loss = 0.0811328440905Training loss: 0.0812318846583
+Training acc: 0.978312649481
+Validation loss: 0.209201514721
+
+[[42067   127   112   324   129]
+ [  152  1777    21    93    51]
+ [  269    28   908    42    21]
+ [  477   116    34  1371    94]
+ [  521    36    10    69  2513]]
+Tag: O - P 0.9674 / R 0.9838
+Tag: LOC - P 0.8527 / R 0.8486
+Tag: MISC - P 0.8369 / R 0.7161
+Tag: ORG - P 0.7220 / R 0.6554
+Tag: PER - P 0.8949 / R 0.7980
+Total time: 325.486008883
+Epoch 9
+0 / 1590 : loss = 0.0921829864383100 / 1590 : loss = 0.067370057106200 / 1590 : loss = 0.0706510320306300 / 1590 : loss = 0.071206137538400 / 1590 : loss = 0.071884855628500 / 1590 : loss = 0.0721868798137600 / 1590 : loss = 0.0739906430244700 / 1590 : loss = 0.0744530707598800 / 1590 : loss = 0.0750853642821900 / 1590 : loss = 0.07612880319361000 / 1590 : loss = 0.07662488520151100 / 1590 : loss = 0.07645876705651200 / 1590 : loss = 0.07668263465171300 / 1590 : loss = 0.07697264850141400 / 1590 : loss = 0.07743752747771500 / 1590 : loss = 0.0779962018132Training loss: 0.078150972724
+Training acc: 0.979005112439
+Validation loss: 0.206957012415
+
+[[42119   133   120   272   115]
+ [  137  1755    16   146    40]
+ [  259    33   916    37    23]
+ [  512    88    37  1371    84]
+ [  476    43    15    70  2545]]
+Tag: O - P 0.9682 / R 0.9850
+Tag: LOC - P 0.8553 / R 0.8381
+Tag: MISC - P 0.8297 / R 0.7224
+Tag: ORG - P 0.7231 / R 0.6554
+Tag: PER - P 0.9067 / R 0.8082
+Total time: 329.140234947
+Epoch 10
+0 / 1590 : loss = 0.0535360053182100 / 1590 : loss = 0.074806958437200 / 1590 : loss = 0.0751356706023300 / 1590 : loss = 0.0732449665666400 / 1590 : loss = 0.0740581452847500 / 1590 : loss = 0.0735968500376600 / 1590 : loss = 0.0748294219375700 / 1590 : loss = 0.0747443959117800 / 1590 : loss = 0.0756634026766900 / 1590 : loss = 0.07531112432481000 / 1590 : loss = 0.0754350647331100 / 1590 : loss = 0.07556992024181200 / 1590 : loss = 0.07529189437631300 / 1590 : loss = 0.07579672336581400 / 1590 : loss = 0.07633018493651500 / 1590 : loss = 0.07641287148Training loss: 0.0765875577927
+Training acc: 0.978921623998
+Validation loss: 0.204758927226
+
+[[42135   102   118   280   124]
+ [  155  1789    14    91    45]
+ [  262    28   894    61    23]
+ [  498   110    34  1360    90]
+ [  477    32     7    83  2550]]
+Tag: O - P 0.9680 / R 0.9854
+Tag: LOC - P 0.8680 / R 0.8543
+Tag: MISC - P 0.8379 / R 0.7050
+Tag: ORG - P 0.7253 / R 0.6501
+Tag: PER - P 0.9004 / R 0.8098
+Total time: 329.503283978
+Epoch 11
+0 / 1590 : loss = 0.0672807395458100 / 1590 : loss = 0.0725645795465200 / 1590 : loss = 0.0716530531645300 / 1590 : loss = 0.0718579217792400 / 1590 : loss = 0.0714464560151500 / 1590 : loss = 0.071915127337600 / 1590 : loss = 0.0721694231033700 / 1590 : loss = 0.0728213861585800 / 1590 : loss = 0.072930984199900 / 1590 : loss = 0.07301679253581000 / 1590 : loss = 0.07319692522291100 / 1590 : loss = 0.07321033626791200 / 1590 : loss = 0.07327152043581300 / 1590 : loss = 0.07342561334371400 / 1590 : loss = 0.07362326234581500 / 1590 : loss = 0.0738022550941Training loss: 0.074093028903
+Training acc: 0.979334155122
+Validation loss: 0.212375387549
+
+[[42117   105   103   285   149]
+ [  159  1770    23    90    52]
+ [  260    25   898    62    23]
+ [  496   111    35  1369    81]
+ [  520    32     9    92  2496]]
+Tag: O - P 0.9671 / R 0.9850
+Tag: LOC - P 0.8664 / R 0.8453
+Tag: MISC - P 0.8408 / R 0.7082
+Tag: ORG - P 0.7213 / R 0.6544
+Tag: PER - P 0.8911 / R 0.7926
+Total time: 325.016533136
+Epoch 12
+0 / 1590 : loss = 0.0725203230977100 / 1590 : loss = 0.0707793459296200 / 1590 : loss = 0.0710067525506300 / 1590 : loss = 0.0706328451633400 / 1590 : loss = 0.0709107071161500 / 1590 : loss = 0.0707395151258600 / 1590 : loss = 0.0711225271225700 / 1590 : loss = 0.0709786638618800 / 1590 : loss = 0.0713555216789900 / 1590 : loss = 0.07175453007221000 / 1590 : loss = 0.07183318585161100 / 1590 : loss = 0.07200102508071200 / 1590 : loss = 0.07222945243121300 / 1590 : loss = 0.07273921370511400 / 1590 : loss = 0.07289578020571500 / 1590 : loss = 0.0729835927486Training loss: 0.0728270411491
+Training acc: 0.97961899804
+Validation loss: 0.215926408768
+
+[[42079   107   134   367    72]
+ [  162  1781    22   100    29]
+ [  269    23   915    45    16]
+ [  456   133    36  1403    64]
+ [  550    25    15   133  2426]]
+Tag: O - P 0.9670 / R 0.9841
+Tag: LOC - P 0.8608 / R 0.8505
+Tag: MISC - P 0.8155 / R 0.7216
+Tag: ORG - P 0.6851 / R 0.6707
+Tag: PER - P 0.9306 / R 0.7704
+Total time: 325.201705933
+Epoch 13
+0 / 1590 : loss = 0.0973436832428100 / 1590 : loss = 0.0751317813993200 / 1590 : loss = 0.0719636008143300 / 1590 : loss = 0.0726825520396400 / 1590 : loss = 0.0716700181365500 / 1590 : loss = 0.0712069794536600 / 1590 : loss = 0.0702759549022700 / 1590 : loss = 0.0697162002325800 / 1590 : loss = 0.0699366107583900 / 1590 : loss = 0.0705601051451000 / 1590 : loss = 0.07035480439661100 / 1590 : loss = 0.07079968601471200 / 1590 : loss = 0.07046274095771300 / 1590 : loss = 0.07010146230461400 / 1590 : loss = 0.0705812796951500 / 1590 : loss = 0.0707499459386Training loss: 0.0709853246808
+Training acc: 0.980002062656
+Validation loss: 0.211652442813
+
+[[42167    93   150   249   100]
+ [  160  1756    18   112    48]
+ [  274    24   921    35    14]
+ [  522    90    38  1382    60]
+ [  562    21    14    86  2466]]
+Tag: O - P 0.9653 / R 0.9862
+Tag: LOC - P 0.8851 / R 0.8386
+Tag: MISC - P 0.8072 / R 0.7263
+Tag: ORG - P 0.7414 / R 0.6606
+Tag: PER - P 0.9174 / R 0.7831
+Total time: 324.727288008
+Epoch 14
+0 / 1590 : loss = 0.0537886321545100 / 1590 : loss = 0.0728862658143200 / 1590 : loss = 0.0696435347199300 / 1590 : loss = 0.0698198825121400 / 1590 : loss = 0.0691606029868500 / 1590 : loss = 0.0689910799265600 / 1590 : loss = 0.0690525323153700 / 1590 : loss = 0.0688935294747800 / 1590 : loss = 0.0690687522292900 / 1590 : loss = 0.06959585845471000 / 1590 : loss = 0.06967360526321100 / 1590 : loss = 0.06979648023841200 / 1590 : loss = 0.06996145844461300 / 1590 : loss = 0.06989608705041400 / 1590 : loss = 0.06998305022721500 / 1590 : loss = 0.0700708627701/usr/lib64/python2.7/dist-packages/numpy/core/fromnumeric.py:2889: RuntimeWarning: Mean of empty slice.
+  out=out, **kwargs)
+/usr/lib64/python2.7/dist-packages/numpy/core/_methods.py:80: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+Training loss: 0.0702055245638
+Training acc: 0.980267261235
+Validation loss: 0.211146339774
+I am stopping early. 14 - 10 = 4
+Test
+=-=-=
+Writing predictions to q2_test.predicted
