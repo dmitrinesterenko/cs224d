@@ -36,6 +36,10 @@ class Config(object):
 
 class RNNLM_Model(LanguageModel):
 
+  def print_graph(self):
+    for i in tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope='RNNLM'):
+        print(i)
+
   def load_data(self, debug=False):
     """Loads starter word-vectors and train/dev/test data."""
     self.vocab = Vocab()
