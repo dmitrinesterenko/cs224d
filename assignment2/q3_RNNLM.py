@@ -219,15 +219,16 @@ class RNNLM_Model(LanguageModel):
       loss: A 0-d tensor (scalar)
     """
     ### YOUR CODE HERE
-    with tf.variable_scope("loss_op"):
+    with tf.variable_scope("loss_op") as scope:
         #labels = tf.reshape(self.labels_placeholder, [self.config.batch_size, self.config.num_steps])
-        #loss = tf.Variable(100, "loss")
+        loss = tf.Variable(100, name="loss")
         labels = tf.reshape(self.labels_placeholder, [self.config.num_steps, self.config.batch_size])
         weights = tf.ones(shape=tf.shape(labels), dtype=tf.float32, name="weights")
         #loss = sequence_loss(logits=output, targets=labels, weights=weights, name="sequence_loss")
         loss = sequence_loss(targets=labels, logits=output,  weights=weights, name="sequence_loss")
 
         tf.summary.scalar("loss", loss)
+        scope.reuse_variables()
 
     ### END YOUR CODE
     return loss
