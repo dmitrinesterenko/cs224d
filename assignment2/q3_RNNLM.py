@@ -254,10 +254,11 @@ class RNNLM_Model(LanguageModel):
     """
     ### YOUR CODE HERE
     #import pdb; pdb.set_trace()
-
-    train_op = tf.train.AdamOptimizer(self.config.lr).minimize(loss)
+    with tf.variable_scope("training") as scope:
+        train_op = tf.train.AdamOptimizer(self.config.lr).minimize(loss)
+        scope.reuse_variables()
     ### END YOUR CODE
-    return train_op
+        return train_op
 
   def __init__(self, config):
     self.config = config
