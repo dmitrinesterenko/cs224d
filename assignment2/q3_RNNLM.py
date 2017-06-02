@@ -411,9 +411,8 @@ class RNNLM_Model(LanguageModel):
       summaries = tf.summary.merge_all()
       train_writer = tf.summary.FileWriter("./logs", session.graph)
       print("Loss is {}".format(loss))
-      import pdb; pdb.set_trace()
+      #import pdb; pdb.set_trace()
 
-      train_writer.add_summary(summary, global_step.eval(session=session))
       ## /Logging
 
     if verbose and step % verbose == 0:
@@ -473,11 +472,16 @@ def test_RNNLM():
     model = RNNLM_Model(config)
     # This instructs gen_model to reuse the same variables as the model above
     scope.reuse_variables()
+    model.print_graph()
     # TODO uncomment this back in because we need it
     # but have to figure out how the reuse of variables will go when we arer
     # declaring a different batch_size and hence will be changing the initial
     # state perhaps can include a with tf.variable_scope(gen_config.batch_size)
-    gen_model = RNNLM_Model(gen_config)
+    import pdb; pdb.set_trace()
+
+    #gen_model = RNNLM_Model(gen_config)
+
+    gen_model = model
 
   init = tf.global_variables_initializer()
   saver = tf.train.Saver()
@@ -487,6 +491,11 @@ def test_RNNLM():
     best_val_epoch = 0
 
     session.run(init)
+    ## Logging
+    summaries = tf.summary.merge_all()
+    train_writer = tf.summary.FileWriter("./logs", session.graph)
+
+
     for epoch in xrange(config.max_epochs):
       print 'Epoch {}'.format(epoch)
       start = time.time()
