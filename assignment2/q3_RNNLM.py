@@ -334,28 +334,33 @@ class RNNLM_Model(LanguageModel):
     ### YOUR CODE HERE
     # TODO perhaps another scope here for different batch_sizes
     # or can this variable be "not" shared among scopes?
+    #with tf.variable_scope(str(self.config.batch_size), reuse=None):
     #self.initial_state = tf.get_variable("initial_state", \
     #        shape=(self.config.batch_size, self.config.hidden_size), dtype=tf.float32, \
     #        initializer=tf.zeros_initializer())
+    #other_initialstate = tf.get_variable("initial_state", \
+    #        shape=(1, self.config.hidden_size), dtype=tf.float32,  \
+    #        initializer=tf.zeros_initializer())
+    self.initial_state = tf.Variable(tf.zeros((self.config.batch_size, self.config.hidden_size)), \
+            name="initial_state")
+
     with tf.variable_scope("model") as scope:
-        #self.initial_state = tf.get_variable(tf.zeros(\
+        #self.initial_state = tf.get_variable("initial_state",
         #    shape=(self.config.batch_size, self.config.hidden_size),
-        #    dtype=tf.float32), "initial_state")
-        self.initial_state = tf.get_variable("initial_state",
-            shape=(self.config.batch_size, self.config.hidden_size),
-            dtype=tf.float32)
+        #    dtype=tf.float32)
 
         hidden_weights = self.weight_init("hidden_weights", (self.config.hidden_size, self.config.hidden_size))
         weights = self.weight_init("weights", (self.config.embed_size, self.config.hidden_size))
         biases = self.bias_init("biases", (self.config.hidden_size))
         h_t = self.initial_state
-        #rnn_outputs = tf.Variable(tf.zeros(\
-        #    shape=(self.config.num_steps, \
-        #    self.config.batch_size, self.config.hidden_size),
-        #    dtype=tf.float32), "rnn_outputs")
 
-        rnn_outputs = tf.get_variable("outputs", shape=(self.config.num_steps, \
-            self.config.batch_size, self.config.hidden_size), dtype=tf.float32)
+        rnn_outputs = tf.Variable(tf.zeros(\
+            shape=(self.config.num_steps, \
+            self.config.batch_size, self.config.hidden_size),
+            dtype=tf.float32), name="rnn_outputs")
+
+        #rnn_outputs = tf.get_variable("outputs", shape=(self.config.num_steps, \
+        #    self.config.batch_size, self.config.hidden_size), dtype=tf.float32)
 
         i=tf.constant(0)
         while_inputs = lambda i, _i, _h: i < self.config.num_steps  #tf.less(i, self.config.num_steps)
