@@ -156,10 +156,11 @@ class RNNLM_Model(LanguageModel):
     # rnn_outputs = tf.get_variable("outputs", (self.config.num_steps, \
     #        self.config.batch_size, self.config.hidden_size), tf.float32)
 
-    with tf.variable_scope("projection"):
+    with tf.variable_scope("projection") as scope:
         weights = self.weight_init("weights", \
             (self.config.hidden_size, len(self.vocab)))
         biases = self.bias_init("biases", len(self.vocab))
+
         # scope this depending on the number of steps we are using
         # in the model to accomodate for the training and text generation models
         #
@@ -173,23 +174,29 @@ class RNNLM_Model(LanguageModel):
         #    outputs = tf.get_variable("outputs", (self.config.num_steps, \
         #        self.config.batch_size, len(self.vocab)))
         outputs = []
+        for i in xrange(self.config.num_steps):
+            #outputs.append(tf.Variable(tf.zeros((self.config.batch_size, len(self.vocab))), name="output"))
+            outputs.append(tf.matmul(rnn_outputs[i], weights) + biases)
+        #outputs = [0,0,0,0,0,0,0,0,0,0]
 
         #outputs = tf.Variable(tf.zeros(\
         #    shape=(self.config.num_steps, self.config.batch_size, len(self.vocab))), \
         #    name="outputs")
 
-        i = tf.constant(0)
-        while_cond = lambda i, _o, _w, _b: i < self.config.num_steps
-        def body(i, rnn_outputs, weights, biases):
-            output = tf.matmul(rnn_outputs[i], weights) + biases
-            outputs.append(output)
-            #tf.scatter_update(outputs, i, output)
-            tf.summary.histogram("projection output", output)
-            tf.summary.scalar("i", i)
-            return [i+1, rnn_outputs, weights, biases]
+        #i = tf.constant(0)
+        #while_cond = lambda i, _o, _w, _b: i < self.config.num_steps
+        #def body(i, rnn_outputs, weights, biases):
+        #    output = tf.matmul(rnn_outputs[i], weights) + biases
+        #    import pdb; pdb.set_trace()
+        #    outputs[tf.to_int32(i)] = output
+        #    #tf.scatter_update(outputs, i, output)
+        #    tf.summary.histogram("projection output", output)
+        #    tf.summary.scalar("i", i)
+        #    return [i+1, rnn_outputs, weights, biases]
 
-        tf.while_loop(while_cond, body, \
-            loop_vars=[i, rnn_outputs, weights, biases])
+        #tf.while_loop(while_cond, body, \
+        #    loop_vars=[i, rnn_outputs, weights, biases])
+        scope.reuse_variables()
     ### END YOUR CODE
     #return tf.reshape(outputs, [self.config.num_steps, self.config.batch_size, len(self.vocab)])
     #return tf.stack(outputs)
