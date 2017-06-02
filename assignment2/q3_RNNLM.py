@@ -107,14 +107,20 @@ class RNNLM_Model(LanguageModel):
       inputs: List of length num_steps, each of whose elements should be
               a tensor of shape (batch_size, embed_size).
     """
-    with tf.variable_scope('embedding'):
+    with tf.variable_scope('embedding') as scope:
         # The embedding lookup is currently only implemented for the CPU
         with tf.device('/cpu:0'):
           ### YOUR CODE HERE
-          embeddings = tf.Variable(tf.random_uniform([len(self.vocab), \
-            self.config.embed_size], -1, 1), name="embeddings")
+          #embeddings = tf.Variable(tf.random_uniform([len(self.vocab), \
+          #  self.config.embed_size], -1, 1), name="embeddings")
+          embeddings = tf.get_variable("embeddings", \
+                shape=(len(self.vocab), \
+                self.config.embed_size))
+          embeddings = tf.random_uniform([len(self.vocab), \
+            self.config.embed_size], -1,1)
           inputs = tf.reshape(tf.nn.embedding_lookup(embeddings, \
             self.input_placeholder), (self.config.num_steps, self.config.batch_size * self.config.embed_size))
+          scope.reuse_variables()
           ### END YOUR CODE
           return inputs
 
