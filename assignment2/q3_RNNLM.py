@@ -284,7 +284,8 @@ class RNNLM_Model(LanguageModel):
     #output = tf.reshape(self.outputs, [self.config.num_steps,self.config.batch_size,  len(self.vocab)])
     #output = tf.reshape(tf.concat(self.outputs, 1), [-1, len(self.vocab)])
 
-    output = tf.reshape(self.outputs, [len(self.outputs), self.config.batch_size, len(self.vocab)])
+    #output = tf.reshape(self.outputs, [len(self.outputs), self.config.batch_size, len(self.vocab)])
+    output = tf.reshape(self.outputs, [self.config.num_steps, self.config.batch_size, len(self.vocab)])
 
     #output = self.outputs
     self.calculate_loss = self.add_loss_op(output)
