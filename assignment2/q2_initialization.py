@@ -3,7 +3,7 @@ import tensorflow as tf
 
 def xavier_weight_init():
   """
-  Returns function that creates random tensor. 
+  Returns function that creates random tensor.
 
   The specified function will take in a shape (tuple or 1-d array) and must
   return a random tensor of the specified shape and must be drawn from the
@@ -11,7 +11,7 @@ def xavier_weight_init():
 
   Hint: You might find tf.random_uniform useful.
   """
-  def _xavier_initializer(shape, **kwargs):
+  def _xavier_initializer(shape, name="xavier_weights", **kwargs):
     """Defines an initializer for the Xavier distribution.
 
     This function will be used as a variable scope initializer.
@@ -24,10 +24,9 @@ def xavier_weight_init():
       out: tf.Tensor of specified shape sampled from Xavier distribution.
     """
     ### YOUR CODE HERE
-    #import pdb; pdb.set_trace()
     eta = tf.sqrt(6.0) / tf.sqrt(tf.to_float(sum(shape)))
     with tf.variable_scope(''.join(map(str, shape))):
-        out = tf.get_variable("xavier_weights", shape, \
+        out = tf.get_variable(name, shape, \
             initializer=tf.random_uniform_initializer(-eta, eta))
         tf.get_variable_scope().reuse_variables()
     ### END YOUR CODE
