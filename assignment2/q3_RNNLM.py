@@ -116,8 +116,6 @@ class RNNLM_Model(LanguageModel):
         # The embedding lookup is currently only implemented for the CPU
         with tf.device('/cpu:0'):
           ### YOUR CODE HERE
-          #embeddings = tf.Variable(tf.random_uniform([len(self.vocab), \
-          #  self.config.embed_size], -1, 1), name="embeddings")
           embeddings = tf.get_variable("embeddings", \
                 shape=(len(self.vocab), \
                 self.config.embed_size))
@@ -159,54 +157,15 @@ class RNNLM_Model(LanguageModel):
     """
     print("projecting")
     ### YOUR CODE HERE
-    # rnn_outputs = tf.get_variable("outputs", (self.config.num_steps, \
-    #        self.config.batch_size, self.config.hidden_size), tf.float32)
-
     with tf.variable_scope("projection") as scope:
         weights = self.weight_init("weights", \
             (self.config.hidden_size, len(self.vocab)))
         biases = self.bias_init("biases", len(self.vocab))
-
-        # scope this depending on the number of steps we are using
-        # in the model to accomodate for the training and text generation models
-        #
-        # This does not work because the second model that is created has
-        # tf.get_variable_scope().reuse == True which then fails to find
-        # an outputs variable in the scope of /projection/1
-        # TODO: The answer is probably in making outputs a List of length
-        # num_steps where each element is a tensor as the problem asks us to do
-        #with tf.variable_scope(str(self.config.num_steps)):
-        #    import pdb; pdb.set_trace()
-        #    outputs = tf.get_variable("outputs", (self.config.num_steps, \
-        #        self.config.batch_size, len(self.vocab)))
         outputs = []
         for i in xrange(self.config.num_steps):
-            #outputs.append(tf.Variable(tf.zeros((self.config.batch_size, len(self.vocab))), name="output"))
             outputs.append(tf.matmul(rnn_outputs[i], weights) + biases)
-        #outputs = [0,0,0,0,0,0,0,0,0,0]
-
-        #outputs = tf.Variable(tf.zeros(\
-        #    shape=(self.config.num_steps, self.config.batch_size, len(self.vocab))), \
-        #    name="outputs")
-
-        #i = tf.constant(0)
-        #while_cond = lambda i, _o, _w, _b: i < self.config.num_steps
-        #def body(i, rnn_outputs, weights, biases):
-        #    output = tf.matmul(rnn_outputs[i], weights) + biases
-        #    import pdb; pdb.set_trace()
-        #    outputs[tf.to_int32(i)] = output
-        #    #tf.scatter_update(outputs, i, output)
-        #    tf.summary.histogram("projection output", output)
-        #    tf.summary.scalar("i", i)
-        #    return [i+1, rnn_outputs, weights, biases]
-
-        #tf.while_loop(while_cond, body, \
-        #    loop_vars=[i, rnn_outputs, weights, biases])
         scope.reuse_variables()
     ### END YOUR CODE
-    #return tf.reshape(outputs, [self.config.num_steps, self.config.batch_size, len(self.vocab)])
-    #return tf.stack(outputs)
-    #return tf.split(outputs, self.config.num_steps, 0)
     return outputs
 
   def add_loss_op(self, output):
@@ -224,18 +183,14 @@ class RNNLM_Model(LanguageModel):
     Returns:
       loss: A 0-d tensor (scalar)
     """
-    print("calculating loss")
     ### YOUR CODE HERE
+    print("calculating loss")
     with tf.variable_scope("loss_op") as scope:
-        #labels = tf.reshape(self.labels_placeholder, [self.config.batch_size, self.config.num_steps])
-        loss = tf.Variable(100, name="loss")
         labels = tf.reshape(self.labels_placeholder, [self.config.num_steps, self.config.batch_size])
         weights = tf.ones(shape=tf.shape(labels), dtype=tf.float32, name="weights")
         loss = sequence_loss(logits=output, targets=labels, weights=weights, name="sequence_loss")
-        #loss = sequence_loss(targets=labels, logits=output,  weights=weights, name="sequence_loss")
         tf.summary.scalar("loss", loss)
         scope.reuse_variables()
-
     ### END YOUR CODE
     return loss
 
@@ -259,7 +214,6 @@ class RNNLM_Model(LanguageModel):
       train_op: The Op for training.
     """
     ### YOUR CODE HERE
-    #import pdb; pdb.set_trace()
     print("training")
     with tf.variable_scope("training") as scope:
         train_op = tf.train.AdamOptimizer(self.config.lr).minimize(loss)
@@ -276,31 +230,14 @@ class RNNLM_Model(LanguageModel):
     self.add_placeholders()
     self.inputs = self.add_embedding()
     self.rnn_outputs = self.add_model(self.inputs)
-
     self.outputs = self.add_projection(self.rnn_outputs)
 
     # We want to check how well we correctly predict the next word
     # We cast o to float64 as there are numerical issues at hand
     # (i.e. sum(output of softmax) = 1.00000298179 and not 1)
-
     self.predictions = [tf.nn.softmax(tf.cast(o, 'float64')) for o in self.outputs]
-    #self.predictions = [tf.nn.softmax(tf.cast([o], 'float64')) for o in self.outputs]
-
-    # Reshape the output into len(vocab) sized chunks - the -1 says as many as
-    # needed to evenly divide
-    #output = tf.reshape(self.outputs, [-1, len(self.vocab)])
-    # This reshape is in accordance to the docs provided by sequential_loss
-    # function, however the more correct dimensions that are based on what
-    # self.outputs is would be self.config.num_steps (that's the list length of
-    # self.outputs x self.config.batch_size x len(self.vocab)
-    #output = tf.reshape(self.outputs, [self.config.batch_size, self.config.num_steps, len(self.vocab)])
-    #output = tf.reshape(self.outputs, [self.config.num_steps,self.config.batch_size,  len(self.vocab)])
-    #output = tf.reshape(tf.concat(self.outputs, 1), [-1, len(self.vocab)])
-
-    #output = tf.reshape(self.outputs, [len(self.outputs), self.config.batch_size, len(self.vocab)])
     output = tf.reshape(self.outputs, [self.config.num_steps, self.config.batch_size, len(self.vocab)])
 
-    #output = self.outputs
     self.calculate_loss = self.add_loss_op(output)
     self.train_step = self.add_training_op(self.calculate_loss)
 
@@ -346,56 +283,18 @@ class RNNLM_Model(LanguageModel):
                a tensor of shape (batch_size, hidden_size)
     """
     ### YOUR CODE HERE
-    # TODO perhaps another scope here for different batch_sizes
-    # or can this variable be "not" shared among scopes?
-    #with tf.variable_scope(str(self.config.batch_size), reuse=None):
-    #self.initial_state = tf.get_variable("initial_state", \
-    #        shape=(self.config.batch_size, self.config.hidden_size), dtype=tf.float32, \
-    #        initializer=tf.zeros_initializer())
-    #other_initialstate = tf.get_variable("initial_state", \
-    #        shape=(1, self.config.hidden_size), dtype=tf.float32,  \
-    #        initializer=tf.zeros_initializer())
-    #self.initial_state = tf.Variable(tf.zeros((self.config.batch_size, self.config.hidden_size)), \
-    #        name="initial_state")
-
     print("modeling")
     with tf.variable_scope("model") as scope:
-        #self.initial_state = tf.get_variable("initial_state",
-        #    shape=(self.config.batch_size, self.config.hidden_size),
-        #    dtype=tf.float32)
-
         hidden_weights = self.weight_init("hidden_weights", (self.config.hidden_size, self.config.hidden_size))
         weights = self.weight_init("weights", (self.config.embed_size, self.config.hidden_size))
         biases = self.bias_init("biases", (self.config.hidden_size))
         self.initial_state = tf.Variable(tf.zeros((self.config.batch_size, self.config.hidden_size)), \
             name="initial_state")
-
-
         h_t = self.initial_state
-
         rnn_outputs = tf.Variable(tf.zeros(\
             shape=(self.config.num_steps, \
             self.config.batch_size, self.config.hidden_size),
             dtype=tf.float32), name="rnn_outputs")
-
-        #rnn_outputs = tf.get_variable("outputs", shape=(self.config.num_steps, \
-        #    self.config.batch_size, self.config.hidden_size), dtype=tf.float32)
-
-    #    i=tf.constant(0)
-    #    while_inputs = lambda i, _i, _h: i < self.config.num_steps  #tf.less(i, self.config.num_steps)
-    #    def body(i, inputs, h_t):
-    #        #scope.reuse_variables()
-    #        shaped_input = tf.reshape(inputs[i], \
-    #                (self.config.batch_size, self.config.embed_size))
-    #        h_t = tf.sigmoid(tf.matmul(h_t, hidden_weights) + tf.matmul(shaped_input, weights) \
-    #        + biases)
-    #        tf.summary.histogram('h_t', h_t)
-    #        tf.Print(i, [shaped_input, h_t] , message="Step")
-
-    #        tf.scatter_update(rnn_outputs, i, h_t)
-    #        return i+1, inputs, h_t
-
-    #loop = tf.while_loop(while_inputs, body, loop_vars=[i, inputs, h_t])
 
     for i in xrange(self.config.num_steps):
         shaped_input = tf.reshape(inputs[i], \
@@ -404,9 +303,7 @@ class RNNLM_Model(LanguageModel):
                 + tf.matmul(shaped_input, weights) + biases)
         tf.summary.histogram('h_t', h_t)
         tf.Print(i, [shaped_input, h_t] , message="Step")
-
         tf.scatter_update(rnn_outputs, i, h_t)
-
 
     self.final_state = h_t
     ### END YOUR CODE
@@ -517,10 +414,6 @@ def test_RNNLM():
     best_val_epoch = 0
 
     session.run(init)
-    ## Logging
-    summaries = tf.summary.merge_all()
-    train_writer = tf.summary.FileWriter("./logs", session.graph)
-
 
     for epoch in xrange(config.max_epochs):
       print 'Epoch {}'.format(epoch)
@@ -531,6 +424,11 @@ def test_RNNLM():
           train_op=model.train_step, verbose=1)
       valid_pp = model.run_epoch(session, model.encoded_valid, epoch, verbose=1)
 
+      ## Logging
+      summaries = tf.summary.merge_all()
+      train_writer = tf.summary.FileWriter("./logs", session.graph)
+
+      ## Sanity Output
       print 'Training perplexity: {}'.format(train_pp)
       print 'Validation perplexity: {}'.format(valid_pp)
       if valid_pp < best_val_pp:
