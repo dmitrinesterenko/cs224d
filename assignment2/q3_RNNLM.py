@@ -268,18 +268,24 @@ class RNNLM_Model(LanguageModel):
         return train_op
 
   def __init__(self, config):
+    print("initializing")
     self.config = config
     self.xavier_initializer = xavier_weight_init()
-    self.load_data(debug=True)
+    # Set debug=True to only grab 1024 words for train, validation and test
+    self.load_data(debug=False)
     self.add_placeholders()
     self.inputs = self.add_embedding()
     self.rnn_outputs = self.add_model(self.inputs)
+
     self.outputs = self.add_projection(self.rnn_outputs)
 
     # We want to check how well we correctly predict the next word
     # We cast o to float64 as there are numerical issues at hand
     # (i.e. sum(output of softmax) = 1.00000298179 and not 1)
+
     self.predictions = [tf.nn.softmax(tf.cast(o, 'float64')) for o in self.outputs]
+    #self.predictions = [tf.nn.softmax(tf.cast([o], 'float64')) for o in self.outputs]
+
     # Reshape the output into len(vocab) sized chunks - the -1 says as many as
     # needed to evenly divide
     #output = tf.reshape(self.outputs, [-1, len(self.vocab)])
