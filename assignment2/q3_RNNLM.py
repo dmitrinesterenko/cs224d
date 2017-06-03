@@ -295,6 +295,7 @@ class RNNLM_Model(LanguageModel):
             shape=(self.config.num_steps, \
             self.config.batch_size, self.config.hidden_size),
             dtype=tf.float32), name="rnn_outputs")
+        inputs = tf.nn.dropout(inputs, self.config.dropout)
 
     for i in xrange(self.config.num_steps):
         shaped_input = tf.reshape(inputs[i], \
@@ -306,6 +307,7 @@ class RNNLM_Model(LanguageModel):
         tf.scatter_update(rnn_outputs, i, h_t)
 
     self.final_state = h_t
+    rnn_outputs = tf.nn.dropout(rnn_outputs, self.config.dropout)
     ### END YOUR CODE
     return rnn_outputs
 
