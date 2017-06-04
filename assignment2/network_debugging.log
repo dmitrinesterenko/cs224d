@@ -1,0 +1,29 @@
+or("RNNLM/embedding/embeddings/read:0", shape=(10000, 50), dtype=float32,
+device=/device:CPU:0)
+Tensor("RNNLM/model/100100/hidden_weights/read:0", shape=(100, 100),
+dtype=float32)
+Tensor("RNNLM/model/50100/weights/read:0", shape=(50, 100), dtype=float32)
+Tensor("RNNLM/model/biases/read:0", shape=(100,), dtype=float32)
+Tensor("RNNLM/model/initial_state/read:0", shape=(64, 100), dtype=float32)
+Tensor("RNNLM/model/rnn_outputs/read:0", shape=(10, 64, 100), dtype=float32)
+Tensor("RNNLM/projection/10010000/weights/read:0", shape=(100, 10000),
+dtype=float32)
+Tensor("RNNLM/projection/biases/read:0", shape=(10000,), dtype=float32)
+Tensor("RNNLM/training/beta1_power/read:0", shape=(), dtype=float32)
+Tensor("RNNLM/training/beta2_power/read:0", shape=(), dtype=float32)
+Tensor("RNNLM/training/RNNLM/model/rnn_outputs/Adam/read:0", shape=(10, 64,
+100), dtype=float32)
+Tensor("RNNLM/training/RNNLM/model/rnn_outputs/Adam_1/read:0", shape=(10, 64,
+100), dtype=float32)
+Tensor("RNNLM/training/RNNLM/projection/10010000/weights/Adam/read:0",
+shape=(100, 10000), dtype=float32)
+Tensor("RNNLM/training/RNNLM/projection/10010000/weights/Adam_1/read:0",
+shape=(100, 10000), dtype=float32)
+Tensor("RNNLM/training/RNNLM/projection/biases/Adam/read:0", shape=(10000,),
+dtype=float32)
+Tensor("RNNLM/training/RNNLM/projection/biases/Adam_1/read:0", shape=(10000,),
+dtype=float32)
+initializing
+
+
+Variable RNNLM/training/RNNLM/model_1/rnn_outputs/Adam/ does not exist
