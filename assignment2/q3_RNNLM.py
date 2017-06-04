@@ -355,7 +355,7 @@ class RNNLM_Model(LanguageModel):
     return np.exp(np.mean(total_loss))
 
 def generate_text(session, model, config, starting_text='<eos>',
-                  stop_length=100, stop_tokens=None, temp=1.0):
+                  stop_length=5, stop_tokens=None, temp=1.0):
   """Generate text from the model.
 
   Hint: Create a feed-dictionary and use sess.run() to execute the model. Note
@@ -400,7 +400,7 @@ def generate_text(session, model, config, starting_text='<eos>',
 
     ### END YOUR CODE
     next_word_idx = sample(y_pred[0], temperature=temp)
-    print(model.vocab.decode(next_word_idx))
+    #print(model.vocab.decode(next_word_idx)) # for checking
     tokens.append(next_word_idx)
     if stop_tokens and model.vocab.decode(tokens[-1]) in stop_tokens:
       break
@@ -457,6 +457,12 @@ def test_RNNLM():
       ## Sanity Output
       print 'Training perplexity: {}'.format(train_pp)
       print 'Validation perplexity: {}'.format(valid_pp)
+     
+      starting_text = 'in palo alto'
+      print ' '.join(generate_sentence(
+          session, gen_model, gen_config, starting_text=starting_text, temp=1.0))
+
+
       if valid_pp < best_val_pp:
         best_val_pp = valid_pp
         best_val_epoch = epoch
