@@ -1,10 +1,11 @@
-#TODO
+# Assignment 2 Question 2
+##TODO
 
-- [] Add regularization
-- [] Add dropout
+- [x] Add regularization
+- [x] Add dropout
 
-# Running time comparisons with AWS p2 instance
-## 1 Epoch
+## Running time comparisons with AWS p2 instance
+### 1 Epoch
 Training loss: 0.402585595846595846
 Training acc: 0.874025763551
 Validation loss: 0.291980147362
@@ -23,7 +24,7 @@ Total time: 105.241132975
 Test
 =-=-=
 
-## Another restart gives a better total time
+### Another restart gives a better total time
 
 [[42050   129    99   228   253]
  [  214  1683    23   120    54]
@@ -41,7 +42,7 @@ Training loss: 0.0791734457016457016
 Training acc: 0.974315026446
 Validation loss: 0.22555449605
 
-## A test run with dropout and regularization
+### A test run with dropout and regularization
 Epoch 0
 Training loss: 0.446270912886912886
 Training acc: 0.867474376415
@@ -60,4 +61,18 @@ Tag: PER - P 0.7295 / R 0.5951
 Total time: 152.228859901
 Test
 =-=-=
+
+# Assignment 2 Question 3
+## TODO
+- [ ] Tweak the logging so that we're not opening more file handles than the default OS allows (1024 is the soft limit)
+- [ ] Find better parameters the homework promises we can get to 175 perplexity
+- [ ] Finish the generator model
+## Results
+With pretty default parameters the final test set perplexity is 650
+=-==-==-==-==-=
+Test perplexity: 650.187072754
+=-==-==-==-==-=
+## Running Time
+On a p2.8xlarge it is minutes :)
+
 
