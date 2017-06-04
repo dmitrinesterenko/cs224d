@@ -333,21 +333,18 @@ class RNNLM_Model(LanguageModel):
       loss, state, summary = session.run(
           [self.calculate_loss, self.final_state, train_op], feed_dict=feed)
       total_loss.append(loss)
-      #import pdb; pdb.set_trace()
-
-      ## Logging
-      summaries = tf.summary.merge_all()
-      train_writer = tf.summary.FileWriter("./logs", session.graph)
-      print("Loss is {}".format(loss))
-
-      ## /Logging
 
       if verbose and step % verbose == 0:
-            print('\r{} / {} : pp = {}'.format(
+           ## Logging
+           summaries = tf.summary.merge_all()
+           train_writer = tf.summary.FileWriter("./logs", session.graph)
+           print("Loss is {}".format(loss))
+
+           print('\r{} / {} : pp = {}'.format(
                 step, total_steps, np.exp(np.mean(total_loss))))
-            sys.stdout.flush()
-      if verbose:
-        sys.stdout.write('\r')
+           #sys.stdout.flush()
+       #if verbose:
+        #sys.stdout.write('\r')
     return np.exp(np.mean(total_loss))
 
 def generate_text(session, model, config, starting_text='<eos>',
@@ -423,8 +420,8 @@ def test_RNNLM():
       ###
       train_pp = model.run_epoch(
           session, model.encoded_train,
-          train_op=model.train_step, verbose=1)
-      valid_pp = model.run_epoch(session, model.encoded_valid, epoch, verbose=1)
+          train_op=model.train_step, verbose=100)
+      valid_pp = model.run_epoch(session, model.encoded_valid, epoch, verbose=100)
 
       ## Logging
       summaries = tf.summary.merge_all()
