@@ -379,9 +379,28 @@ def generate_text(session, model, config, starting_text='<eos>',
   tokens = [model.vocab.encode(word) for word in starting_text.split()]
   for i in xrange(stop_length):
     ### YOUR CODE HERE
-    raise NotImplementedError
+    for step, (x, y) in enumerate(
+      ptb_iterator(tokens, config.batch_size, config.num_steps)):
+        #train_pp = model.run_epoch(
+        #      session, tokens,
+        #      train_op=model.train_step, verbose=100)
+        #import pdb; pdb.set_trace()
+
+        train_op = tf.no_op()
+        feed = {model.input_placeholder: x,
+                model.labels_placeholder: y,
+                model.initial_state: state,
+                model.dropout_placeholder: 1}
+
+        loss, state, summary = session.run(
+              [model.calculate_loss, model.final_state, train_op], feed_dict=feed)
+
+
+        y_pred = state
+
     ### END YOUR CODE
     next_word_idx = sample(y_pred[0], temperature=temp)
+    print(model.vocab.decode(next_word_idx))
     tokens.append(next_word_idx)
     if stop_tokens and model.vocab.decode(tokens[-1]) in stop_tokens:
       break
@@ -415,6 +434,13 @@ def test_RNNLM():
 
     session.run(init)
 
+    # Generate a sentence before training
+    starting_text = 'in palo alto'
+    print ' '.join(generate_sentence(
+          session, gen_model, gen_config, starting_text=starting_text, temp=1.0))
+
+
+
     for epoch in xrange(config.max_epochs):
       print 'Epoch {}'.format(epoch)
       start = time.time()
@@ -444,6 +470,7 @@ def test_RNNLM():
     print '=-=' * 5
     print 'Test perplexity: {}'.format(test_pp)
     print '=-=' * 5
+    # Generate a sentence
     starting_text = 'in palo alto'
     while starting_text:
       print ' '.join(generate_sentence(
