@@ -17,6 +17,15 @@ from q2_initialization import xavier_weight_init
 # http://arxiv.org/pdf/1409.2329v4.pdf shows parameters that would achieve near
 # SotA numbers
 
+# The paper mentions dropout = 0.5, minibatch = 20, 39 epochs with a learning
+# rate of 1 decreased by 1.2 each epoch after the first 6
+# Medium LSTM has 650 units per layer with params [-0.5, 0.5]
+# Large LSTM has 1500 units per layer with params [-0.4, 0.4]
+# Used gradient clipping
+# learning rate of 1 decreased by 1.15 each epoch after the first 14
+# They achieve perplexity of < 100 even on the non-regularized LSTMs
+# and 68.7 on an averaged result of 38 large regularized LSTMs
+# mention of unrolling for 20 steps (sequence length)
 class Config(object):
   """Holds model hyperparams and data information.
 
@@ -288,13 +297,10 @@ class RNNLM_Model(LanguageModel):
         hidden_weights = self.weight_init("hidden_weights", (self.config.hidden_size, self.config.hidden_size))
         weights = self.weight_init("weights", (self.config.embed_size, self.config.hidden_size))
         biases = self.bias_init("biases", (self.config.hidden_size))
-        self.initial_state = tf.Variable(tf.zeros((self.config.batch_size, self.config.hidden_size)), \
-            name="initial_state")
+        self.initial_state = tf.zeros((self.config.batch_size, self.config.hidden_size))
         h_t = self.initial_state
-        rnn_outputs = tf.Variable(tf.zeros(\
-            shape=(self.config.num_steps, \
-            self.config.batch_size, self.config.hidden_size),
-            dtype=tf.float32), name="rnn_outputs")
+        rnn_outputs = []
+
         inputs = tf.nn.dropout(inputs, self.config.dropout)
 
     for i in xrange(self.config.num_steps):
@@ -304,7 +310,8 @@ class RNNLM_Model(LanguageModel):
                 + tf.matmul(shaped_input, weights) + biases)
         tf.summary.histogram('h_t', h_t)
         tf.Print(i, [shaped_input, h_t] , message="Step")
-        tf.scatter_update(rnn_outputs, i, h_t)
+        rnn_outputs.append(h_t)
+        scope.reuse_variables()
 
     self.final_state = h_t
     rnn_outputs = tf.nn.dropout(rnn_outputs, self.config.dropout)
@@ -388,7 +395,7 @@ def generate_sentence(session, model, config, *args, **kwargs):
 def test_RNNLM():
   config = Config()
   gen_config = deepcopy(config)
-  # TODO uncomment this to have the correctly desired size
+
   gen_config.batch_size = gen_config.num_steps = 1
 
   # We create the training model and generative model
@@ -397,13 +404,7 @@ def test_RNNLM():
     # This instructs gen_model to reuse the same variables as the model above
     scope.reuse_variables()
     model.print_graph()
-    # TODO uncomment this back in because we need it
-    # but have to figure out how the reuse of variables will go when we arer
-    # declaring a different batch_size and hence will be changing the initial
-    # state perhaps can include a with tf.variable_scope(gen_config.batch_size)
-    #gen_model = RNNLM_Model(gen_config)
-
-    gen_model = model
+    gen_model = RNNLM_Model(gen_config)
 
   init = tf.global_variables_initializer()
   saver = tf.train.Saver()
