@@ -8,7 +8,7 @@
   "TerminateInstancesWithExpiration": true,
   "LaunchSpecifications": [
     {
-      "ImageId": "ami-b24e2fa4",
+      "ImageId": "ami-1fca9b09",
       "InstanceType": "p2.8xlarge",
       "KeyName": "aws01",
       "SpotPrice": "7.2",
@@ -19,8 +19,8 @@
             "DeleteOnTermination": false,
             "VolumeType": "io1",
             "VolumeSize": 50,
-            "SnapshotId": "snap-07aacb90ef8b2ac72",
-            "Iops": 1500
+            "SnapshotId": "snap-32fb8628",
+            "Iops": 300
           }
         }
       ],
@@ -38,7 +38,7 @@
       ]
     },
     {
-      "ImageId": "ami-b24e2fa4",
+      "ImageId": "ami-1fca9b09",
       "InstanceType": "p2.8xlarge",
       "KeyName": "aws01",
       "SpotPrice": "7.2",
@@ -49,8 +49,8 @@
             "DeleteOnTermination": false,
             "VolumeType": "io1",
             "VolumeSize": 50,
-            "SnapshotId": "snap-07aacb90ef8b2ac72",
-            "Iops": 1500
+            "SnapshotId": "snap-32fb8628",
+            "Iops": 300
           }
         }
       ],
@@ -68,7 +68,7 @@
       ]
     },
     {
-      "ImageId": "ami-b24e2fa4",
+      "ImageId": "ami-1fca9b09",
       "InstanceType": "p2.8xlarge",
       "KeyName": "aws01",
       "SpotPrice": "7.2",
@@ -79,8 +79,8 @@
             "DeleteOnTermination": false,
             "VolumeType": "io1",
             "VolumeSize": 50,
-            "SnapshotId": "snap-07aacb90ef8b2ac72",
-            "Iops": 1500
+            "SnapshotId": "snap-32fb8628",
+            "Iops": 300
           }
         }
       ],
@@ -98,7 +98,7 @@
       ]
     },
     {
-      "ImageId": "ami-b24e2fa4",
+      "ImageId": "ami-1fca9b09",
       "InstanceType": "p2.8xlarge",
       "KeyName": "aws01",
       "SpotPrice": "7.2",
@@ -109,8 +109,8 @@
             "DeleteOnTermination": false,
             "VolumeType": "io1",
             "VolumeSize": 50,
-            "SnapshotId": "snap-07aacb90ef8b2ac72",
-            "Iops": 1500
+            "SnapshotId": "snap-32fb8628",
+            "Iops": 300
           }
         }
       ],
