@@ -72,7 +72,42 @@ With pretty default parameters the final test set perplexity is 650
 =-==-==-==-==-=
 Test perplexity: 650.187072754
 =-==-==-==-==-=
+
+## Sentences
+Before training
+<eos>
+in palo alto even nahb years decades ssangyong that kent brief cluett reported asbestos rake high ipo this later nov. mr. rudolph said up banknote
+ kia memotec nov. decades berlitz group memotec british <eos>
+
+After training for 32 epochs
+
+<eos>
+in palo alto cigarette cancer aer chairman brief mr. sim ipo reported causing the than up caused unusually former ipo pierre kent pierre mr. reported hydro-quebec will make causing said ago centrust gitano it deaths later berlitz nahb show group has fiber chairman ssangyong named causing consolidated fromstein brief mlx wachter N centrust N named board dutch former rubens more gitano has deaths exposed even named rubens inc. high swapo high punts once centrust pierre used plc group up pierre even n.v. ssangyong nahb form said gitano <eos>
+
+Example "conversation"
+
+in palo alto fromstein fiber gold this and
+> that there too
+that there too the decades cancer more publishing
+> about this research
+about this research show more fiber ipo nonexecutive
+> where do you
+where do you regatta fiber N and unusually
+> how long is the lake
+how long is the lake join make than rake this
+> what is jam made of?
+what is <unk> made <unk> this pierre regatta hydro-quebec memotec
+> do you think you are doing well?
+do you think you are doing <unk> nov. of <eos>
+> 
+
+After training for 39 epochs with 650 hidden units
+=-==-==-==-==-=
+Test perplexity: 677.38671875
+=-==-==-==-==-=
+in palo alto oversee borrowing annual other $
+
+
+
 ## Running Time
 On a p2.8xlarge it is minutes :)
-
-

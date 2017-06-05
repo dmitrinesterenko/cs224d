@@ -33,13 +33,13 @@ class Config(object):
   information parameters. Model objects are passed a Config() object at
   instantiation.
   """
-  batch_size = 64
+  batch_size = 20 #64
   embed_size = 50
-  hidden_size = 100
+  hidden_size = 650
   num_steps = 10
-  max_epochs = 16
+  max_epochs = 39 #16
   early_stopping = 10
-  dropout = 0.9
+  dropout = 0.5 #0.9
   lr = 0.001
   # Tried a larger learning rate and on the test set get to loss of 0 pretty quickly (within 10
   # epochs but the validation set explodes so we're skipping the good min)
@@ -355,7 +355,7 @@ class RNNLM_Model(LanguageModel):
     return np.exp(np.mean(total_loss))
 
 def generate_text(session, model, config, starting_text='<eos>',
-                  stop_length=100, stop_tokens=None, temp=1.0):
+                  stop_length=5, stop_tokens=None, temp=1.0):
   """Generate text from the model.
 
   Hint: Create a feed-dictionary and use sess.run() to execute the model. Note
@@ -379,9 +379,28 @@ def generate_text(session, model, config, starting_text='<eos>',
   tokens = [model.vocab.encode(word) for word in starting_text.split()]
   for i in xrange(stop_length):
     ### YOUR CODE HERE
-    raise NotImplementedError
+    for step, (x, y) in enumerate(
+      ptb_iterator(tokens, config.batch_size, config.num_steps)):
+        #train_pp = model.run_epoch(
+        #      session, tokens,
+        #      train_op=model.train_step, verbose=100)
+        #import pdb; pdb.set_trace()
+
+        train_op = tf.no_op()
+        feed = {model.input_placeholder: x,
+                model.labels_placeholder: y,
+                model.initial_state: state,
+                model.dropout_placeholder: 1}
+
+        loss, state, summary = session.run(
+              [model.calculate_loss, model.final_state, train_op], feed_dict=feed)
+
+
+        y_pred = state
+
     ### END YOUR CODE
     next_word_idx = sample(y_pred[0], temperature=temp)
+    #print(model.vocab.decode(next_word_idx)) # for checking
     tokens.append(next_word_idx)
     if stop_tokens and model.vocab.decode(tokens[-1]) in stop_tokens:
       break
@@ -415,6 +434,13 @@ def test_RNNLM():
 
     session.run(init)
 
+    # Generate a sentence before training
+    starting_text = 'in palo alto'
+    print ' '.join(generate_sentence(
+          session, gen_model, gen_config, starting_text=starting_text, temp=1.0))
+
+
+
     for epoch in xrange(config.max_epochs):
       print 'Epoch {}'.format(epoch)
       start = time.time()
@@ -431,11 +457,18 @@ def test_RNNLM():
       ## Sanity Output
       print 'Training perplexity: {}'.format(train_pp)
       print 'Validation perplexity: {}'.format(valid_pp)
+     
+      starting_text = 'in palo alto'
+      print ' '.join(generate_sentence(
+          session, gen_model, gen_config, starting_text=starting_text, temp=1.0))
+
+
       if valid_pp < best_val_pp:
         best_val_pp = valid_pp
         best_val_epoch = epoch
         saver.save(session, './ptb_rnnlm.weights')
       if epoch - best_val_epoch > config.early_stopping:
+        print 'I am stopping early'
         break
       print 'Total time: {}'.format(time.time() - start)
 
@@ -444,6 +477,7 @@ def test_RNNLM():
     print '=-=' * 5
     print 'Test perplexity: {}'.format(test_pp)
     print '=-=' * 5
+    # Generate a sentence
     starting_text = 'in palo alto'
     while starting_text:
       print ' '.join(generate_sentence(
