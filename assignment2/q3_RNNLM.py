@@ -33,13 +33,13 @@ class Config(object):
   information parameters. Model objects are passed a Config() object at
   instantiation.
   """
-  batch_size = 64
+  batch_size = 20 #64
   embed_size = 50
-  hidden_size = 100
+  hidden_size = 650
   num_steps = 10
-  max_epochs = 16
+  max_epochs = 39 #16
   early_stopping = 10
-  dropout = 0.9
+  dropout = 0.5 #0.9
   lr = 0.001
   # Tried a larger learning rate and on the test set get to loss of 0 pretty quickly (within 10
   # epochs but the validation set explodes so we're skipping the good min)
@@ -468,6 +468,7 @@ def test_RNNLM():
         best_val_epoch = epoch
         saver.save(session, './ptb_rnnlm.weights')
       if epoch - best_val_epoch > config.early_stopping:
+        print 'I am stopping early'
         break
       print 'Total time: {}'.format(time.time() - start)
 

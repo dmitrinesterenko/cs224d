@@ -101,6 +101,13 @@ what is <unk> made <unk> this pierre regatta hydro-quebec memotec
 do you think you are doing <unk> nov. of <eos>
 > 
 
+After training for 39 epochs with 650 hidden units
+=-==-==-==-==-=
+Test perplexity: 677.38671875
+=-==-==-==-==-=
+in palo alto oversee borrowing annual other $
+
+
 
 ## Running Time
 On a p2.8xlarge it is minutes :)
