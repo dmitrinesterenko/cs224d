@@ -74,6 +74,10 @@ def sample(a, temperature=1.0):
     # from https://github.com/fchollet/keras/blob/master/examples/lstm_text_generation.py
     a = np.log(a) / temperature
     a = np.exp(a) / np.sum(np.exp(a))
+    print("sum(a[:-1]) is {}".format(sum(a[:-1])))
+    if sum(a[:-1]) >= 1:
+        print("WARNING probability distro is greater than 1")
+    print("sum(a) is {}".format(sum(a)))
     return np.argmax(np.random.multinomial(1, a, 1))
 
 def data_iterator(orig_X, orig_y=None, batch_size=32, label_size=2, shuffle=False):

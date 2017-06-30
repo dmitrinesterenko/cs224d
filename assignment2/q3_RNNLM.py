@@ -355,7 +355,7 @@ class RNNLM_Model(LanguageModel):
     return np.exp(np.mean(total_loss))
 
 def generate_text(session, model, config, starting_text='<eos>',
-                  stop_length=5, stop_tokens=None, temp=1.0):
+                  stop_length=5, stop_tokens=None, temp=0.5):
   """Generate text from the model.
 
   Hint: Create a feed-dictionary and use sess.run() to execute the model. Note
@@ -437,7 +437,7 @@ def test_RNNLM():
     # Generate a sentence before training
     starting_text = 'in palo alto'
     print ' '.join(generate_sentence(
-          session, gen_model, gen_config, starting_text=starting_text, temp=1.0))
+          session, gen_model, gen_config, starting_text=starting_text))
 
 
 
@@ -460,7 +460,7 @@ def test_RNNLM():
      
       starting_text = 'in palo alto'
       print ' '.join(generate_sentence(
-          session, gen_model, gen_config, starting_text=starting_text, temp=1.0))
+          session, gen_model, gen_config, starting_text=starting_text))
 
 
       if valid_pp < best_val_pp:
@@ -481,7 +481,7 @@ def test_RNNLM():
     starting_text = 'in palo alto'
     while starting_text:
       print ' '.join(generate_sentence(
-          session, gen_model, gen_config, starting_text=starting_text, temp=1.0))
+          session, gen_model, gen_config, starting_text=starting_text))
       starting_text = raw_input('> ')
 
 if __name__ == "__main__":
