@@ -4,3 +4,4 @@ assignment1/cs224d/datasets/stanfordSentimentTreebank/
 *.pyc
 *_backup_*
 */logs/*
+*.swp
