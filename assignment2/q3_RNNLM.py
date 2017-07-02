@@ -34,7 +34,7 @@ class Config(object):
   instantiation.
   """
   batch_size = 20 #64
-  embed_size = 50
+  embed_size = 300 #50
   hidden_size = 650
   num_steps = 10
   max_epochs = 39 #16
@@ -355,7 +355,7 @@ class RNNLM_Model(LanguageModel):
     return np.exp(np.mean(total_loss))
 
 def generate_text(session, model, config, starting_text='<eos>',
-                  stop_length=5, stop_tokens=None, temp=1.0):
+                  stop_length=5, stop_tokens=None, temp=0.2):
   """Generate text from the model.
 
   Hint: Create a feed-dictionary and use sess.run() to execute the model. Note
@@ -397,10 +397,9 @@ def generate_text(session, model, config, starting_text='<eos>',
 
 
         y_pred = state
-
     ### END YOUR CODE
     next_word_idx = sample(y_pred[0], temperature=temp)
-    #print(model.vocab.decode(next_word_idx)) # for checking
+    print(model.vocab.decode(next_word_idx)) # for checking
     tokens.append(next_word_idx)
     if stop_tokens and model.vocab.decode(tokens[-1]) in stop_tokens:
       break
@@ -435,9 +434,9 @@ def test_RNNLM():
     session.run(init)
 
     # Generate a sentence before training
-    starting_text = 'in palo alto'
+    starting_text = 'in moscow'
     print ' '.join(generate_sentence(
-          session, gen_model, gen_config, starting_text=starting_text, temp=1.0))
+          session, gen_model, gen_config, starting_text=starting_text, temp=0.2))
 
 
 
@@ -447,8 +446,8 @@ def test_RNNLM():
       ###
       train_pp = model.run_epoch(
           session, model.encoded_train,
-          train_op=model.train_step, verbose=100)
-      valid_pp = model.run_epoch(session, model.encoded_valid, epoch, verbose=100)
+          train_op=model.train_step, verbose=1000)
+      valid_pp = model.run_epoch(session, model.encoded_valid, epoch, verbose=200)
 
       ## Logging
       summaries = tf.summary.merge_all()
@@ -458,9 +457,9 @@ def test_RNNLM():
       print 'Training perplexity: {}'.format(train_pp)
       print 'Validation perplexity: {}'.format(valid_pp)
      
-      starting_text = 'in palo alto'
+      starting_text = 'in moscow'
       print ' '.join(generate_sentence(
-          session, gen_model, gen_config, starting_text=starting_text, temp=1.0))
+          session, gen_model, gen_config, starting_text=starting_text, temp=0.2))
 
 
       if valid_pp < best_val_pp:
@@ -477,11 +476,12 @@ def test_RNNLM():
     print '=-=' * 5
     print 'Test perplexity: {}'.format(test_pp)
     print '=-=' * 5
+    # TODO iterate over temp = [0.2, 0.5, 1.0, 1.2] and generate a few sentences with the same starter to compare the results
     # Generate a sentence
-    starting_text = 'in palo alto'
+    starting_text = 'in moscow'
     while starting_text:
       print ' '.join(generate_sentence(
-          session, gen_model, gen_config, starting_text=starting_text, temp=1.0))
+          session, gen_model, gen_config, starting_text=starting_text, temp=0.2))
       starting_text = raw_input('> ')
 
 if __name__ == "__main__":

@@ -111,3 +111,9 @@ in palo alto oversee borrowing annual other $
 
 ## Running Time
 On a p2.8xlarge it is minutes :)
+
+## Hyperparameter tuning
+
+Updating the embed size to 100 resulted in a ValueError for y_pred[0] having a sum(y[0][:-1]) > 1 which means that the probability distribution is greater than 1 and that is not a valid probability distribution
+
+With embed size == 100 this happened after the 10th epoch
