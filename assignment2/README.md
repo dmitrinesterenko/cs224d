@@ -117,3 +117,51 @@ On a p2.8xlarge it is minutes :)
 Updating the embed size to 100 resulted in a ValueError for y_pred[0] having a sum(y[0][:-1]) > 1 which means that the probability distribution is greater than 1 and that is not a valid probability distribution
 
 With embed size == 100 this happened after the 10th epoch
+
+After adding a ValueError exception handling we get interesting results like this:
+
+Exception on sum(y_pred[0][:-1])>1 18.0528045899
+lowest prices are found in the plc highest
+> this is not working correctly
+making
+highest
+Exception on sum(y_pred[0][:-1])>1 19.7146665815
+Exception on sum(y_pred[0][:-1])>1 20.8003621126
+Exception on sum(y_pred[0][:-1])>1 19.7209881035
+this is not working <unk> making highest
+> where do you
+who
+Exception on sum(y_pred[0][:-1])>1 20.300114009
+highest
+highest
+highest
+where do you who highest highest highest
+> who is this
+rate
+Exception on sum(y_pred[0][:-1])>1 18.2169675355
+highest
+highest
+highest
+who is this rate highest highest highest
+> highest highest highest 
+Exception on sum(y_pred[0][:-1])>1 50.8804854928
+Exception on sum(y_pred[0][:-1])>1 27.3013634308
+highest
+Exception on sum(y_pred[0][:-1])>1 16.1886517864
+Exception on sum(y_pred[0][:-1])>1 21.8285692923
+highest highest highest highest
+> very lowest
+giants
+highest
+highest
+Exception on sum(y_pred[0][:-1])>1 16.769266189
+Exception on sum(y_pred[0][:-1])>1 21.2385030725
+very lowest giants highest highest
+> mount etna produces
+manufacturing
+Exception on sum(y_pred[0][:-1])>1 20.8284789129
+highest
+Exception on sum(y_pred[0][:-1])>1 16.8734089641
+highest
+mount <unk> produces manufacturing highest highest
+

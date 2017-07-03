@@ -398,9 +398,12 @@ def generate_text(session, model, config, starting_text='<eos>',
 
         y_pred = state
     ### END YOUR CODE
-    next_word_idx = sample(y_pred[0], temperature=temp)
-    print(model.vocab.decode(next_word_idx)) # for checking
-    tokens.append(next_word_idx)
+    try:
+        next_word_idx = sample(y_pred[0], temperature=temp)
+        print(model.vocab.decode(next_word_idx)) # for checking
+        tokens.append(next_word_idx)
+    except ValueError: 
+        print("Exception on sum(y_pred[0][:-1])>1 {}".format(sum(y_pred[0][:-1])))
     if stop_tokens and model.vocab.decode(tokens[-1]) in stop_tokens:
       break
   output = [model.vocab.decode(word_idx) for word_idx in tokens]
@@ -456,10 +459,11 @@ def test_RNNLM():
       ## Sanity Output
       print 'Training perplexity: {}'.format(train_pp)
       print 'Validation perplexity: {}'.format(valid_pp)
-     
-      starting_text = 'in moscow'
-      print ' '.join(generate_sentence(
-          session, gen_model, gen_config, starting_text=starting_text, temp=0.2))
+      for t in [0.2, 0.5, 1.0, 1.2]: 
+        print("Temperature (diversity) is {}".format(t))
+        starting_text = 'in moscow'
+        print ' '.join(generate_sentence(
+            session, gen_model, gen_config, starting_text=starting_text, temp=1))
 
 
       if valid_pp < best_val_pp:
@@ -470,7 +474,8 @@ def test_RNNLM():
         print 'I am stopping early'
         break
       print 'Total time: {}'.format(time.time() - start)
-
+    
+    # TODO move to a separate file so that experiments can be run after training without retraining
     saver.restore(session, './ptb_rnnlm.weights')
     test_pp = model.run_epoch(session, model.encoded_test)
     print '=-=' * 5
