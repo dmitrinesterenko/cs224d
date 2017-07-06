@@ -118,7 +118,7 @@ Updating the embed size to 100 resulted in a ValueError for y_pred[0] having a s
 
 With embed size == 100 this happened after the 10th epoch
 
-After adding a ValueError exception handling we get interesting results like this:
+After adding a ValueError exception handling we get "interesting" results like this:
 
 Exception on sum(y_pred[0][:-1])>1 18.0528045899
 lowest prices are found in the plc highest
@@ -164,4 +164,46 @@ highest
 Exception on sum(y_pred[0][:-1])>1 16.8734089641
 highest
 mount <unk> produces manufacturing highest highest
+
+### 
+With embed size == 50 this happened:
+
+
+Test perplexity: 678.194702148
+=-==-==-==-==-=
+which
+Exception on sum(y_pred[0][:-1])>1 5.60222813907
+mechanical
+Exception on sum(y_pred[0][:-1])>1 29.779761247
+can
+in moscow which mechanical can
+> where is the fire
+computerized
+signs
+Exception on sum(y_pred[0][:-1])>1 15.7547934678
+Exception on sum(y_pred[0][:-1])>1 24.3720304064
+us
+where is the fire computerized signs us
+> where is moscow?
+Exception on sum(y_pred[0][:-1])>1 57.2495892183
+risk
+us
+further
+medical
+where is <unk> risk us further medical
+> the capital of Russia 
+computerized
+typically
+Exception on sum(y_pred[0][:-1])>1 14.6003588958
+Exception on sum(y_pred[0][:-1])>1 25.7330199339
+Exception on sum(y_pred[0][:-1])>1 30.3823405486
+the capital of <unk> computerized typically
+> who owns more debt
+computerized
+typically
+british
+yield
+mechanical
+who owns more debt computerized typically british yield mechanical
+> 
 

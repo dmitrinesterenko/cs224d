@@ -34,7 +34,7 @@ class Config(object):
   instantiation.
   """
   batch_size = 20 #64
-  embed_size = 300 #50
+  embed_size = 50
   hidden_size = 650
   num_steps = 10
   max_epochs = 39 #16
