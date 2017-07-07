@@ -400,7 +400,7 @@ def generate_text(session, model, config, starting_text='<eos>',
     ### END YOUR CODE
     try:
         next_word_idx = sample(y_pred[0], temperature=temp)
-        print(model.vocab.decode(next_word_idx)) # for checking
+        #print(model.vocab.decode(next_word_idx)) # for checking
         tokens.append(next_word_idx)
     except ValueError: 
         print("Exception on sum(y_pred[0][:-1])>1 {}".format(sum(y_pred[0][:-1])))
@@ -435,14 +435,15 @@ def test_RNNLM():
     best_val_epoch = 0
 
     session.run(init)
+    def generate_sentence_local():
+        """Generate a sentence given local params"""
+        print('Generating a sentence ... ')
+        starting_text = 'in moscow'
+        print ' '.join(generate_sentence(
+              session, gen_model, gen_config, starting_text=starting_text, temp=0.2))
 
-    # Generate a sentence before training
-    starting_text = 'in moscow'
-    print ' '.join(generate_sentence(
-          session, gen_model, gen_config, starting_text=starting_text, temp=0.2))
-
-
-
+    #generate_sentence_local()
+ 
     for epoch in xrange(config.max_epochs):
       print 'Epoch {}'.format(epoch)
       start = time.time()
@@ -459,35 +460,31 @@ def test_RNNLM():
       ## Sanity Output
       print 'Training perplexity: {}'.format(train_pp)
       print 'Validation perplexity: {}'.format(valid_pp)
-      for t in [0.2, 0.5, 1.0, 1.2]: 
-        print("Temperature (diversity) is {}".format(t))
-        starting_text = 'in moscow'
-        print ' '.join(generate_sentence(
-            session, gen_model, gen_config, starting_text=starting_text, temp=1))
-
-
+       
       if valid_pp < best_val_pp:
         best_val_pp = valid_pp
         best_val_epoch = epoch
-        saver.save(session, './ptb_rnnlm.weights')
+        saver.save(session, './ptb_rnnlm.weights_{}'.format(config.embed_size))
       if epoch - best_val_epoch > config.early_stopping:
         print 'I am stopping early'
         break
       print 'Total time: {}'.format(time.time() - start)
     
     # TODO move to a separate file so that experiments can be run after training without retraining
-    saver.restore(session, './ptb_rnnlm.weights')
+    saver.restore(session, './ptb_rnnlm.weights_{}'.format(config.embed_size))
     test_pp = model.run_epoch(session, model.encoded_test)
     print '=-=' * 5
     print 'Test perplexity: {}'.format(test_pp)
     print '=-=' * 5
-    # TODO iterate over temp = [0.2, 0.5, 1.0, 1.2] and generate a few sentences with the same starter to compare the results
+    
     # Generate a sentence
-    starting_text = 'in moscow'
-    while starting_text:
-      print ' '.join(generate_sentence(
-          session, gen_model, gen_config, starting_text=starting_text, temp=0.2))
-      starting_text = raw_input('> ')
+    for t in [0.2, 0.5, 1.0, 1.2]: 
+        print("Temperature (diversity) is {}".format(t))
+       
+        starting_text = 'in moscow'
+        while starting_text:
+          generate_sentence_local()
+          starting_text = raw_input('> ')
 
 if __name__ == "__main__":
     test_RNNLM()
