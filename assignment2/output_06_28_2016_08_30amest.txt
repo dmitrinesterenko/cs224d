@@ -1,0 +1,142 @@
+initializing
+loading data
+929589.0 total words with 10000 uniques
+adding placeholders
+embedding
+modeling
+projecting
+calculating loss
+training
+Tensor("RNNLM/embedding/embeddings/read:0", shape=(10000, 250), dtype=float32, device=/device:CPU:0)
+Tensor("RNNLM/model/650650/hidden_weights/read:0", shape=(650, 650), dtype=float32)
+Tensor("RNNLM/model/250650/weights/read:0", shape=(250, 650), dtype=float32)
+Tensor("RNNLM/model/biases/read:0", shape=(650,), dtype=float32)
+Tensor("RNNLM/projection/65010000/weights/read:0", shape=(650, 10000), dtype=float32)
+Tensor("RNNLM/projection/biases/read:0", shape=(10000,), dtype=float32)
+Tensor("RNNLM/training/beta1_power/read:0", shape=(), dtype=float32)
+Tensor("RNNLM/training/beta2_power/read:0", shape=(), dtype=float32)
+Tensor("RNNLM/training/RNNLM/model/650650/hidden_weights/Adam/read:0", shape=(650, 650), dtype=float32)
+Tensor("RNNLM/training/RNNLM/model/650650/hidden_weights/Adam_1/read:0", shape=(650, 650), dtype=float32)
+Tensor("RNNLM/training/RNNLM/model/250650/weights/Adam/read:0", shape=(250, 650), dtype=float32)
+Tensor("RNNLM/training/RNNLM/model/250650/weights/Adam_1/read:0", shape=(250, 650), dtype=float32)
+Tensor("RNNLM/training/RNNLM/model/biases/Adam/read:0", shape=(650,), dtype=float32)
+Tensor("RNNLM/training/RNNLM/model/biases/Adam_1/read:0", shape=(650,), dtype=float32)
+Tensor("RNNLM/training/RNNLM/projection/65010000/weights/Adam/read:0", shape=(650, 10000), dtype=float32)
+Tensor("RNNLM/training/RNNLM/projection/65010000/weights/Adam_1/read:0", shape=(650, 10000), dtype=float32)
+Tensor("RNNLM/training/RNNLM/projection/biases/Adam/read:0", shape=(10000,), dtype=float32)
+Tensor("RNNLM/training/RNNLM/projection/biases/Adam_1/read:0", shape=(10000,), dtype=float32)
+initializing
+loading data
+929589.0 total words with 10000 uniques
+adding placeholders
+embedding
+modeling
+projecting
+calculating loss
+training
+in palo alto year-end talking permit unit gitano
+Epoch 0
+Loss is 9.22553634644
+0 / 4647 : pp = 10153.1201172
+Loss is 7.03100538254
+100 / 4647 : pp = 997.352844238
+Loss is 6.55947732925
+200 / 4647 : pp = 879.888061523
+Loss is 6.52697324753
+300 / 4647 : pp = 824.273071289
+Loss is 6.76354169846
+400 / 4647 : pp = 797.275268555
+Loss is 6.63834571838
+500 / 4647 : pp = 787.356506348
+Loss is 6.69731426239
+600 / 4647 : pp = 787.036682129
+Loss is 6.43613290787
+700 / 4647 : pp = 784.727539062
+Loss is 6.64210128784
+800 / 4647 : pp = 782.874938965
+Loss is 6.82247257233
+900 / 4647 : pp = 782.647583008
+Loss is 6.83417987823
+1000 / 4647 : pp = 783.207946777
+Loss is 6.60220527649
+1100 / 4647 : pp = 778.291870117
+Loss is 6.60535526276
+1200 / 4647 : pp = 776.618469238
+Loss is 6.89559459686
+1300 / 4647 : pp = 778.989501953
+Loss is 6.69062995911
+1400 / 4647 : pp = 778.555786133
+Loss is 6.62017631531
+1500 / 4647 : pp = 779.232849121
+Loss is 6.70606040955
+1600 / 4647 : pp = 779.432800293
+Loss is 6.67610311508
+1700 / 4647 : pp = 777.897094727
+Loss is 6.28211784363
+1800 / 4647 : pp = 777.811096191
+Loss is 6.91364383698
+1900 / 4647 : pp = 779.832092285
+Loss is 6.58957767487
+2000 / 4647 : pp = 778.219909668
+Loss is 6.745844841
+2100 / 4647 : pp = 779.597106934
+Loss is 7.1046795845
+2200 / 4647 : pp = 779.919067383
+Loss is 6.5381269455
+2300 / 4647 : pp = 779.339172363
+Loss is 6.58772706985
+2400 / 4647 : pp = 777.201538086
+Loss is 6.59143066406
+2500 / 4647 : pp = 776.833618164
+Loss is 6.4344162941
+2600 / 4647 : pp = 774.042358398
+Loss is 6.64616250992
+2700 / 4647 : pp = 771.62121582
+Loss is 6.5678191185
+2800 / 4647 : pp = 770.184631348
+Loss is 6.48942327499
+2900 / 4647 : pp = 768.578857422
+Loss is 6.64014148712
+3000 / 4647 : pp = 768.164489746
+Loss is 6.5448513031
+3100 / 4647 : pp = 767.037109375
+Loss is 6.75096559525
+3200 / 4647 : pp = 766.467529297
+Loss is 6.6099729538
+3300 / 4647 : pp = 765.462341309
+Loss is 6.61431741714
+3400 / 4647 : pp = 765.213806152
+Loss is 6.85729551315
+3500 / 4647 : pp = 764.619689941
+Loss is 6.65687322617
+3600 / 4647 : pp = 764.549682617
+Loss is 6.54264259338
+3700 / 4647 : pp = 763.284240723
+Loss is 6.52419233322
+3800 / 4647 : pp = 761.838500977
+Loss is 6.96490430832
+3900 / 4647 : pp = 761.927490234
+Loss is 6.8149061203
+4000 / 4647 : pp = 762.454467773
+Loss is 6.6722741127
+4100 / 4647 : pp = 761.292297363
+Loss is 6.73583507538
+4200 / 4647 : pp = 760.375183105
+Loss is 6.58028364182
+4300 / 4647 : pp = 758.954833984
+Loss is 6.642619133
+4400 / 4647 : pp = 758.238952637
+Loss is 6.49032735825
+4500 / 4647 : pp = 757.536437988
+Loss is 6.60360240936
+4600 / 4647 : pp = 758.356506348
+Loss is 8.25953578949
+0 / 368 : pp = 3864.29980469
+Loss is 6.52697944641
+100 / 368 : pp = 752.396789551
+Loss is 6.48493051529
+200 / 368 : pp = 754.199645996
+Loss is 6.1936955452
+300 / 368 : pp = 750.136352539
+Training perplexity: 758.196655273
+Validation perplexity: 748.126647949
