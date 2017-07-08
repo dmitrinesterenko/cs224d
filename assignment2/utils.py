@@ -69,6 +69,8 @@ def ptb_iterator(raw_data, batch_size, num_steps):
     y = data[:, i * num_steps + 1:(i + 1) * num_steps + 1]
     yield (x, y)
 
+#TODO why is the parameter called temperature, what does it really controle? Francois Challet calls the same parameter diversity
+# and he varies it [0.2, 0.5, 1.0, 1.2]
 def sample(a, temperature=1.0):
     # helper function to sample an index from a probability array
     # from https://github.com/fchollet/keras/blob/master/examples/lstm_text_generation.py

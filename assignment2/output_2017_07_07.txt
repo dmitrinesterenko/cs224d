@@ -1,0 +1,41 @@
+initializing
+loading data
+929589.0 total words with 10000 uniques
+adding placeholders
+embedding
+modeling
+projecting
+calculating loss
+training
+Tensor("RNNLM/embedding/embeddings/read:0", shape=(10000, 50), dtype=float32, device=/device:CPU:0)
+Tensor("RNNLM/model/650650/hidden_weights/read:0", shape=(650, 650), dtype=float32)
+Tensor("RNNLM/model/50650/weights/read:0", shape=(50, 650), dtype=float32)
+Tensor("RNNLM/model/biases/read:0", shape=(650,), dtype=float32)
+Tensor("RNNLM/projection/65010000/weights/read:0", shape=(650, 10000), dtype=float32)
+Tensor("RNNLM/projection/biases/read:0", shape=(10000,), dtype=float32)
+Tensor("RNNLM/training/beta1_power/read:0", shape=(), dtype=float32)
+Tensor("RNNLM/training/beta2_power/read:0", shape=(), dtype=float32)
+Tensor("RNNLM/training/RNNLM/model/650650/hidden_weights/Adam/read:0", shape=(650, 650), dtype=float32)
+Tensor("RNNLM/training/RNNLM/model/650650/hidden_weights/Adam_1/read:0", shape=(650, 650), dtype=float32)
+Tensor("RNNLM/training/RNNLM/model/50650/weights/Adam/read:0", shape=(50, 650), dtype=float32)
+Tensor("RNNLM/training/RNNLM/model/50650/weights/Adam_1/read:0", shape=(50, 650), dtype=float32)
+Tensor("RNNLM/training/RNNLM/model/biases/Adam/read:0", shape=(650,), dtype=float32)
+Tensor("RNNLM/training/RNNLM/model/biases/Adam_1/read:0", shape=(650,), dtype=float32)
+Tensor("RNNLM/training/RNNLM/projection/65010000/weights/Adam/read:0", shape=(650, 10000), dtype=float32)
+Tensor("RNNLM/training/RNNLM/projection/65010000/weights/Adam_1/read:0", shape=(650, 10000), dtype=float32)
+Tensor("RNNLM/training/RNNLM/projection/biases/Adam/read:0", shape=(10000,), dtype=float32)
+Tensor("RNNLM/training/RNNLM/projection/biases/Adam_1/read:0", shape=(10000,), dtype=float32)
+initializing
+loading data
+929589.0 total words with 10000 uniques
+adding placeholders
+embedding
+modeling
+projecting
+calculating loss
+training
+Epoch 0
+Loss is 9.27076339722
+0 / 4647 : pp = 10622.8583984
+Loss is 6.82353401184
+1000 / 4647 : pp = 767.001281738
