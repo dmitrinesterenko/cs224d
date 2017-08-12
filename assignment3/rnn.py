@@ -110,13 +110,18 @@ self.config.embed_size))
         if node.isLeaf:
             ### YOUR CODE HERE
             tr.print_leaf(node)
-            # ReLU
-            # import pdb; pdb.set_trace()
-            # this should assign to curr_node_tensor a vector representation of the leaf node.
-            node.tensor = tf.gather([self.vocab.encode(node.word)],
-range(self.config.embed_size))
-            node.tensor = tf.cast(node.tensor, dtype=tf.float32)
-            #curr_node_tensor = tf.maximum(tf.stack(self.vocab.encode(node.left.word), self.vocab.encode(node.right.word)) * w1 + b1, 0)
+            # this code should assign to curr_node_tensor a vector representation of the leaf node.
+
+            #node.tensor = tf.gather([self.vocab.encode(node.word)],
+            #range(self.config.embed_size))
+            #node.tensor = tf.cast(node.tensor, dtype=tf.float32)
+
+            # Going to try this with an actual word embedding
+            embeddings = tf.Variable(
+tf.random_uniform([len(self.vocab), self.config.embed_size], -1.0, 1.0))
+            node.tensor = tf.nn.embedding_lookup(embeddings,
+self.vocab.encode(node.word))
+
             curr_node_tensor = node.tensor
             ### END YOUR CODE
         else:
