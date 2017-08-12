@@ -15,6 +15,7 @@ class Node:  # a node in the tree
         self.parent = None  # reference to parent
         self.left = None  # reference to left child
         self.right = None  # reference to right child
+        self.tensor = None # reference to the tensor of the current node
         # true if I am a leaf (could have probably derived this from if I have
         # a word)
         self.isLeaf = False
@@ -79,7 +80,7 @@ class Tree:
 def leftTraverse(node, nodeFn=None, args=None):
     """
     Recursive function traverses tree
-    from left to right. 
+    from left to right.
     Calls nodeFn at each node
     """
     if node is None:
@@ -97,6 +98,30 @@ def getLeaves(node):
     else:
         return getLeaves(node.left) + getLeaves(node.right)
 
+def print_leaves(node, args=None):
+    if node is None:
+        print ""
+    if node.isLeaf:
+        print "{0}({1})".format(node.word, node.label)
+    else:
+        print_leaves(node.left)
+        print_leaves(node.right)
+
+def print_leaf(node):
+    print("leaf {0}".format(node.word))
+
+def print_root(node):
+    leaves = ""
+    root = " root "
+    if node.left is not None and node.left.word is not None:
+        leaves += node.left.word + " -"
+    if node.right is not None and node.right.word is not None:
+        leaves += "- " + node.right.word
+    if node.word is not None:
+        root += node.word
+    print(" {0} ".format(root))
+    print("  | ")
+    print(leaves)
 
 def get_labels(node):
     if node is None:
@@ -131,7 +156,7 @@ def simplified_data(num_train, num_dev, num_test):
     #binarize labels
     binarize_labels(pos_trees)
     binarize_labels(neg_trees)
-    
+
     #split into train, dev, test
     print len(pos_trees), len(neg_trees)
     pos_trees = sorted(pos_trees, key=lambda t: len(t.get_words()))
