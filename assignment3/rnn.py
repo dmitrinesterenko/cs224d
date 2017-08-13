@@ -102,6 +102,7 @@ self.config.embed_size))
             ### YOUR CODE HERE
             w1 = tf.get_variable("w1")
             b1 = tf.get_variable("b1")
+            embedding = tf.get_variable("embedding")
             ### END YOUR CODE
 
         node_tensors = dict()
@@ -109,7 +110,7 @@ self.config.embed_size))
 
         if node.isLeaf:
             ### YOUR CODE HERE
-            tr.print_leaf(node)
+            #tr.print_leaf(node)
             # this code should assign to curr_node_tensor a vector representation of the leaf node.
 
             #node.tensor = tf.gather([self.vocab.encode(node.word)],
@@ -117,9 +118,9 @@ self.config.embed_size))
             #node.tensor = tf.cast(node.tensor, dtype=tf.float32)
 
             # Going to try this with an actual word embedding
-            embeddings = tf.Variable(
-tf.random_uniform([len(self.vocab), self.config.embed_size], -1.0, 1.0))
-            node.tensor = tf.nn.embedding_lookup(embeddings,
+            #embeddings = tf.Variable(
+#tf.random_uniform([len(self.vocab), self.config.embed_size], -1.0, 1.0))
+            node.tensor = tf.nn.embedding_lookup(embedding,
 self.vocab.encode(node.word))
 
             curr_node_tensor = node.tensor
@@ -200,8 +201,15 @@ self.config.embed_size)))
         """
         loss = None
         # YOUR CODE HERE
-        loss = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=labels,
-logits=logits, name="sparse_softmax_loss") + tf.nn.l2_loss(logits)
+        # sparse softmax returns a tensor of dimension 1-D with the number of
+        # elements in the batch which is the first dimention of logits and the
+        # only dimention of labels. In a sentence with 5 words this dimention
+        # will be 5 because the accuracy of our prediction with regard to each
+        # word is returned.
+        # As our stated goal is to return a 0-D tensor let's do thee next best
+        # thing and take a mean of all of the accuracies.
+        loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(labels=labels,
+logits=logits, name="sparse_softmax_loss")) + tf.nn.l2_loss(logits)
         # END YOUR CODE
         return loss
 
@@ -301,6 +309,7 @@ name="gradient_descent")
                 if not os.path.exists("./weights"):
                     os.makedirs("./weights")
                 saver.save(sess, './weights/%s.temp'%self.config.model_name)
+
 
         train_preds, _ = self.predict(self.train_data, './weights/%s.temp'%self.config.model_name)
         val_preds, val_losses = self.predict(self.dev_data, './weights/%s.temp'%self.config.model_name, get_loss=True)
