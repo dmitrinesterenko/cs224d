@@ -7,6 +7,7 @@ import time
 import itertools
 import shutil
 import tensorflow as tf
+from tensorflow.python.client import timeline
 import tree as tr
 import pdb
 from utils import Vocab
@@ -284,6 +285,9 @@ Neutral, Positive. This HW uses only two labels: negative and positive
     def run_epoch(self, new_model = False, verbose=True):
         step = 0
         loss_history = []
+        run_options = tf.RunOptions(trace_level=tf.RunOptions.FULL_TRACE)
+        run_metadata = tf.RunMetadata()
+        config = tf.ConfigProto(log_device_placement=True)
         while step < len(self.train_data):
             with tf.Graph().as_default(), tf.Session() as sess:
                 self.add_model_vars()
@@ -301,7 +305,7 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                     labels = [l for l in tree.labels if l!=2]
                     loss = self.loss(logits, labels)
                     train_op = self.training(loss)
-                    loss, _ = sess.run([loss, train_op])
+                    loss, _ = sess.run([loss, train_op], options=run_options, run_metadata=run_metadata, config=config)
                     loss_history.append(loss)
                     if verbose:
                         sys.stdout.write('\r{} / {} :    loss = {}'.format(
@@ -312,7 +316,11 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                 if not os.path.exists("./weights"):
                     os.makedirs("./weights")
                 saver.save(sess, './weights/%s.temp'%self.config.model_name)
-
+                # write timeline data for debugging
+                tl = timeline.Timeline(run_metadata.step_stats)
+                ctf = tl.generate_chrome_trace_format()
+                with open('timeline.json', 'w') as f:
+                    f.write(ctf)
 
         train_preds, _ = self.predict(self.train_data, './weights/%s.temp'%self.config.model_name)
         val_preds, val_losses = self.predict(self.dev_data, './weights/%s.temp'%self.config.model_name, get_loss=True)
