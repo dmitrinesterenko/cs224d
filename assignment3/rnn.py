@@ -126,7 +126,7 @@ self.vocab.encode(node.word))
             curr_node_tensor = node.tensor
             ### END YOUR CODE
         else:
-            tr.print_root(node)
+            #tr.print_root(node)
             # this will cause an update to the dictionary node_tensor[node.left] ==
             # self.add_model(node.left)
             node_tensors.update(self.add_model(node.left))
@@ -246,11 +246,13 @@ name="gradient_descent")
         Args:
             y: tensor(?, label_size)
         Returns:
+            The highest scoring label where each label is a score of Negate,
+Neutral, Positive. This HW uses only two labels: negative and positive
             predictions: tensor(?,1)
         """
         predictions = None
         # YOUR CODE HERE
-        pass
+        predictions = tf.argmax(tf.nn.softmax(y))
         # END YOUR CODE
         return predictions
 
@@ -269,6 +271,7 @@ name="gradient_descent")
                 saver.restore(sess, weights_path)
                 for tree in trees[i*RESET_AFTER: (i+1)*RESET_AFTER]:
                     logits = self.inference(tree, True)
+                    #import pdb; pdb.set_trace()
                     predictions = self.predictions(logits)
                     root_prediction = sess.run(predictions)[0]
                     if get_loss:
@@ -400,7 +403,7 @@ def test_RNN():
 
     print('Test')
     print('=-=-=')
-    predictions, _ = model.predict(model.test_data, './weights/%s'%model.config.model_name)
+    predictions, _ = model.predict(model.test_data, './weights/%s.temp'%model.config.model_name)
     labels = [t.root.label for t in model.test_data]
     test_acc = np.equal(predictions, labels).mean()
     print('Test acc: {}'.format(test_acc))
