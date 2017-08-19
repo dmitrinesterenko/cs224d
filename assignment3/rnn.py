@@ -13,7 +13,7 @@ import pdb
 from utils import Vocab
 
 
-RESET_AFTER = 50
+RESET_AFTER = 100 #50
 class Config(object):
     """Holds model hyperparams and data information.
        Model objects are passed a Config() object at instantiation.
@@ -33,7 +33,8 @@ class RNN_Model():
 
     def load_data(self):
         """Loads train/dev/test data and builds vocabulary."""
-        self.train_data, self.dev_data, self.test_data = tr.simplified_data(700, 100, 200)
+        # the training data was originally 700
+        self.train_data, self.dev_data, self.test_data = tr.simplified_data(100, 100, 200)
         # build vocab from training data
         self.vocab = Vocab()
         train_sents = [t.get_words() for t in self.train_data]
@@ -287,9 +288,10 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         loss_history = []
         run_options = tf.RunOptions(trace_level=tf.RunOptions.FULL_TRACE)
         run_metadata = tf.RunMetadata()
-        config = tf.ConfigProto(log_device_placement=True)
+        # Set to True to look at placement
+        config = tf.ConfigProto(log_device_placement=False)
         while step < len(self.train_data):
-            with tf.Graph().as_default(), tf.Session() as sess:
+            with tf.Graph().as_default(), tf.Session(config=config) as sess:
                 self.add_model_vars()
                 if new_model:
                     init = tf.global_variables_initializer()
@@ -305,7 +307,7 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                     labels = [l for l in tree.labels if l!=2]
                     loss = self.loss(logits, labels)
                     train_op = self.training(loss)
-                    loss, _ = sess.run([loss, train_op], options=run_options, run_metadata=run_metadata, config=config)
+                    loss, _ = sess.run([loss, train_op], options=run_options, run_metadata=run_metadata)
                     loss_history.append(loss)
                     if verbose:
                         sys.stdout.write('\r{} / {} :    loss = {}'.format(
