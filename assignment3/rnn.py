@@ -50,7 +50,7 @@ class RNN_Model():
         if predict_only_root:
             node_tensors = node_tensors[tree.root]
         else:
-            node_tensors = [tensor for node, tensor in node_tensors.iteritems() if node.label!=2]
+            node_tensors = [tensor for node, tensor in node_tensors.items() if node.label!=2]
             node_tensors = [tf.reshape(tensor, [1, self.config.embed_size]) for
 tensor in node_tensors]
             node_tensors = tf.concat(node_tensors, axis=0)
@@ -262,7 +262,7 @@ name="gradient_descent")
         """Make predictions from the provided model."""
         results = []
         losses = []
-        for i in xrange(int(math.ceil(len(trees)/float(RESET_AFTER)))):
+        for i in range(int(math.ceil(len(trees)/float(RESET_AFTER)))):
             with tf.Graph().as_default(), tf.Session() as sess:
                 self.add_model_vars()
                 saver = tf.train.Saver()
@@ -290,7 +290,7 @@ name="gradient_descent")
                 else:
                     saver = tf.train.Saver()
                     saver.restore(sess, './weights/%s.temp'%self.config.model_name)
-                for _ in xrange(RESET_AFTER):
+                for _ in range(RESET_AFTER):
                     if step>=len(self.train_data):
                         break
                     tree = self.train_data[step]
@@ -318,11 +318,11 @@ name="gradient_descent")
         train_acc = np.equal(train_preds, train_labels).mean()
         val_acc = np.equal(val_preds, val_labels).mean()
 
-        print
-        print 'Training acc (only root node): {}'.format(train_acc)
-        print 'Valiation acc (only root node): {}'.format(val_acc)
-        print self.make_conf(train_labels, train_preds)
-        print self.make_conf(val_labels, val_preds)
+        print()
+        print('Training acc (only root node): {}'.format(train_acc))
+        print( 'Valiation acc (only root node): {}'.format(val_acc))
+        print( self.make_conf(train_labels, train_preds))
+        print( self.make_conf(val_labels, val_preds))
         return train_acc, val_acc, loss_history, np.mean(val_losses)
 
     def train(self, verbose=True):
@@ -333,8 +333,8 @@ name="gradient_descent")
         best_val_loss = float('inf')
         best_val_epoch = 0
         stopped = -1
-        for epoch in xrange(self.config.max_epochs):
-            print 'epoch %d'%epoch
+        for epoch in range(self.config.max_epochs):
+            print('epoch {}'.format(epoch))
             if epoch==0:
                 train_acc, val_acc, loss_history, val_loss = self.run_epoch(new_model=True)
             else:
@@ -347,7 +347,7 @@ name="gradient_descent")
             epoch_loss = np.mean(loss_history)
             if epoch_loss>prev_epoch_loss*self.config.anneal_threshold:
                 self.config.lr/=self.config.anneal_by
-                print 'annealed lr to %f'%self.config.lr
+                print('annealed lr to %f'%self.config.lr)
             prev_epoch_loss = epoch_loss
 
             #save if model has improved on val
@@ -364,7 +364,7 @@ name="gradient_descent")
                 sys.stdout.write('\r')
                 sys.stdout.flush()
 
-        print '\n\nstopped at %d\n'%stopped
+        print('\n\nstopped at {}\n'.format(stopped))
         return {
             'loss_history': complete_loss_history,
             'train_acc_history': train_acc_history,
@@ -389,7 +389,7 @@ def test_RNN():
     model = RNN_Model(config)
     start_time = time.time()
     stats = model.train(verbose=True)
-    print 'Training time: {}'.format(time.time() - start_time)
+    print('Training time: {}'.format(time.time() - start_time))
 
     plt.plot(stats['loss_history'])
     plt.title('Loss history')
@@ -398,12 +398,12 @@ def test_RNN():
     plt.savefig("loss_history.png")
     plt.show()
 
-    print 'Test'
-    print '=-=-='
+    print('Test')
+    print('=-=-=')
     predictions, _ = model.predict(model.test_data, './weights/%s'%model.config.model_name)
     labels = [t.root.label for t in model.test_data]
     test_acc = np.equal(predictions, labels).mean()
-    print 'Test acc: {}'.format(test_acc)
+    print('Test acc: {}'.format(test_acc))
 
 if __name__ == "__main__":
         test_RNN()

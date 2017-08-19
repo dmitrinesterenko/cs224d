@@ -1,4 +1,5 @@
 import random
+import pdb
 UNK = 'UNK'
 # This file contains the dataset in a useful way. We populate a list of
 # Trees to train/test our Neural Nets such that each Tree contains any
@@ -100,9 +101,9 @@ def getLeaves(node):
 
 def print_leaves(node, args=None):
     if node is None:
-        print ""
+        print("")
     if node.isLeaf:
-        print "{0}({1})".format(node.word, node.label)
+        print("{0}({1})".format(node.word, node.label))
     else:
         print_leaves(node.left)
         print_leaves(node.right)
@@ -138,7 +139,7 @@ def loadTrees(dataSet='train'):
     Loads training trees. Maps leaf node words to word ids.
     """
     file = 'trees/%s.txt' % dataSet
-    print "Loading %s trees.." % dataSet
+    print("Loading {} trees..".format(dataSet))
     with open(file, 'r') as fid:
         trees = [Tree(l) for l in fid.readlines()]
 
@@ -158,12 +159,12 @@ def simplified_data(num_train, num_dev, num_test):
     binarize_labels(neg_trees)
 
     #split into train, dev, test
-    print len(pos_trees), len(neg_trees)
+    print("{} {}".format(len(pos_trees), len(neg_trees)))
     pos_trees = sorted(pos_trees, key=lambda t: len(t.get_words()))
     neg_trees = sorted(neg_trees, key=lambda t: len(t.get_words()))
-    num_train/=2
-    num_dev/=2
-    num_test/=2
+    num_train = int(num_train/2)
+    num_dev   = int(num_dev/2)
+    num_test  = int(num_test/2)
     train = pos_trees[:num_train] + neg_trees[:num_train]
     dev = pos_trees[num_train : num_train+num_dev] + neg_trees[num_train : num_train+num_dev]
     test = pos_trees[num_train+num_dev : num_train+num_dev+num_test] + neg_trees[num_train+num_dev : num_train+num_dev+num_test]
