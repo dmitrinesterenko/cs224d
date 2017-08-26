@@ -6,6 +6,7 @@ import math
 import time
 import itertools
 import shutil
+from datetime import datetime
 import tensorflow as tf
 from tensorflow.python.client import timeline
 import tree as tr
@@ -27,6 +28,7 @@ class Config(object):
     lr = 0.01
     l2 = 0.02
     model_name = 'rnn_embed=%d_l2=%f_lr=%f.weights'%(embed_size, l2, lr)
+    root_logdir = './logs'
 
 
 class RNN_Model():
@@ -34,11 +36,17 @@ class RNN_Model():
     def load_data(self):
         """Loads train/dev/test data and builds vocabulary."""
         # the training data was originally 700
-        self.train_data, self.dev_data, self.test_data = tr.simplified_data(100, 100, 200)
+        self.train_data, self.dev_data, self.test_data = tr.simplified_data(700, 100, 200)
         # build vocab from training data
         self.vocab = Vocab()
         train_sents = [t.get_words() for t in self.train_data]
         self.vocab.construct(list(itertools.chain.from_iterable(train_sents)))
+
+    def setup_logging(self):
+        """Sets up some parameters for the logging of the current model"""
+        now = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+        self.logdir = "{}/run-{}/".format(self.config.root_logdir, now)
+
 
     def inference(self, tree, predict_only_root=False):
         """For a given tree build the RNN models computation graph up to where it
@@ -254,13 +262,18 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         """
         predictions = None
         # YOUR CODE HERE
-        predictions = tf.argmax(tf.nn.softmax(y))
+        # NOTE This looks to only return 0s, something smells
+        #predictions = tf.argmax(tf.nn.softmax(y))
+        #predictions = tf.argmax(y)
+        # However this works so supplying the axis is important
+        predictions = tf.argmax(y, axis=1, name="prediction")
         # END YOUR CODE
         return predictions
 
     def __init__(self, config):
         self.config = config
         self.load_data()
+        self.setup_logging()
 
     def predict(self, trees, weights_path, get_loss = False):
         """Make predictions from the provided model."""
@@ -273,7 +286,6 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                 saver.restore(sess, weights_path)
                 for tree in trees[i*RESET_AFTER: (i+1)*RESET_AFTER]:
                     logits = self.inference(tree, True)
-                    #import pdb; pdb.set_trace()
                     predictions = self.predictions(logits)
                     root_prediction = sess.run(predictions)[0]
                     if get_loss:
@@ -283,7 +295,7 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                     results.append(root_prediction)
         return results, losses
 
-    def run_epoch(self, new_model = False, verbose=True):
+    def run_epoch(self, new_model = False, verbose=10):
         step = 0
         loss_history = []
         run_options = tf.RunOptions(trace_level=tf.RunOptions.FULL_TRACE)
@@ -299,6 +311,12 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                 else:
                     saver = tf.train.Saver()
                     saver.restore(sess, './weights/%s.temp'%self.config.model_name)
+                # The RESET_AFTER essentially controls batching of our training
+                # When RESET_AFTER == len(self.train_data) then this is for loop
+                # is executed once. Otherwise it is run len(self.train_data /
+                # RESET_AFTER)
+                # This allows to save the trained model parameters every
+                # RESET_AFTER
                 for _ in range(RESET_AFTER):
                     if step>=len(self.train_data):
                         break
@@ -309,20 +327,25 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                     train_op = self.training(loss)
                     loss, _ = sess.run([loss, train_op], options=run_options, run_metadata=run_metadata)
                     loss_history.append(loss)
-                    if verbose:
+                    if (step % verbose)==0:
                         sys.stdout.write('\r{} / {} :    loss = {}'.format(
                             step, len(self.train_data), np.mean(loss_history)))
                         sys.stdout.flush()
-                    step+=1
+                        loss_summary = tf.summary.scalar('loss', loss)
+                        file_writer = tf.summary.FileWriter(self.logdir, tf.get_default_graph())
+                        summary_str = loss_summary.eval()
+                        file_writer.add_summary(summary_str, step)
+                    step += 1
+
                 saver = tf.train.Saver()
                 if not os.path.exists("./weights"):
                     os.makedirs("./weights")
                 saver.save(sess, './weights/%s.temp'%self.config.model_name)
                 # write timeline data for debugging
-                tl = timeline.Timeline(run_metadata.step_stats)
-                ctf = tl.generate_chrome_trace_format()
-                with open('timeline.json', 'w') as f:
-                    f.write(ctf)
+                #tl = timeline.Timeline(run_metadata.step_stats)
+                #ctf = tl.generate_chrome_trace_format()
+                #with open('timeline.json', 'w') as f:
+                #    f.write(ctf)
 
         train_preds, _ = self.predict(self.train_data, './weights/%s.temp'%self.config.model_name)
         val_preds, val_losses = self.predict(self.dev_data, './weights/%s.temp'%self.config.model_name, get_loss=True)
@@ -330,7 +353,9 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         val_labels = [t.root.label for t in self.dev_data]
         train_acc = np.equal(train_preds, train_labels).mean()
         val_acc = np.equal(val_preds, val_labels).mean()
-
+        file_writer.close()
+        #train_summary = tf.summary.scalar('train accuracy', train_acc)
+        #val_summary = tf.summary.scalar('val accuracy', val_acc)
         print()
         print('Training acc (only root node): {}'.format(train_acc))
         print( 'Valiation acc (only root node): {}'.format(val_acc))
@@ -365,7 +390,10 @@ Neutral, Positive. This HW uses only two labels: negative and positive
 
             #save if model has improved on val
             if val_loss < best_val_loss:
-                 shutil.copyfile('./weights/%s.temp'%self.config.model_name, './weights/%s'%self.config.model_name)
+                 shutil.copyfile('./weights/%s.temp.data-00000-of-00001'%self.config.model_name, './weights/%s.data-00000-of-00001'%self.config.model_name)
+                 shutil.copyfile('./weights/%s.temp.index'%self.config.model_name, './weights/%s.index'%self.config.model_name)
+                 shutil.copyfile('./weights/%s.temp.meta'%self.config.model_name, './weights/%s.meta'%self.config.model_name)
+
                  best_val_loss = val_loss
                  best_val_epoch = epoch
 
@@ -386,7 +414,7 @@ Neutral, Positive. This HW uses only two labels: negative and positive
 
     def make_conf(self, labels, predictions):
         confmat = np.zeros([2, 2])
-        for l,p in itertools.izip(labels, predictions):
+        for l,p in zip(labels, predictions):
             confmat[l, p] += 1
         return confmat
 
