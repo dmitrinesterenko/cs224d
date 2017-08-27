@@ -1,7 +1,7 @@
 import sys
 import os
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import math
 import time
 import itertools
@@ -432,12 +432,12 @@ def test_RNN():
     stats = model.train(verbose=True)
     print('Training time: {}'.format(time.time() - start_time))
 
-    plt.plot(stats['loss_history'])
-    plt.title('Loss history')
-    plt.xlabel('Iteration')
-    plt.ylabel('Loss')
-    plt.savefig("loss_history.png")
-    plt.show()
+    #plt.plot(stats['loss_history'])
+    #plt.title('Loss history')
+    #plt.xlabel('Iteration')
+    #plt.ylabel('Loss')
+    #plt.savefig("loss_history.png")
+    #plt.show()
 
     print('Test')
     print('=-=-=')
