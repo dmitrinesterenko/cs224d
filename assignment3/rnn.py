@@ -374,7 +374,11 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         for epoch in range(self.config.max_epochs):
             print('epoch {}'.format(epoch))
             if epoch==0:
-                train_acc, val_acc, loss_history, val_loss = self.run_epoch(new_model=True)
+                #train_acc, val_acc, loss_history, val_loss = self.run_epoch(new_model=True)
+                #NOTE:  this allows to restart training after a prior failure to finish
+                #TODO: adjust the parameter for new_model=True to use the presence of model files in the 
+                # ./weights directory
+                train_acc, val_acc, loss_history, val_loss = self.run_epoch()
             else:
                 train_acc, val_acc, loss_history, val_loss = self.run_epoch()
             complete_loss_history.extend(loss_history)
