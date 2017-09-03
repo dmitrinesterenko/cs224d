@@ -1,7 +1,7 @@
 import sys
 import os
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import math
 import time
 import itertools
@@ -376,7 +376,11 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         for epoch in range(self.config.max_epochs):
             print('epoch {}'.format(epoch))
             if epoch==0:
-                train_acc, val_acc, loss_history, val_loss = self.run_epoch(new_model=True)
+                #train_acc, val_acc, loss_history, val_loss = self.run_epoch(new_model=True)
+                #NOTE:  this allows to restart training after a prior failure to finish
+                #TODO: adjust the parameter for new_model=True to use the presence of model files in the 
+                # ./weights directory
+                train_acc, val_acc, loss_history, val_loss = self.run_epoch()
             else:
                 train_acc, val_acc, loss_history, val_loss = self.run_epoch()
             complete_loss_history.extend(loss_history)
@@ -434,12 +438,12 @@ def test_RNN():
     stats = model.train(verbose=True)
     print('Training time: {}'.format(time.time() - start_time))
 
-    plt.plot(stats['loss_history'])
-    plt.title('Loss history')
-    plt.xlabel('Iteration')
-    plt.ylabel('Loss')
-    plt.savefig("loss_history.png")
-    plt.show()
+    #plt.plot(stats['loss_history'])
+    #plt.title('Loss history')
+    #plt.xlabel('Iteration')
+    #plt.ylabel('Loss')
+    #plt.savefig("loss_history.png")
+    #plt.show()
 
     print('Test')
     print('=-=-=')
