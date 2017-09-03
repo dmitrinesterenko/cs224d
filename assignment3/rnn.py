@@ -244,8 +244,10 @@ logits=logits, name="sparse_softmax_loss")) + tf.nn.l2_loss(logits)
         """
         train_op = None
         # YOUR CODE HERE
-        trainer = tf.train.GradientDescentOptimizer(self.config.lr,
-name="gradient_descent")
+        #trainer = tf.train.GradientDescentOptimizer(self.config.lr,
+#name="gradient_descent")
+        trainer = tf.train.MomentumOptimizer(learning_rate=self.config.lr,
+momentum=0.9, use_nesterov=True, name="nesterov_momentum_optimizer")
         train_op = trainer.minimize(loss, name="minimize_loss")
         # END YOUR CODE
         return train_op
