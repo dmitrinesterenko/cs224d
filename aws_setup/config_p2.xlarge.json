@@ -16,7 +16,7 @@
         {
           "DeviceName": "/dev/xvda",
           "Ebs": {
-            "DeleteOnTermination": false,
+            "DeleteOnTermination": true,
             "VolumeType": "io1",
             "VolumeSize": 100,
             "SnapshotId": "snap-07a718cb535184f17",
