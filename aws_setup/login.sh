@@ -1,6 +1,6 @@
 #!/bin/bash
 source "./aws_setup/commands.sh"
-INSTANCE_ID=0
+INSTANCE_ID=1
 STATUS=$(active | jq .SpotInstanceRequests[$INSTANCE_ID].Status.Code)
 echo $STATUS
 
