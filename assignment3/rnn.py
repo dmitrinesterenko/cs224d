@@ -1,7 +1,7 @@
 import sys
 import os
 import numpy as np
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import math
 import time
 import itertools
@@ -92,6 +92,9 @@ self.config.embed_size))
             U = tf.get_variable("U", shape=(self.config.embed_size, 2))
             bs = tf.get_variable("bs", shape=(1, 2))
             ### END YOUR CODE
+        # Moving the optimzer here to initialize it
+        self.optimizer = tf.train.AdamOptimizer(learning_rate=self.config.lr, name="adam_optimizer")
+
 
     def add_model(self, node):
         """Recursively build the model to compute the phrase embeddings in the tree
@@ -245,10 +248,13 @@ logits=logits, name="sparse_softmax_loss")) + tf.nn.l2_loss(logits)
         train_op = None
         # YOUR CODE HERE
         #trainer = tf.train.GradientDescentOptimizer(self.config.lr,
-#name="gradient_descent")
-        trainer = tf.train.MomentumOptimizer(learning_rate=self.config.lr,
-momentum=0.9, use_nesterov=True, name="nesterov_momentum_optimizer")
-        train_op = trainer.minimize(loss, name="minimize_loss")
+            #name="gradient_descent")
+        #trainer = tf.train.MomentumOptimizer(learning_rate=self.config.lr,
+#momentum=0.9, name="nesterov_momentum_optimizer")
+        #trainer = tf.train.AdagradOptimizer(learning_rate=self.config.lr,
+#name="adagrad_optimizer")
+        #trainer = self.optimizer
+        train_op = self.optimizer.minimize(loss, name="minimize_loss")
         # END YOUR CODE
         return train_op
 
@@ -306,14 +312,17 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         config = tf.ConfigProto(log_device_placement=False)
         while step < len(self.train_data):
             with tf.Graph().as_default(), tf.Session(config=config) as sess:
-                self.add_model_vars()
-                if new_model:
-                    init = tf.global_variables_initializer()
-                    sess.run(init)
-                else:
-                    saver = tf.train.Saver()
-                    saver.restore(sess, './weights/%s.temp'%self.config.model_name)
-                # The RESET_AFTER essentially controls batching of our training
+                #self.add_model_vars()
+                #if new_model:
+                #    print("-----------New model------------")
+                #    #import pdb; pdb.set_trace()
+                #    #init = tf.global_variables_initializer()
+                #    #sess.run(init)
+                #else:
+                #    print("-----------Old model------------")
+                #    saver = tf.train.Saver()
+                #    saver.restore(sess, './weights/%s.temp'%self.config.model_name)
+                ## The RESET_AFTER essentially controls batching of our training
                 # When RESET_AFTER == len(self.train_data) then this is for loop
                 # is executed once. Otherwise it is run len(self.train_data /
                 # RESET_AFTER)
@@ -322,11 +331,25 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                 for _ in range(RESET_AFTER):
                     if step>=len(self.train_data):
                         break
+                    if step == 0: # this is GLORIOUS
+                        self.add_model_vars()
+
                     tree = self.train_data[step]
                     logits = self.inference(tree)
                     labels = [l for l in tree.labels if l!=2]
                     loss = self.loss(logits, labels)
                     train_op = self.training(loss)
+                    if step == 0:
+                        if new_model:
+                            print("-----------New model------------")
+                            #import pdb; pdb.set_trace()
+                            init = tf.global_variables_initializer()
+                            sess.run(init)
+                        else:
+                            print("-----------Old model------------")
+                            saver = tf.train.Saver()
+                            saver.restore(sess, './weights/%s.temp'%self.config.model_name)
+
                     loss, _ = sess.run([loss, train_op], options=run_options, run_metadata=run_metadata)
                     loss_history.append(loss)
                     if (step % verbose)==0:
@@ -376,11 +399,7 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         for epoch in range(self.config.max_epochs):
             print('epoch {}'.format(epoch))
             if epoch==0:
-                #train_acc, val_acc, loss_history, val_loss = self.run_epoch(new_model=True)
-                #NOTE:  this allows to restart training after a prior failure to finish
-                #TODO: adjust the parameter for new_model=True to use the presence of model files in the 
-                # ./weights directory
-                train_acc, val_acc, loss_history, val_loss = self.run_epoch()
+                train_acc, val_acc, loss_history, val_loss = self.run_epoch(new_model=True)
             else:
                 train_acc, val_acc, loss_history, val_loss = self.run_epoch()
             complete_loss_history.extend(loss_history)
@@ -438,12 +457,12 @@ def test_RNN():
     stats = model.train(verbose=True)
     print('Training time: {}'.format(time.time() - start_time))
 
-    #plt.plot(stats['loss_history'])
-    #plt.title('Loss history')
-    #plt.xlabel('Iteration')
-    #plt.ylabel('Loss')
-    #plt.savefig("loss_history.png")
-    #plt.show()
+    plt.plot(stats['loss_history'])
+    plt.title('Loss history')
+    plt.xlabel('Iteration')
+    plt.ylabel('Loss')
+    plt.savefig("loss_history.png")
+    plt.show()
 
     print('Test')
     print('=-=-=')
