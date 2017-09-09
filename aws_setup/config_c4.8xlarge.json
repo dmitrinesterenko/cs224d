@@ -9,7 +9,7 @@
   "LaunchSpecifications": [
     {
       "ImageId": "ami-27152c5c",
-      "InstanceType": "p2.xlarge",
+      "InstanceType": "c4.8xlarge",
       "KeyName": "aws01",
       "SpotPrice": "0.9",
       "BlockDeviceMappings": [
@@ -39,7 +39,7 @@
     },
     {
       "ImageId": "ami-27152c5c",
-      "InstanceType": "p2.xlarge",
+      "InstanceType": "c4.8xlarge",
       "KeyName": "aws01",
       "SpotPrice": "0.9",
       "BlockDeviceMappings": [
@@ -69,7 +69,7 @@
     },
     {
       "ImageId": "ami-27152c5c",
-      "InstanceType": "p2.xlarge",
+      "InstanceType": "c4.8xlarge",
       "KeyName": "aws01",
       "SpotPrice": "0.9",
       "BlockDeviceMappings": [
@@ -99,7 +99,7 @@
     },
     {
       "ImageId": "ami-27152c5c",
-      "InstanceType": "p2.xlarge",
+      "InstanceType": "c4.8xlarge",
       "KeyName": "aws01",
       "SpotPrice": "0.9",
       "BlockDeviceMappings": [
