@@ -18,6 +18,9 @@ class Config(object):
     """Holds model hyperparams and data information.
        Model objects are passed a Config() object at instantiation.
     """
+    #Planning on using this to minimize the operations needed
+    #using the model to make predictions
+    train = True
     embed_size = 35
     label_size = 2
     early_stopping = 2
@@ -33,9 +36,15 @@ class Config(object):
 
 class RNN_Model():
 
+    def __init__(self, config):
+        self.config = config
+        self.load_data()
+        self.setup_logging()
+
     def load_data(self):
         """Loads train/dev/test data and builds vocabulary."""
         # the training data was originally 700
+
         self.train_data, self.dev_data, self.test_data = tr.simplified_data(700, 100, 200)
         # build vocab from training data
         self.vocab = Vocab()
@@ -278,11 +287,6 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         predictions = tf.argmax(y, axis=1, name="prediction")
         # END YOUR CODE
         return predictions
-
-    def __init__(self, config):
-        self.config = config
-        self.load_data()
-        self.setup_logging()
 
     def predict(self, trees, weights_path, get_loss = False):
         """Make predictions from the provided model."""
