@@ -1,7 +1,6 @@
 import sys
 import os
 import numpy as np
-#import matplotlib.pyplot as plt
 import math
 import time
 import itertools
@@ -19,6 +18,9 @@ class Config(object):
     """Holds model hyperparams and data information.
        Model objects are passed a Config() object at instantiation.
     """
+    #Planning on using this to minimize the operations needed
+    #using the model to make predictions
+    train = True
     embed_size = 35
     label_size = 2
     early_stopping = 2
@@ -29,13 +31,20 @@ class Config(object):
     l2 = 0.02
     model_name = 'rnn_embed=%d_l2=%f_lr=%f.weights'%(embed_size, l2, lr)
     root_logdir = './logs'
+    weights_path = "./weights/new_adam"
 
 
 class RNN_Model():
 
+    def __init__(self, config):
+        self.config = config
+        self.load_data()
+        self.setup_logging()
+
     def load_data(self):
         """Loads train/dev/test data and builds vocabulary."""
         # the training data was originally 700
+
         self.train_data, self.dev_data, self.test_data = tr.simplified_data(700, 100, 200)
         # build vocab from training data
         self.vocab = Vocab()
@@ -92,6 +101,9 @@ self.config.embed_size))
             U = tf.get_variable("U", shape=(self.config.embed_size, 2))
             bs = tf.get_variable("bs", shape=(1, 2))
             ### END YOUR CODE
+        # Moving the optimzer here to initialize it
+        self.optimizer = tf.train.AdamOptimizer(learning_rate=self.config.lr, name="adam_optimizer")
+
 
     def add_model(self, node):
         """Recursively build the model to compute the phrase embeddings in the tree
@@ -236,6 +248,8 @@ logits=logits, name="sparse_softmax_loss")) + tf.nn.l2_loss(logits)
 
         Hint: Use tf.train.GradientDescentOptimizer for this model.
                 Calling optimizer.minimize() will return a train_op object.
+              GradientDescent was taking days to optimize the results, switched
+                instead to AdamOptimizer
 
         Args:
             loss: tensor 0-D
@@ -244,9 +258,13 @@ logits=logits, name="sparse_softmax_loss")) + tf.nn.l2_loss(logits)
         """
         train_op = None
         # YOUR CODE HERE
-        trainer = tf.train.GradientDescentOptimizer(self.config.lr,
-name="gradient_descent")
-        train_op = trainer.minimize(loss, name="minimize_loss")
+        #trainer = tf.train.GradientDescentOptimizer(self.config.lr,
+            #name="gradient_descent")
+        #trainer = tf.train.MomentumOptimizer(learning_rate=self.config.lr,
+#momentum=0.9, name="nesterov_momentum_optimizer")
+        #trainer = tf.train.AdagradOptimizer(learning_rate=self.config.lr,
+#name="adagrad_optimizer")
+        train_op = self.optimizer.minimize(loss, name="minimize_loss")
         # END YOUR CODE
         return train_op
 
@@ -269,11 +287,6 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         predictions = tf.argmax(y, axis=1, name="prediction")
         # END YOUR CODE
         return predictions
-
-    def __init__(self, config):
-        self.config = config
-        self.load_data()
-        self.setup_logging()
 
     def predict(self, trees, weights_path, get_loss = False):
         """Make predictions from the provided model."""
@@ -304,27 +317,45 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         config = tf.ConfigProto(log_device_placement=False)
         while step < len(self.train_data):
             with tf.Graph().as_default(), tf.Session(config=config) as sess:
-                self.add_model_vars()
-                if new_model:
-                    init = tf.global_variables_initializer()
-                    sess.run(init)
-                else:
-                    saver = tf.train.Saver()
-                    saver.restore(sess, './weights/%s.temp'%self.config.model_name)
-                # The RESET_AFTER essentially controls batching of our training
+                #self.add_model_vars()
+                #if new_model:
+                #    print("-----------New model------------")
+                #    #import pdb; pdb.set_trace()
+                #    #init = tf.global_variables_initializer()
+                #    #sess.run(init)
+                #else:
+                #    print("-----------Old model------------")
+                #    saver = tf.train.Saver()
+                #    saver.restore(sess, './weights/%s.temp'%self.config.model_name)
+                ## The RESET_AFTER essentially controls batching of our training
                 # When RESET_AFTER == len(self.train_data) then this is for loop
                 # is executed once. Otherwise it is run len(self.train_data /
                 # RESET_AFTER)
                 # This allows to save the trained model parameters every
                 # RESET_AFTER
-                for _ in range(RESET_AFTER):
+                for i in range(RESET_AFTER):
                     if step>=len(self.train_data):
                         break
+                    if i == 0: # this is GLORIOUS :(
+                        self.add_model_vars()
+                    # Define training operations in the graph
                     tree = self.train_data[step]
                     logits = self.inference(tree)
                     labels = [l for l in tree.labels if l!=2]
                     loss = self.loss(logits, labels)
                     train_op = self.training(loss)
+                    # Figure out if this is a new model or we are reusing parameters
+                    if i == 0:
+                        if new_model:
+                            print("-----------New model------------")
+                            init = tf.global_variables_initializer()
+                            sess.run(init)
+                        else:
+                            print("-----------Reuse model------------")
+                            saver = tf.train.Saver()
+                            saver.restore(sess, self.temp_weights_path())
+
+                    # Run the training operations
                     loss, _ = sess.run([loss, train_op], options=run_options, run_metadata=run_metadata)
                     loss_history.append(loss)
                     if (step % verbose)==0:
@@ -335,30 +366,32 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                         file_writer = tf.summary.FileWriter(self.logdir, tf.get_default_graph())
                         summary_str = loss_summary.eval()
                         file_writer.add_summary(summary_str, step)
+                        file_writer.close()
                     step += 1
 
                 saver = tf.train.Saver()
-                if not os.path.exists("./weights"):
-                    os.makedirs("./weights")
-                saver.save(sess, './weights/%s.temp'%self.config.model_name)
+                if not os.path.exists(self.config.weights_path):
+                    os.makedirs(self.config.weights_path)
+                saver.save(sess, self.temp_weights_path())
                 # write timeline data for debugging
                 #tl = timeline.Timeline(run_metadata.step_stats)
                 #ctf = tl.generate_chrome_trace_format()
                 #with open('timeline.json', 'w') as f:
                 #    f.write(ctf)
-
-        train_preds, _ = self.predict(self.train_data, './weights/%s.temp'%self.config.model_name)
-        val_preds, val_losses = self.predict(self.dev_data, './weights/%s.temp'%self.config.model_name, get_loss=True)
+        train_preds, _ = self.predict(self.train_data, self.temp_weights_path())
+        val_preds, val_losses = self.predict(self.dev_data,
+                self.temp_weights_path(),
+                get_loss=True)
         train_labels = [t.root.label for t in self.train_data]
         val_labels = [t.root.label for t in self.dev_data]
         train_acc = np.equal(train_preds, train_labels).mean()
         val_acc = np.equal(val_preds, val_labels).mean()
-        file_writer.close()
         #train_summary = tf.summary.scalar('train accuracy', train_acc)
         #val_summary = tf.summary.scalar('val accuracy', val_acc)
+
         print()
         print('Training acc (only root node): {}'.format(train_acc))
-        print( 'Valiation acc (only root node): {}'.format(val_acc))
+        print( 'Validation acc (only root node): {}'.format(val_acc))
         print( self.make_conf(train_labels, train_preds))
         print( self.make_conf(val_labels, val_preds))
         return train_acc, val_acc, loss_history, np.mean(val_losses)
@@ -371,16 +404,18 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         best_val_loss = float('inf')
         best_val_epoch = 0
         stopped = -1
+        new_model = False
         for epoch in range(self.config.max_epochs):
             print('epoch {}'.format(epoch))
-            if epoch==0:
-                #train_acc, val_acc, loss_history, val_loss = self.run_epoch(new_model=True)
-                #NOTE:  this allows to restart training after a prior failure to finish
-                #TODO: adjust the parameter for new_model=True to use the presence of model files in the 
-                # ./weights directory
-                train_acc, val_acc, loss_history, val_loss = self.run_epoch()
-            else:
-                train_acc, val_acc, loss_history, val_loss = self.run_epoch()
+            #if epoch==0:
+            #    #TODO use the presence of absence of weights to determine if the model is new
+            #    new_model = True
+            start_time = time.time()
+            train_acc, val_acc, loss_history, val_loss = self.run_epoch(new_model)
+            duration = time.time() - start_time
+            print('epoch time {} sec., time left {}'.format(duration,
+                duration *(self.config.max_epochs - epoch)))
+
             complete_loss_history.extend(loss_history)
             train_acc_history.append(train_acc)
             val_acc_history.append(val_acc)
@@ -394,17 +429,14 @@ Neutral, Positive. This HW uses only two labels: negative and positive
 
             #save if model has improved on val
             if val_loss < best_val_loss:
-                 shutil.copyfile('./weights/%s.temp.data-00000-of-00001'%self.config.model_name, './weights/%s.data-00000-of-00001'%self.config.model_name)
-                 shutil.copyfile('./weights/%s.temp.index'%self.config.model_name, './weights/%s.index'%self.config.model_name)
-                 shutil.copyfile('./weights/%s.temp.meta'%self.config.model_name, './weights/%s.meta'%self.config.model_name)
-
-                 best_val_loss = val_loss
-                 best_val_epoch = epoch
+                self.save_weights()
+                best_val_loss = val_loss
+                best_val_epoch = epoch
 
             # if model has not imprvoved for a while stop
             if epoch - best_val_epoch > self.config.early_stopping:
                 stopped = epoch
-                #break
+                break
         if verbose:
                 sys.stdout.write('\r')
                 sys.stdout.flush()
@@ -416,7 +448,27 @@ Neutral, Positive. This HW uses only two labels: negative and positive
             'val_acc_history': val_acc_history,
             }
 
+    def save_weights(self):
+         """Save the best weights in their more permanent state"""
+         shutil.copyfile("{}.data-00000-of-00001".format(self.temp_weights_path()),
+                         "{}.data-00000-of-00001".format(self.weights_path()))
+         shutil.copyfile("{}.index".format(self.temp_weights_path()),
+                         "{}.index".format(self.weights_path()))
+         shutil.copyfile("{}.meta".format(self.temp_weights_path()),
+                         "{}.meta".format(self.weights_path()))
+
+    def temp_weights_path(self):
+        """The path to the temporary weights while we are still training"""
+        return "{}/{}.temp".format(self.config.weights_path,
+self.config.model_name)
+
+    def weights_path(self):
+        """The path to the weights after training is complete"""
+        return "{}/{}".format(self.config.weights_path, self.config.model_name)
+
+
     def make_conf(self, labels, predictions):
+        """Identify matches between labels and predictions"""
         confmat = np.zeros([2, 2])
         for l,p in zip(labels, predictions):
             confmat[l, p] += 1
@@ -436,16 +488,9 @@ def test_RNN():
     stats = model.train(verbose=True)
     print('Training time: {}'.format(time.time() - start_time))
 
-    #plt.plot(stats['loss_history'])
-    #plt.title('Loss history')
-    #plt.xlabel('Iteration')
-    #plt.ylabel('Loss')
-    #plt.savefig("loss_history.png")
-    #plt.show()
-
     print('Test')
     print('=-=-=')
-    predictions, _ = model.predict(model.test_data, './weights/%s.temp'%model.config.model_name)
+    predictions, _ = model.predict(model.test_data, model.weights_path())
     labels = [t.root.label for t in model.test_data]
     test_acc = np.equal(predictions, labels).mean()
     print('Test acc: {}'.format(test_acc))

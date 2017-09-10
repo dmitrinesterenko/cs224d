@@ -1,0 +1,76 @@
+2017-09-03 11:05:57.774358: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-09-03 11:05:57.774571: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-09-03 11:05:57.774592: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-09-03 11:05:57.774610: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-09-03 11:05:57.774627: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+Loading train trees..
+Loading dev trees..
+Loading test trees..
+1852 1510
+5058.0 total words with 1568 uniques
+epoch 0
+Traceback (most recent call last):
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/client/session.py", line 1139, in _do_call
+    return fn(*args)
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/client/session.py", line 1121, in _run_fn
+    status, run_metadata)
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/contextlib.py", line 66, in __exit__
+    next(self.gen)
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/framework/errors_impl.py", line 466, in raise_exception_on_not_ok_status
+    pywrap_tensorflow.TF_GetCode(status))
+tensorflow.python.framework.errors_impl.FailedPreconditionError: Attempting to use uninitialized value Projection/bs/nesterov_momentum_optimizer
+	 [[Node: minimize_loss/update_Projection/bs/ApplyMomentum = ApplyMomentum[T=DT_FLOAT, _class=["loc:@Projection/bs"], use_locking=false, use_nesterov=true, _device="/job:localhost/replica:0/task:0/cpu:0"](Projection/bs, Projection/bs/nesterov_momentum_optimizer, minimize_loss/learning_rate, gradients/add_6_grad/tuple/control_dependency_1, minimize_loss/momentum)]]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "rnn.py", line 456, in <module>
+    test_RNN()
+  File "rnn.py", line 438, in test_RNN
+    stats = model.train(verbose=True)
+  File "rnn.py", line 383, in train
+    train_acc, val_acc, loss_history, val_loss = self.run_epoch()
+  File "rnn.py", line 330, in run_epoch
+    loss, _ = sess.run([loss, train_op], options=run_options, run_metadata=run_metadata)
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/client/session.py", line 789, in run
+    run_metadata_ptr)
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/client/session.py", line 997, in _run
+    feed_dict_string, options, run_metadata)
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/client/session.py", line 1132, in _do_run
+    target_list, options, run_metadata)
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/client/session.py", line 1152, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.FailedPreconditionError: Attempting to use uninitialized value Projection/bs/nesterov_momentum_optimizer
+	 [[Node: minimize_loss/update_Projection/bs/ApplyMomentum = ApplyMomentum[T=DT_FLOAT, _class=["loc:@Projection/bs"], use_locking=false, use_nesterov=true, _device="/job:localhost/replica:0/task:0/cpu:0"](Projection/bs, Projection/bs/nesterov_momentum_optimizer, minimize_loss/learning_rate, gradients/add_6_grad/tuple/control_dependency_1, minimize_loss/momentum)]]
+
+Caused by op 'minimize_loss/update_Projection/bs/ApplyMomentum', defined at:
+  File "rnn.py", line 456, in <module>
+    test_RNN()
+  File "rnn.py", line 438, in test_RNN
+    stats = model.train(verbose=True)
+  File "rnn.py", line 383, in train
+    train_acc, val_acc, loss_history, val_loss = self.run_epoch()
+  File "rnn.py", line 329, in run_epoch
+    train_op = self.training(loss)
+  File "rnn.py", line 251, in training
+    train_op = trainer.minimize(loss, name="minimize_loss")
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/training/optimizer.py", line 325, in minimize
+    name=name)
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/training/optimizer.py", line 456, in apply_gradients
+    update_ops.append(processor.update_op(self, grad))
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/training/optimizer.py", line 97, in update_op
+    return optimizer._apply_dense(g, self._v)  # pylint: disable=protected-access
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/training/momentum.py", line 82, in _apply_dense
+    use_nesterov=self._use_nesterov).op
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/training/gen_training_ops.py", line 335, in apply_momentum
+    use_nesterov=use_nesterov, name=name)
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/framework/op_def_library.py", line 767, in apply_op
+    op_def=op_def)
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/framework/ops.py", line 2506, in create_op
+    original_op=self._default_original_op, op_def=op_def)
+  File "/home/dmitri/anaconda2/envs/py35/lib/python3.5/site-packages/tensorflow/python/framework/ops.py", line 1269, in __init__
+    self._traceback = _extract_stack()
+
+FailedPreconditionError (see above for traceback): Attempting to use uninitialized value Projection/bs/nesterov_momentum_optimizer
+	 [[Node: minimize_loss/update_Projection/bs/ApplyMomentum = ApplyMomentum[T=DT_FLOAT, _class=["loc:@Projection/bs"], use_locking=false, use_nesterov=true, _device="/job:localhost/replica:0/task:0/cpu:0"](Projection/bs, Projection/bs/nesterov_momentum_optimizer, minimize_loss/learning_rate, gradients/add_6_grad/tuple/control_dependency_1, minimize_loss/momentum)]]
+

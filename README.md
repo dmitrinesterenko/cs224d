@@ -39,3 +39,18 @@ Once instance is up there will be a cs224 folder in the home folder.
 `git pull origin master` and you have the latest code. Execute with `python
 q3_RNNLM.py`
 
+### Support Scripts for AWS
+./aws_setup contains support scripts for creatin AWS spot instance
+infrastructure
+
+source ./aws_setup/commands.sh to have some basic commands that perform:
+`describe` the environment
+`setup` a new spot instance
+`login` to the instance
+`terminate` it when you are done;
+
+#### Login
+When running N multiple instances choose which one to login to by providing an
+instance number from 0-N.
+`./aws_setup/login.sh 0` to login to the 1st instance
+

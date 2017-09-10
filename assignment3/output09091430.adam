@@ -1,0 +1,521 @@
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcublas.so.7.5 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcudnn.so.5 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcufft.so.7.5 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcurand.so.7.5 locally
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:910] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:885] Found device 0 with properties: 
+name: Tesla K80
+major: 3 minor: 7 memoryClockRate (GHz) 0.8235
+pciBusID 0000:00:1e.0
+Total memory: 11.17GiB
+Free memory: 11.11GiB
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:906] DMA: 0 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:916] 0:   Y 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcupti.so.7.5 locally
+Loading train trees..
+Loading dev trees..
+Loading test trees..
+1852 1510
+5058.0 total words with 1568 uniques
+epoch 0
+-----------Old model------------
+0 / 700 :    loss = 0.64838415384310 / 700 :    loss = 0.66582053899820 / 700 :    loss = 0.66009575128630 / 700 :    loss = 0.66570967435840 / 700 :    loss = 0.67201900482250 / 700 :    loss = 0.67748886346860 / 700 :    loss = 0.6778644919470 / 700 :    loss = 0.67831361293880 / 700 :    loss = 0.67820042371790 / 700 :    loss = 0.677757322788I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.679964959621110 / 700 :    loss = 0.682668209076120 / 700 :    loss = 0.682402133942130 / 700 :    loss = 0.683221161366140 / 700 :    loss = 0.685133457184150 / 700 :    loss = 0.685630142689160 / 700 :    loss = 0.685489177704170 / 700 :    loss = 0.68735575676180 / 700 :    loss = 0.688003718853190 / 700 :    loss = 0.689261078835I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.690796375275210 / 700 :    loss = 0.704348146915220 / 700 :    loss = 0.709364831448230 / 700 :    loss = 0.710173606873240 / 700 :    loss = 0.712587952614250 / 700 :    loss = 0.714038670063260 / 700 :    loss = 0.714719593525270 / 700 :    loss = 0.715171813965280 / 700 :    loss = 0.715299487114290 / 700 :    loss = 0.715395450592I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.715294539928310 / 700 :    loss = 0.716773033142320 / 700 :    loss = 0.716538786888330 / 700 :    loss = 0.716105282307340 / 700 :    loss = 0.716643035412350 / 700 :    loss = 0.717474937439360 / 700 :    loss = 0.716671764851370 / 700 :    loss = 0.716905593872380 / 700 :    loss = 0.71656537056390 / 700 :    loss = 0.71599906683I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+400 / 700 :    loss = 0.715444207191410 / 700 :    loss = 0.7146037817420 / 700 :    loss = 0.714373290539430 / 700 :    loss = 0.714760422707440 / 700 :    loss = 0.713940739632450 / 700 :    loss = 0.714114964008460 / 700 :    loss = 0.713985443115470 / 700 :    loss = 0.71444773674480 / 700 :    loss = 0.714089334011490 / 700 :    loss = 0.713783740997I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+500 / 700 :    loss = 0.714334070683510 / 700 :    loss = 0.71420776844520 / 700 :    loss = 0.714418053627530 / 700 :    loss = 0.714363396168540 / 700 :    loss = 0.714740097523550 / 700 :    loss = 0.71459454298560 / 700 :    loss = 0.71437394619570 / 700 :    loss = 0.714065611362580 / 700 :    loss = 0.713249087334590 / 700 :    loss = 0.712886691093I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+600 / 700 :    loss = 0.712325751781610 / 700 :    loss = 0.711653351784620 / 700 :    loss = 0.711376428604630 / 700 :    loss = 0.711371779442640 / 700 :    loss = 0.711361587048650 / 700 :    loss = 0.712062239647660 / 700 :    loss = 0.712769627571670 / 700 :    loss = 0.713338255882680 / 700 :    loss = 0.713394641876690 / 700 :    loss = 0.713585734367I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+()
+Training acc (only root node): 0.717142857143
+Valiation acc (only root node): 0.55
+[[ 154.  196.]
+ [   2.  348.]]
+[[ 10.  40.]
+ [  5.  45.]]
+epoch 1
+-----------Old model------------
+0 / 700 :    loss = 0.69295454025310 / 700 :    loss = 0.69673418998720 / 700 :    loss = 0.68719339370730 / 700 :    loss = 0.68986141681740 / 700 :    loss = 0.69747960567550 / 700 :    loss = 0.69593071937660 / 700 :    loss = 0.6941739916870 / 700 :    loss = 0.6910311579780 / 700 :    loss = 0.68985778093390 / 700 :    loss = 0.689593851566I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.690625786781110 / 700 :    loss = 0.691139161587120 / 700 :    loss = 0.691483855247130 / 700 :    loss = 0.693842530251140 / 700 :    loss = 0.693711817265150 / 700 :    loss = 0.694640994072160 / 700 :    loss = 0.694110870361170 / 700 :    loss = 0.694441258907180 / 700 :    loss = 0.693239331245190 / 700 :    loss = 0.693849742413I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.69321835041210 / 700 :    loss = 0.693399786949220 / 700 :    loss = 0.69337952137230 / 700 :    loss = 0.693393051624240 / 700 :    loss = 0.693937957287250 / 700 :    loss = 0.694700062275260 / 700 :    loss = 0.69493407011270 / 700 :    loss = 0.694483578205280 / 700 :    loss = 0.694861769676290 / 700 :    loss = 0.694252490997I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.694393396378310 / 700 :    loss = 0.695449233055320 / 700 :    loss = 0.694869101048330 / 700 :    loss = 0.693737387657340 / 700 :    loss = 0.693442821503350 / 700 :    loss = 0.693506658077360 / 700 :    loss = 0.693030416965370 / 700 :    loss = 0.692878842354380 / 700 :    loss = 0.693405032158390 / 700 :    loss = 0.693259000778I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+400 / 700 :    loss = 0.692979216576410 / 700 :    loss = 0.693640887737420 / 700 :    loss = 0.694129645824430 / 700 :    loss = 0.69681429863440 / 700 :    loss = 0.698978364468450 / 700 :    loss = 0.699559092522460 / 700 :    loss = 0.699568152428470 / 700 :    loss = 0.700244426727480 / 700 :    loss = 0.70006275177490 / 700 :    loss = 0.699872255325I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+500 / 700 :    loss = 0.699842870235510 / 700 :    loss = 0.700012743473520 / 700 :    loss = 0.69988578558530 / 700 :    loss = 0.699439823627540 / 700 :    loss = 0.699411451817550 / 700 :    loss = 0.699474155903560 / 700 :    loss = 0.69949734211570 / 700 :    loss = 0.699430763721580 / 700 :    loss = 0.699106633663590 / 700 :    loss = 0.698699712753I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+600 / 700 :    loss = 0.698665082455610 / 700 :    loss = 0.69833189249620 / 700 :    loss = 0.698234498501630 / 700 :    loss = 0.698264658451640 / 700 :    loss = 0.69805842638650 / 700 :    loss = 0.698158681393660 / 700 :    loss = 0.697848916054670 / 700 :    loss = 0.697802424431680 / 700 :    loss = 0.697523415089690 / 700 :    loss = 0.697510957718I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+()
+Training acc (only root node): 0.751428571429
+Valiation acc (only root node): 0.52
+[[ 216.  134.]
+ [  40.  310.]]
+[[ 15.  35.]
+ [ 13.  37.]]
+epoch 2
+-----------Old model------------
+0 / 700 :    loss = 0.66037261486110 / 700 :    loss = 0.68513846397420 / 700 :    loss = 0.68496769666730 / 700 :    loss = 0.69111990928640 / 700 :    loss = 0.69076406955750 / 700 :    loss = 0.68863654136760 / 700 :    loss = 0.68696838617370 / 700 :    loss = 0.68503552675280 / 700 :    loss = 0.68535411357990 / 700 :    loss = 0.684617817402I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.684474885464110 / 700 :    loss = 0.684313178062120 / 700 :    loss = 0.689756095409130 / 700 :    loss = 0.697982847691140 / 700 :    loss = 0.743616461754150 / 700 :    loss = 0.746830523014160 / 700 :    loss = 0.744195640087170 / 700 :    loss = 0.752427458763180 / 700 :    loss = 0.753444969654190 / 700 :    loss = 0.75167965889I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.749192476273210 / 700 :    loss = 0.74820971489220 / 700 :    loss = 0.74619692564230 / 700 :    loss = 0.745560705662240 / 700 :    loss = 0.743853032589250 / 700 :    loss = 0.743016242981260 / 700 :    loss = 0.741030156612270 / 700 :    loss = 0.73930066824280 / 700 :    loss = 0.737505674362290 / 700 :    loss = 0.736032009125I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.734250068665310 / 700 :    loss = 0.734350264072320 / 700 :    loss = 0.73310136795330 / 700 :    loss = 0.730645477772340 / 700 :    loss = 0.729981660843350 / 700 :    loss = 0.729403793812360 / 700 :    loss = 0.72805082798370 / 700 :    loss = 0.727008104324380 / 700 :    loss = 0.725858569145390 / 700 :    loss = 0.724456548691I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+400 / 700 :    loss = 0.72291213274410 / 700 :    loss = 0.722381591797420 / 700 :    loss = 0.721104979515430 / 700 :    loss = 0.720395445824440 / 700 :    loss = 0.719481170177450 / 700 :    loss = 0.718722641468460 / 700 :    loss = 0.71778678894470 / 700 :    loss = 0.717266798019480 / 700 :    loss = 0.716329157352490 / 700 :    loss = 0.715385496616I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+500 / 700 :    loss = 0.71468436718510 / 700 :    loss = 0.714058756828520 / 700 :    loss = 0.71352827549530 / 700 :    loss = 0.712696254253540 / 700 :    loss = 0.712066352367550 / 700 :    loss = 0.711348593235560 / 700 :    loss = 0.710876226425570 / 700 :    loss = 0.710455954075580 / 700 :    loss = 0.709879994392590 / 700 :    loss = 0.709426164627I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+600 / 700 :    loss = 0.708940386772610 / 700 :    loss = 0.708362579346620 / 700 :    loss = 0.707957208157630 / 700 :    loss = 0.707829773426640 / 700 :    loss = 0.70737606287650 / 700 :    loss = 0.706947267056660 / 700 :    loss = 0.706350266933670 / 700 :    loss = 0.706263005733680 / 700 :    loss = 0.70586514473690 / 700 :    loss = 0.705665528774I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+()
+Training acc (only root node): 0.802857142857
+Valiation acc (only root node): 0.5
+[[ 242.  108.]
+ [  30.  320.]]
+[[ 15.  35.]
+ [ 15.  35.]]
+annealed lr to 0.006667
+epoch 3
+-----------Old model------------
+0 / 700 :    loss = 0.67899757623710 / 700 :    loss = 0.677409708520 / 700 :    loss = 0.6703665256530 / 700 :    loss = 0.67483931779940 / 700 :    loss = 0.67659235000650 / 700 :    loss = 0.67458802461660 / 700 :    loss = 0.67364382743870 / 700 :    loss = 0.67301362752980 / 700 :    loss = 0.67207980155990 / 700 :    loss = 0.672482788563I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.672432482243110 / 700 :    loss = 0.672401726246120 / 700 :    loss = 0.671863377094130 / 700 :    loss = 0.67235827446140 / 700 :    loss = 0.672571480274150 / 700 :    loss = 0.672478556633160 / 700 :    loss = 0.672082841396170 / 700 :    loss = 0.672236740589180 / 700 :    loss = 0.671261250973190 / 700 :    loss = 0.671406924725I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.670954406261210 / 700 :    loss = 0.671215772629220 / 700 :    loss = 0.670829117298230 / 700 :    loss = 0.670505344868240 / 700 :    loss = 0.670730531216250 / 700 :    loss = 0.670812010765260 / 700 :    loss = 0.670675575733270 / 700 :    loss = 0.671097755432280 / 700 :    loss = 0.671319246292290 / 700 :    loss = 0.670789659023I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.670976936817310 / 700 :    loss = 0.671454250813320 / 700 :    loss = 0.671543121338330 / 700 :    loss = 0.670852899551340 / 700 :    loss = 0.671175837517350 / 700 :    loss = 0.671870052814360 / 700 :    loss = 0.67157959938370 / 700 :    loss = 0.671697795391380 / 700 :    loss = 0.671463906765390 / 700 :    loss = 0.671212434769I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+400 / 700 :    loss = 0.670721411705410 / 700 :    loss = 0.670941889286420 / 700 :    loss = 0.670898377895430 / 700 :    loss = 0.671012103558440 / 700 :    loss = 0.670888900757450 / 700 :    loss = 0.670831739902460 / 700 :    loss = 0.670693993568470 / 700 :    loss = 0.670985519886480 / 700 :    loss = 0.670810818672490 / 700 :    loss = 0.670721948147I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+500 / 700 :    loss = 0.670713841915510 / 700 :    loss = 0.670752346516520 / 700 :    loss = 0.671089172363530 / 700 :    loss = 0.670894861221540 / 700 :    loss = 0.670937478542550 / 700 :    loss = 0.670789837837560 / 700 :    loss = 0.670971512794570 / 700 :    loss = 0.670941352844580 / 700 :    loss = 0.670801222324590 / 700 :    loss = 0.670712888241I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+600 / 700 :    loss = 0.670597851276610 / 700 :    loss = 0.670388758183620 / 700 :    loss = 0.67042350769630 / 700 :    loss = 0.670639753342640 / 700 :    loss = 0.670417845249650 / 700 :    loss = 0.670326530933660 / 700 :    loss = 0.670187711716670 / 700 :    loss = 0.670286715031680 / 700 :    loss = 0.670124530792690 / 700 :    loss = 0.670159697533I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+()
+Training acc (only root node): 0.945714285714
+Valiation acc (only root node): 0.67
+[[ 336.   14.]
+ [  24.  326.]]
+[[ 31.  19.]
+ [ 14.  36.]]
+epoch 4
+-----------Old model------------
+0 / 700 :    loss = 0.65629518032110 / 700 :    loss = 0.67368495464320 / 700 :    loss = 0.66273087263130 / 700 :    loss = 0.66527348756840 / 700 :    loss = 0.67000734806150 / 700 :    loss = 0.66848772764260 / 700 :    loss = 0.6683329343870 / 700 :    loss = 0.66765773296480 / 700 :    loss = 0.66669136285890 / 700 :    loss = 0.667014122009I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.667518854141110 / 700 :    loss = 0.667513310909120 / 700 :    loss = 0.66708868742130 / 700 :    loss = 0.666880011559140 / 700 :    loss = 0.66691249609150 / 700 :    loss = 0.667209923267160 / 700 :    loss = 0.666841566563170 / 700 :    loss = 0.667133271694180 / 700 :    loss = 0.66632938385190 / 700 :    loss = 0.666316151619I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.665595114231210 / 700 :    loss = 0.665722072124220 / 700 :    loss = 0.665450453758230 / 700 :    loss = 0.665211737156240 / 700 :    loss = 0.665303349495250 / 700 :    loss = 0.665353834629260 / 700 :    loss = 0.665214657784270 / 700 :    loss = 0.665626347065280 / 700 :    loss = 0.66598457098290 / 700 :    loss = 0.665322899818I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.665202021599310 / 700 :    loss = 0.665713310242320 / 700 :    loss = 0.665798783302330 / 700 :    loss = 0.665226340294340 / 700 :    loss = 0.665667831898350 / 700 :    loss = 0.666097283363360 / 700 :    loss = 0.66591835022370 / 700 :    loss = 0.666059195995380 / 700 :    loss = 0.665854990482390 / 700 :    loss = 0.665656030178I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+400 / 700 :    loss = 0.665092766285410 / 700 :    loss = 0.665268480778420 / 700 :    loss = 0.665122151375430 / 700 :    loss = 0.665332555771440 / 700 :    loss = 0.665293872356450 / 700 :    loss = 0.665469706059460 / 700 :    loss = 0.66548615694470 / 700 :    loss = 0.665688276291480 / 700 :    loss = 0.665606439114490 / 700 :    loss = 0.665429830551I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+500 / 700 :    loss = 0.665572881699510 / 700 :    loss = 0.665633022785520 / 700 :    loss = 0.665909588337530 / 700 :    loss = 0.665848851204540 / 700 :    loss = 0.665869414806550 / 700 :    loss = 0.66585290432560 / 700 :    loss = 0.665885984898570 / 700 :    loss = 0.665871202946580 / 700 :    loss = 0.665616750717590 / 700 :    loss = 0.665478885174I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+600 / 700 :    loss = 0.665359854698610 / 700 :    loss = 0.665189981461620 / 700 :    loss = 0.665408611298630 / 700 :    loss = 0.665642082691640 / 700 :    loss = 0.665536880493650 / 700 :    loss = 0.665448606014660 / 700 :    loss = 0.66526222229670 / 700 :    loss = 0.665420174599680 / 700 :    loss = 0.665210723877690 / 700 :    loss = 0.665306508541I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+()
+Training acc (only root node): 0.924285714286
+Valiation acc (only root node): 0.62
+[[ 345.    5.]
+ [  48.  302.]]
+[[ 41.   9.]
+ [ 29.  21.]]
+annealed lr to 0.004444
+epoch 5
+-----------Old model------------
+0 / 700 :    loss = 0.66127341985710 / 700 :    loss = 0.67067623138420 / 700 :    loss = 0.66045314073630 / 700 :    loss = 0.66145342588440 / 700 :    loss = 0.66472297906950 / 700 :    loss = 0.66459596157160 / 700 :    loss = 0.66445231437770 / 700 :    loss = 0.66418576240580 / 700 :    loss = 0.66358375549390 / 700 :    loss = 0.66424125433I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.665296673775110 / 700 :    loss = 0.665507078171120 / 700 :    loss = 0.664857804775130 / 700 :    loss = 0.664514422417140 / 700 :    loss = 0.66455835104150 / 700 :    loss = 0.664961874485160 / 700 :    loss = 0.664707481861170 / 700 :    loss = 0.664885044098180 / 700 :    loss = 0.664103448391190 / 700 :    loss = 0.664102911949I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.663196802139210 / 700 :    loss = 0.663262009621220 / 700 :    loss = 0.663069069386230 / 700 :    loss = 0.662996828556240 / 700 :    loss = 0.663011133671250 / 700 :    loss = 0.663076639175260 / 700 :    loss = 0.663020789623270 / 700 :    loss = 0.663149774075280 / 700 :    loss = 0.663315355778290 / 700 :    loss = 0.662834107876I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.662682652473310 / 700 :    loss = 0.663085579872320 / 700 :    loss = 0.662989377975330 / 700 :    loss = 0.662605881691340 / 700 :    loss = 0.662880480289350 / 700 :    loss = 0.663335442543360 / 700 :    loss = 0.663159966469370 / 700 :    loss = 0.663181245327380 / 700 :    loss = 0.663150548935390 / 700 :    loss = 0.662974894047I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+400 / 700 :    loss = 0.662600874901410 / 700 :    loss = 0.662615060806420 / 700 :    loss = 0.662498950958430 / 700 :    loss = 0.662788152695440 / 700 :    loss = 0.66273522377450 / 700 :    loss = 0.66284263134460 / 700 :    loss = 0.662837207317470 / 700 :    loss = 0.663102805614480 / 700 :    loss = 0.663085758686490 / 700 :    loss = 0.663045585155I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+500 / 700 :    loss = 0.663253188133510 / 700 :    loss = 0.663411676884520 / 700 :    loss = 0.663625180721530 / 700 :    loss = 0.66351377964540 / 700 :    loss = 0.663572788239550 / 700 :    loss = 0.663589954376560 / 700 :    loss = 0.663651168346570 / 700 :    loss = 0.663596093655580 / 700 :    loss = 0.663277566433590 / 700 :    loss = 0.663226604462I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+600 / 700 :    loss = 0.663063824177610 / 700 :    loss = 0.662917435169620 / 700 :    loss = 0.662943661213630 / 700 :    loss = 0.663209438324640 / 700 :    loss = 0.663067162037650 / 700 :    loss = 0.663017392159660 / 700 :    loss = 0.662876784801670 / 700 :    loss = 0.66305065155680 / 700 :    loss = 0.662859201431690 / 700 :    loss = 0.66308349371I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+()
+Training acc (only root node): 0.891428571429
+Valiation acc (only root node): 0.59
+[[ 347.    3.]
+ [  73.  277.]]
+[[ 45.   5.]
+ [ 36.  14.]]
+annealed lr to 0.002963
+epoch 6
+-----------Old model------------
+0 / 700 :    loss = 0.67336678504910 / 700 :    loss = 0.6716727614420 / 700 :    loss = 0.6596218943630 / 700 :    loss = 0.66035342216540 / 700 :    loss = 0.66291117668250 / 700 :    loss = 0.66209214925860 / 700 :    loss = 0.66184705495870 / 700 :    loss = 0.66141647100480 / 700 :    loss = 0.66110849380590 / 700 :    loss = 0.661138832569I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.661614894867110 / 700 :    loss = 0.662213683128120 / 700 :    loss = 0.661830604076130 / 700 :    loss = 0.662067115307140 / 700 :    loss = 0.662056982517150 / 700 :    loss = 0.662535488605160 / 700 :    loss = 0.662230789661170 / 700 :    loss = 0.662537872791180 / 700 :    loss = 0.66188287735190 / 700 :    loss = 0.661852955818I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.661106407642210 / 700 :    loss = 0.661225140095220 / 700 :    loss = 0.660979688168230 / 700 :    loss = 0.66089117527240 / 700 :    loss = 0.660876452923250 / 700 :    loss = 0.660989940166260 / 700 :    loss = 0.660950303078270 / 700 :    loss = 0.66105222702280 / 700 :    loss = 0.661135554314290 / 700 :    loss = 0.66062027216I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.660549640656310 / 700 :    loss = 0.660839438438320 / 700 :    loss = 0.660883903503330 / 700 :    loss = 0.660468757153340 / 700 :    loss = 0.660813868046350 / 700 :    loss = 0.661233305931360 / 700 :    loss = 0.661139845848370 / 700 :    loss = 0.661093175411380 / 700 :    loss = 0.661066412926390 / 700 :    loss = 0.661180496216I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+400 / 700 :    loss = 0.660711824894410 / 700 :    loss = 0.660958766937420 / 700 :    loss = 0.660849511623430 / 700 :    loss = 0.661064684391440 / 700 :    loss = 0.66107237339450 / 700 :    loss = 0.661209523678460 / 700 :    loss = 0.661268115044470 / 700 :    loss = 0.661619305611480 / 700 :    loss = 0.66162365675490 / 700 :    loss = 0.661544978619I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+500 / 700 :    loss = 0.66182667017510 / 700 :    loss = 0.662004053593520 / 700 :    loss = 0.662262678146530 / 700 :    loss = 0.662159025669540 / 700 :    loss = 0.662209093571550 / 700 :    loss = 0.662235319614560 / 700 :    loss = 0.662409305573570 / 700 :    loss = 0.66241389513580 / 700 :    loss = 0.662161290646590 / 700 :    loss = 0.662081182003I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+600 / 700 :    loss = 0.66190379858610 / 700 :    loss = 0.661836266518620 / 700 :    loss = 0.661965370178630 / 700 :    loss = 0.662195563316640 / 700 :    loss = 0.662055075169650 / 700 :    loss = 0.661946356297660 / 700 :    loss = 0.661799013615670 / 700 :    loss = 0.661935567856680 / 700 :    loss = 0.661687254906690 / 700 :    loss = 0.661748051643I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+()
+Training acc (only root node): 0.958571428571
+Valiation acc (only root node): 0.73
+[[ 337.   13.]
+ [  16.  334.]]
+[[ 37.  13.]
+ [ 14.  36.]]
+annealed lr to 0.001975
+epoch 7
+-----------Old model------------
+0 / 700 :    loss = 0.6529192924510 / 700 :    loss = 0.66414904594420 / 700 :    loss = 0.65314185619430 / 700 :    loss = 0.65551602840440 / 700 :    loss = 0.65774559974750 / 700 :    loss = 0.65795803070160 / 700 :    loss = 0.65792268514670 / 700 :    loss = 0.65771430730880 / 700 :    loss = 0.6571342945190 / 700 :    loss = 0.657226383686I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.65774422884110 / 700 :    loss = 0.658459424973120 / 700 :    loss = 0.657848060131130 / 700 :    loss = 0.657984852791140 / 700 :    loss = 0.658217310905150 / 700 :    loss = 0.658587992191160 / 700 :    loss = 0.658538997173170 / 700 :    loss = 0.658909201622180 / 700 :    loss = 0.65839523077190 / 700 :    loss = 0.658489465714I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.657871961594210 / 700 :    loss = 0.658076286316220 / 700 :    loss = 0.657899200916230 / 700 :    loss = 0.65790772438240 / 700 :    loss = 0.657945930958250 / 700 :    loss = 0.658088326454260 / 700 :    loss = 0.658161878586270 / 700 :    loss = 0.658272445202280 / 700 :    loss = 0.65847826004290 / 700 :    loss = 0.65799510479I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.65791875124310 / 700 :    loss = 0.658291935921320 / 700 :    loss = 0.658346354961330 / 700 :    loss = 0.657823741436340 / 700 :    loss = 0.658160328865350 / 700 :    loss = 0.658685684204360 / 700 :    loss = 0.658541440964370 / 700 :    loss = 0.658565402031380 / 700 :    loss = 0.658580243587390 / 700 :    loss = 0.658656418324I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+400 / 700 :    loss = 0.658245265484410 / 700 :    loss = 0.65832310915420 / 700 :    loss = 0.658341228962430 / 700 :    loss = 0.658494830132440 / 700 :    loss = 0.658495008945450 / 700 :    loss = 0.658673346043460 / 700 :    loss = 0.658776164055470 / 700 :    loss = 0.659094274044480 / 700 :    loss = 0.659042775631490 / 700 :    loss = 0.659049928188I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+500 / 700 :    loss = 0.659225106239510 / 700 :    loss = 0.659381628036520 / 700 :    loss = 0.659648060799530 / 700 :    loss = 0.659535586834540 / 700 :    loss = 0.65964949131550 / 700 :    loss = 0.659679472446560 / 700 :    loss = 0.659843564034570 / 700 :    loss = 0.659887671471580 / 700 :    loss = 0.659609854221590 / 700 :    loss = 0.659535527229I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+600 / 700 :    loss = 0.659328818321610 / 700 :    loss = 0.65923255682620 / 700 :    loss = 0.659384846687630 / 700 :    loss = 0.659598588943640 / 700 :    loss = 0.659480392933650 / 700 :    loss = 0.659423470497660 / 700 :    loss = 0.659256398678670 / 700 :    loss = 0.659436404705680 / 700 :    loss = 0.659241378307690 / 700 :    loss = 0.659324884415I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+()
+Training acc (only root node): 0.971428571429
+Valiation acc (only root node): 0.73
+[[ 340.   10.]
+ [  10.  340.]]
+[[ 38.  12.]
+ [ 15.  35.]]
+annealed lr to 0.001317
+epoch 8
+-----------Old model------------
+0 / 700 :    loss = 0.65392988920210 / 700 :    loss = 0.66240495443320 / 700 :    loss = 0.65179282426830 / 700 :    loss = 0.65438216924740 / 700 :    loss = 0.65675830841150 / 700 :    loss = 0.65701055526760 / 700 :    loss = 0.65714246034670 / 700 :    loss = 0.65716737508880 / 700 :    loss = 0.65638339519590 / 700 :    loss = 0.656457483768I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.656981885433110 / 700 :    loss = 0.657504677773120 / 700 :    loss = 0.656715989113130 / 700 :    loss = 0.656755149364140 / 700 :    loss = 0.656947493553150 / 700 :    loss = 0.657318294048160 / 700 :    loss = 0.657272338867170 / 700 :    loss = 0.657642543316180 / 700 :    loss = 0.657133340836190 / 700 :    loss = 0.657286703587I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.656696617603210 / 700 :    loss = 0.656937539577220 / 700 :    loss = 0.656830251217230 / 700 :    loss = 0.656832098961240 / 700 :    loss = 0.65692204237250 / 700 :    loss = 0.657084167004260 / 700 :    loss = 0.657261133194270 / 700 :    loss = 0.657324850559280 / 700 :    loss = 0.657579600811290 / 700 :    loss = 0.657109856606I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.657090127468310 / 700 :    loss = 0.657448649406320 / 700 :    loss = 0.657490551472330 / 700 :    loss = 0.656951904297340 / 700 :    loss = 0.657261490822350 / 700 :    loss = 0.657812714577360 / 700 :    loss = 0.657575011253370 / 700 :    loss = 0.657618463039380 / 700 :    loss = 0.657666623592390 / 700 :    loss = 0.657621502876I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+400 / 700 :    loss = 0.657177329063410 / 700 :    loss = 0.657171547413420 / 700 :    loss = 0.657105743885430 / 700 :    loss = 0.657284498215440 / 700 :    loss = 0.657218575478450 / 700 :    loss = 0.657392859459460 / 700 :    loss = 0.657472848892470 / 700 :    loss = 0.657761216164480 / 700 :    loss = 0.657665729523490 / 700 :    loss = 0.657691836357I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+500 / 700 :    loss = 0.657781898975510 / 700 :    loss = 0.657967805862520 / 700 :    loss = 0.658270835876530 / 700 :    loss = 0.658164381981540 / 700 :    loss = 0.658265709877550 / 700 :    loss = 0.658300340176560 / 700 :    loss = 0.65843886137570 / 700 :    loss = 0.658481359482580 / 700 :    loss = 0.658177435398590 / 700 :    loss = 0.658093988895I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+600 / 700 :    loss = 0.657895803452610 / 700 :    loss = 0.657780051231620 / 700 :    loss = 0.657876670361630 / 700 :    loss = 0.658133089542640 / 700 :    loss = 0.658003091812650 / 700 :    loss = 0.657961249352660 / 700 :    loss = 0.65783894062670 / 700 :    loss = 0.658050835133680 / 700 :    loss = 0.657871067524690 / 700 :    loss = 0.657988071442I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+()
+Training acc (only root node): 0.975714285714
+Valiation acc (only root node): 0.7
+[[ 342.    8.]
+ [   9.  341.]]
+[[ 39.  11.]
+ [ 19.  31.]]
+annealed lr to 0.000878
+epoch 9
+-----------Old model------------
+0 / 700 :    loss = 0.65240406990110 / 700 :    loss = 0.66133213043220 / 700 :    loss = 0.65166091918930 / 700 :    loss = 0.65431731939340 / 700 :    loss = 0.65639185905550 / 700 :    loss = 0.65650171041560 / 700 :    loss = 0.6565393805570 / 700 :    loss = 0.65678542852480 / 700 :    loss = 0.65592086315290 / 700 :    loss = 0.656073153019I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.656596183777110 / 700 :    loss = 0.657046198845120 / 700 :    loss = 0.656233012676130 / 700 :    loss = 0.656248390675140 / 700 :    loss = 0.656420648098150 / 700 :    loss = 0.656847715378160 / 700 :    loss = 0.656768321991170 / 700 :    loss = 0.657136142254180 / 700 :    loss = 0.656656086445190 / 700 :    loss = 0.656850218773I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.656271457672210 / 700 :    loss = 0.656513571739220 / 700 :    loss = 0.656433403492230 / 700 :    loss = 0.65639847517240 / 700 :    loss = 0.656513273716250 / 700 :    loss = 0.656689047813260 / 700 :    loss = 0.656978428364270 / 700 :    loss = 0.657016396523280 / 700 :    loss = 0.65727186203290 / 700 :    loss = 0.656803905964I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.656852066517310 / 700 :    loss = 0.657141208649320 / 700 :    loss = 0.657159566879330 / 700 :    loss = 0.656593799591340 / 700 :    loss = 0.656875431538350 / 700 :    loss = 0.657429337502360 / 700 :    loss = 0.657164096832370 / 700 :    loss = 0.657224476337380 / 700 :    loss = 0.657284080982390 / 700 :    loss = 0.657224535942I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+400 / 700 :    loss = 0.656761944294410 / 700 :    loss = 0.656743943691420 / 700 :    loss = 0.656632423401430 / 700 :    loss = 0.656802296638440 / 700 :    loss = 0.656730055809450 / 700 :    loss = 0.656906425953460 / 700 :    loss = 0.656978309155470 / 700 :    loss = 0.657259106636480 / 700 :    loss = 0.657142460346490 / 700 :    loss = 0.657137453556I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+500 / 700 :    loss = 0.657226502895510 / 700 :    loss = 0.657413184643520 / 700 :    loss = 0.657716631889530 / 700 :    loss = 0.657627046108540 / 700 :    loss = 0.657737195492550 / 700 :    loss = 0.657803237438560 / 700 :    loss = 0.657928407192570 / 700 :    loss = 0.657979786396580 / 700 :    loss = 0.6576821208590 / 700 :    loss = 0.657598018646I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+600 / 700 :    loss = 0.65741288662610 / 700 :    loss = 0.657279312611620 / 700 :    loss = 0.657350420952630 / 700 :    loss = 0.65757060051640 / 700 :    loss = 0.657438576221650 / 700 :    loss = 0.657365858555660 / 700 :    loss = 0.657227873802670 / 700 :    loss = 0.657463729382680 / 700 :    loss = 0.65728187561690 / 700 :    loss = 0.65742212534I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+()
+Training acc (only root node): 0.972857142857
+Valiation acc (only root node): 0.71
+[[ 335.   15.]
+ [   4.  346.]]
+[[ 36.  14.]
+ [ 15.  35.]]
+annealed lr to 0.000585
+epoch 10
+-----------Old model------------
+0 / 700 :    loss = 0.65136426687210 / 700 :    loss = 0.66138720512420 / 700 :    loss = 0.65109252929730 / 700 :    loss = 0.65419465303440 / 700 :    loss = 0.65619182586750 / 700 :    loss = 0.65623736381560 / 700 :    loss = 0.65626376867370 / 700 :    loss = 0.65669232606980 / 700 :    loss = 0.65566593408690 / 700 :    loss = 0.655875146389I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.656434595585110 / 700 :    loss = 0.656876325607120 / 700 :    loss = 0.656107485294130 / 700 :    loss = 0.656106472015140 / 700 :    loss = 0.656264841557150 / 700 :    loss = 0.656641244888160 / 700 :    loss = 0.656561791897170 / 700 :    loss = 0.656968593597180 / 700 :    loss = 0.656470894814190 / 700 :    loss = 0.656694889069I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.656156182289210 / 700 :    loss = 0.656373679638220 / 700 :    loss = 0.656292796135230 / 700 :    loss = 0.656207442284240 / 700 :    loss = 0.65628862381250 / 700 :    loss = 0.65648829937260 / 700 :    loss = 0.656829237938270 / 700 :    loss = 0.656877160072280 / 700 :    loss = 0.657133281231290 / 700 :    loss = 0.65666437149I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.65677601099310 / 700 :    loss = 0.657030284405320 / 700 :    loss = 0.65702599287330 / 700 :    loss = 0.656442582607340 / 700 :    loss = 0.656694591045350 / 700 :    loss = 0.657253921032360 / 700 :    loss = 0.656978845596370 / 700 :    loss = 0.657061934471380 / 700 :    loss = 0.657109558582390 / 700 :    loss = 0.657047331333I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+400 / 700 :    loss = 0.656569480896410 / 700 :    loss = 0.656555175781420 / 700 :    loss = 0.656437456608430 / 700 :    loss = 0.656603634357440 / 700 :    loss = 0.656526684761450 / 700 :    loss = 0.656692385674460 / 700 :    loss = 0.656751275063470 / 700 :    loss = 0.65703368187480 / 700 :    loss = 0.656916439533490 / 700 :    loss = 0.656869471073I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+500 / 700 :    loss = 0.656964838505510 / 700 :    loss = 0.657149851322520 / 700 :    loss = 0.65744560957530 / 700 :    loss = 0.657361209393540 / 700 :    loss = 0.657470464706550 / 700 :    loss = 0.657559096813560 / 700 :    loss = 0.657670378685570 / 700 :    loss = 0.657716393471580 / 700 :    loss = 0.657427549362590 / 700 :    loss = 0.657353818417I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+600 / 700 :    loss = 0.657186746597610 / 700 :    loss = 0.657054543495620 / 700 :    loss = 0.657115757465630 / 700 :    loss = 0.657333672047640 / 700 :    loss = 0.657195627689650 / 700 :    loss = 0.657112956047660 / 700 :    loss = 0.656954169273670 / 700 :    loss = 0.657203316689680 / 700 :    loss = 0.657022893429690 / 700 :    loss = 0.657166719437I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+()
+Training acc (only root node): 0.971428571429
+Valiation acc (only root node): 0.69
+[[ 333.   17.]
+ [   3.  347.]]
+[[ 34.  16.]
+ [ 15.  35.]]
+annealed lr to 0.000390
+epoch 11
+-----------Old model------------
+0 / 700 :    loss = 0.6506439447410 / 700 :    loss = 0.66160178184520 / 700 :    loss = 0.65033823251730 / 700 :    loss = 0.65399038791740 / 700 :    loss = 0.65594345331250 / 700 :    loss = 0.6560788154660 / 700 :    loss = 0.65608537197170 / 700 :    loss = 0.65656262636280 / 700 :    loss = 0.65544527769190 / 700 :    loss = 0.655686557293I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.65628182888110 / 700 :    loss = 0.656734883785120 / 700 :    loss = 0.656025111675130 / 700 :    loss = 0.656033217907140 / 700 :    loss = 0.656185746193150 / 700 :    loss = 0.656495332718160 / 700 :    loss = 0.656421840191170 / 700 :    loss = 0.656837880611180 / 700 :    loss = 0.656324923038190 / 700 :    loss = 0.656588673592I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.656090736389210 / 700 :    loss = 0.656291365623220 / 700 :    loss = 0.656195998192230 / 700 :    loss = 0.656065702438240 / 700 :    loss = 0.656112909317250 / 700 :    loss = 0.656301915646260 / 700 :    loss = 0.656608343124270 / 700 :    loss = 0.65666782856280 / 700 :    loss = 0.656914234161290 / 700 :    loss = 0.656436860561I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.656576454639310 / 700 :    loss = 0.656820237637320 / 700 :    loss = 0.656809866428330 / 700 :    loss = 0.656231105328340 / 700 :    loss = 0.656474113464350 / 700 :    loss = 0.65702599287360 / 700 :    loss = 0.656755566597370 / 700 :    loss = 0.656856834888380 / 700 :    loss = 0.656889379025390 / 700 :    loss = 0.656821668148I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+400 / 700 :    loss = 0.656335711479410 / 700 :    loss = 0.656321287155420 / 700 :    loss = 0.656206190586430 / 700 :    loss = 0.656369447708440 / 700 :    loss = 0.656293332577450 / 700 :    loss = 0.656461775303460 / 700 :    loss = 0.656510055065470 / 700 :    loss = 0.656792461872480 / 700 :    loss = 0.65667039156490 / 700 :    loss = 0.656599760056I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+500 / 700 :    loss = 0.65669554472510 / 700 :    loss = 0.656883060932520 / 700 :    loss = 0.657178878784530 / 700 :    loss = 0.657093524933540 / 700 :    loss = 0.657203495502550 / 700 :    loss = 0.65730202198560 / 700 :    loss = 0.657406568527570 / 700 :    loss = 0.65744549036580 / 700 :    loss = 0.657168149948590 / 700 :    loss = 0.657103896141I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+600 / 700 :    loss = 0.656956017017610 / 700 :    loss = 0.656833231449620 / 700 :    loss = 0.656899094582630 / 700 :    loss = 0.657114923640 / 700 :    loss = 0.656981527805650 / 700 :    loss = 0.656901538372660 / 700 :    loss = 0.656736850739670 / 700 :    loss = 0.656975030899680 / 700 :    loss = 0.656793057919690 / 700 :    loss = 0.656934022903I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+()
+Training acc (only root node): 0.971428571429
+Valiation acc (only root node): 0.69
+[[ 333.   17.]
+ [   3.  347.]]
+[[ 34.  16.]
+ [ 15.  35.]]
+annealed lr to 0.000260
+epoch 12
+-----------Old model------------
+0 / 700 :    loss = 0.65055286884310 / 700 :    loss = 0.66138970851920 / 700 :    loss = 0.64975845813830 / 700 :    loss = 0.65367382764840 / 700 :    loss = 0.65561676025450 / 700 :    loss = 0.65586125850760 / 700 :    loss = 0.6558724641870 / 700 :    loss = 0.65634042024680 / 700 :    loss = 0.65520936250790 / 700 :    loss = 0.65546554327I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.656087458134110 / 700 :    loss = 0.656555712223120 / 700 :    loss = 0.65586912632130 / 700 :    loss = 0.6558842659140 / 700 :    loss = 0.656040370464150 / 700 :    loss = 0.656343698502160 / 700 :    loss = 0.656277775764170 / 700 :    loss = 0.656691789627180 / 700 :    loss = 0.656173288822190 / 700 :    loss = 0.65647649765I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.656000852585210 / 700 :    loss = 0.656202077866220 / 700 :    loss = 0.656099319458230 / 700 :    loss = 0.655941009521240 / 700 :    loss = 0.655963420868250 / 700 :    loss = 0.656139552593260 / 700 :    loss = 0.656392753124270 / 700 :    loss = 0.656453669071280 / 700 :    loss = 0.656695187092290 / 700 :    loss = 0.656201303005I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.656326830387310 / 700 :    loss = 0.656565308571320 / 700 :    loss = 0.656550109386330 / 700 :    loss = 0.655981898308340 / 700 :    loss = 0.656230151653350 / 700 :    loss = 0.656772375107360 / 700 :    loss = 0.656497776508370 / 700 :    loss = 0.656604886055380 / 700 :    loss = 0.656632244587390 / 700 :    loss = 0.656563580036I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+400 / 700 :    loss = 0.656073570251410 / 700 :    loss = 0.656050026417420 / 700 :    loss = 0.655938446522430 / 700 :    loss = 0.6561024189440 / 700 :    loss = 0.656030476093450 / 700 :    loss = 0.656196892262460 / 700 :    loss = 0.656238734722470 / 700 :    loss = 0.656517624855480 / 700 :    loss = 0.656394839287490 / 700 :    loss = 0.6563180089I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+500 / 700 :    loss = 0.656415820122510 / 700 :    loss = 0.656606733799520 / 700 :    loss = 0.656909823418530 / 700 :    loss = 0.656823635101540 / 700 :    loss = 0.656935811043550 / 700 :    loss = 0.657044768333560 / 700 :    loss = 0.657152295113570 / 700 :    loss = 0.657184660435580 / 700 :    loss = 0.656910538673590 / 700 :    loss = 0.656851172447I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+600 / 700 :    loss = 0.656714677811610 / 700 :    loss = 0.656603455544620 / 700 :    loss = 0.656680762768630 / 700 :    loss = 0.656901478767640 / 700 :    loss = 0.65678024292650 / 700 :    loss = 0.656706511974660 / 700 :    loss = 0.656539678574670 / 700 :    loss = 0.656757712364680 / 700 :    loss = 0.656572401524690 / 700 :    loss = 0.656707882881I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+()
+Training acc (only root node): 0.971428571429
+Valiation acc (only root node): 0.69
+[[ 333.   17.]
+ [   3.  347.]]
+[[ 35.  15.]
+ [ 16.  34.]]
+annealed lr to 0.000173
+epoch 13
+-----------Old model------------
+0 / 700 :    loss = 0.6506751179710 / 700 :    loss = 0.66102117320 / 700 :    loss = 0.6493040919330 / 700 :    loss = 0.65323954820640 / 700 :    loss = 0.65526634454750 / 700 :    loss = 0.65555197000560 / 700 :    loss = 0.65559339523370 / 700 :    loss = 0.65604162216280 / 700 :    loss = 0.65492963790990 / 700 :    loss = 0.65520888567I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.655851602554110 / 700 :    loss = 0.656334519386120 / 700 :    loss = 0.655653834343130 / 700 :    loss = 0.655676007271140 / 700 :    loss = 0.655842602253150 / 700 :    loss = 0.656155586243160 / 700 :    loss = 0.656101703644170 / 700 :    loss = 0.656514823437180 / 700 :    loss = 0.656000673771190 / 700 :    loss = 0.656332075596I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.655865728855210 / 700 :    loss = 0.656074464321220 / 700 :    loss = 0.655973017216230 / 700 :    loss = 0.655804812908240 / 700 :    loss = 0.655807614326250 / 700 :    loss = 0.655980050564260 / 700 :    loss = 0.656196296215270 / 700 :    loss = 0.656257987022280 / 700 :    loss = 0.656497895718290 / 700 :    loss = 0.655995607376I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.656103134155310 / 700 :    loss = 0.656341135502320 / 700 :    loss = 0.656328260899330 / 700 :    loss = 0.655766248703340 / 700 :    loss = 0.656020641327350 / 700 :    loss = 0.656553983688360 / 700 :    loss = 0.656272768974370 / 700 :    loss = 0.656378865242380 / 700 :    loss = 0.656402766705390 / 700 :    loss = 0.656336188316I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+400 / 700 :    loss = 0.655844092369410 / 700 :    loss = 0.655813694420 / 700 :    loss = 0.65570551157430 / 700 :    loss = 0.655870497227440 / 700 :    loss = 0.655802130699450 / 700 :    loss = 0.655968368053460 / 700 :    loss = 0.656007528305470 / 700 :    loss = 0.656282782555480 / 700 :    loss = 0.656160235405490 / 700 :    loss = 0.656083106995I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+500 / 700 :    loss = 0.656181871891510 / 700 :    loss = 0.656375110149520 / 700 :    loss = 0.656682372093530 / 700 :    loss = 0.656598031521540 / 700 :    loss = 0.656713783741550 / 700 :    loss = 0.656834304333560 / 700 :    loss = 0.656950414181570 / 700 :    loss = 0.656979858875580 / 700 :    loss = 0.656704425812590 / 700 :    loss = 0.656645953655I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+600 / 700 :    loss = 0.656508743763610 / 700 :    loss = 0.656401753426620 / 700 :    loss = 0.656486809254630 / 700 :    loss = 0.656714498997640 / 700 :    loss = 0.656608641148650 / 700 :    loss = 0.656543195248660 / 700 :    loss = 0.656378924847670 / 700 :    loss = 0.656582474709680 / 700 :    loss = 0.656397163868690 / 700 :    loss = 0.656529843807I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+()
+Training acc (only root node): 0.971428571429
+Valiation acc (only root node): 0.69
+[[ 333.   17.]
+ [   3.  347.]]
+[[ 35.  15.]
+ [ 16.  34.]]
+annealed lr to 0.000116
+epoch 14
+-----------Old model------------
+0 / 700 :    loss = 0.65050387382510 / 700 :    loss = 0.66076683998120 / 700 :    loss = 0.64906871318830 / 700 :    loss = 0.65294450521540 / 700 :    loss = 0.65503925085150 / 700 :    loss = 0.65533125400560 / 700 :    loss = 0.65539258718570 / 700 :    loss = 0.65581667423280 / 700 :    loss = 0.65472400188490 / 700 :    loss = 0.655010282993I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+100 / 700 :    loss = 0.655665636063110 / 700 :    loss = 0.656159520149120 / 700 :    loss = 0.655480921268130 / 700 :    loss = 0.655505955219140 / 700 :    loss = 0.65568035841150 / 700 :    loss = 0.656001567841160 / 700 :    loss = 0.655962049961170 / 700 :    loss = 0.656374454498180 / 700 :    loss = 0.655870258808190 / 700 :    loss = 0.656220674515I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+200 / 700 :    loss = 0.655759572983210 / 700 :    loss = 0.655971050262220 / 700 :    loss = 0.655873715878230 / 700 :    loss = 0.655706882477240 / 700 :    loss = 0.655694663525250 / 700 :    loss = 0.655863821507260 / 700 :    loss = 0.656054377556270 / 700 :    loss = 0.656113386154280 / 700 :    loss = 0.65634739399290 / 700 :    loss = 0.655842602253I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
+-----------Old model------------
+300 / 700 :    loss = 0.655937850475310 / 700 :    loss = 0.65617698431320 / 700 :    loss = 0.656167984009330 / 700 :    loss = 0.655608952045340 / 700 :    loss = 0.655866801739350 / 700 :    loss = 0.656393706799360 / 700 :    loss = 0.656108081341370 / 700 :    loss = 0.656211435795380 / 700 :    loss = 0.65623319149E tensorflow/core/util/events_writer.cc:62] Could not open events file: ./logs/run-20170910031919/events.out.tfevents.1505042086.ip-172-30-0-47: Resource exhausted: ./logs/run-20170910031919/events.out.tfevents.1505042086.ip-172-30-0-47
+E tensorflow/core/util/events_writer.cc:95] Write failed because file could not be opened.
+E tensorflow/core/util/events_writer.cc:62] Could not open events file: ./logs/run-20170910031919/events.out.tfevents.1505042097.ip-172-30-0-47: Resource exhausted: ./logs/run-20170910031919/events.out.tfevents.1505042097.ip-172-30-0-47
+E tensorflow/core/util/events_writer.cc:95] Write failed because file could not be opened.
+E tensorflow/core/util/events_writer.cc:62] Could not open events file: ./logs/run-20170910031919/events.out.tfevents.1505042099.ip-172-30-0-47: Resource exhausted: ./logs/run-20170910031919/events.out.tfevents.1505042099.ip-172-30-0-47
+E tensorflow/core/util/events_writer.cc:95] Write failed because file could not be opened.
+390 / 700 :    loss = 0.656169116497E tensorflow/core/util/events_writer.cc:62] Could not open events file: ./logs/run-20170910031919/events.out.tfevents.1505042129.ip-172-30-0-47: Resource exhausted: ./logs/run-20170910031919/events.out.tfevents.1505042129.ip-172-30-0-47
+E tensorflow/core/util/events_writer.cc:95] Write failed because file could not be opened.
+E tensorflow/core/util/events_writer.cc:62] Could not open events file: ./logs/run-20170910031919/events.out.tfevents.1505042134.ip-172-30-0-47: Resource exhausted: ./logs/run-20170910031919/events.out.tfevents.1505042134.ip-172-30-0-47
+E tensorflow/core/util/events_writer.cc:95] Write failed because file could not be opened.
+E tensorflow/core/util/events_writer.cc:62] Could not open events file: ./logs/run-20170910031919/events.out.tfevents.1505042136.ip-172-30-0-47: Resource exhausted: ./logs/run-20170910031919/events.out.tfevents.1505042136.ip-172-30-0-47
+E tensorflow/core/util/events_writer.cc:95] Write failed because file could not be opened.
+W tensorflow/core/framework/op_kernel.cc:993] Resource exhausted: ./weights/rnn_embed=35_l2=0.020000_lr=0.010000.weights.temp.data-00000-of-00001.tempstate8969456073803428797
+Traceback (most recent call last):
+  File "rnn.py", line 476, in <module>
+  File "rnn.py", line 458, in test_RNN
+  File "rnn.py", line 405, in train
+  File "rnn.py", line 368, in run_epoch
+  File "/usr/lib/python2.7/dist-packages/tensorflow/python/training/saver.py", line 1374, in save
+  File "/usr/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 767, in run
+  File "/usr/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 965, in _run
+  File "/usr/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 1015, in _do_run
+  File "/usr/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 1035, in _do_call
+tensorflow.python.framework.errors_impl.ResourceExhaustedError: ./weights/rnn_embed=35_l2=0.020000_lr=0.010000.weights.temp.data-00000-of-00001.tempstate8969456073803428797
+	 [[Node: save_1/SaveV2 = SaveV2[dtypes=[DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT], _device="/job:localhost/replica:0/task:0/cpu:0"](_recv_save_1/Const_0, save_1/SaveV2/tensor_names, save_1/SaveV2/shape_and_slices, Composition/b1/_3313, Composition/b1/adam_optimizer/_3315, Composition/b1/adam_optimizer_1/_3317, Composition/embedding/_3319, Composition/embedding/adam_optimizer/_3321, Composition/embedding/adam_optimizer_1/_3323, Composition/w1/_3325, Composition/w1/adam_optimizer/_3327, Composition/w1/adam_optimizer_1/_3329, Projection/U/_3331, Projection/U/adam_optimizer/_3333, Projection/U/adam_optimizer_1/_3335, Projection/bs/_3337, Projection/bs/adam_optimizer/_3339, Projection/bs/adam_optimizer_1/_3341, beta1_power/_3343, beta2_power/_3345)]]
+
+Caused by op u'save_1/SaveV2', defined at:
+  File "rnn.py", line 476, in <module>
+    test_RNN()
+  File "rnn.py", line 458, in test_RNN
+    stats = model.train(verbose=True)
+  File "rnn.py", line 405, in train
+    train_acc, val_acc, loss_history, val_loss = self.run_epoch()
+  File "rnn.py", line 365, in run_epoch
+    saver = tf.train.Saver()
+  File "/usr/lib/python2.7/dist-packages/tensorflow/python/training/saver.py", line 1051, in __init__
+    self.build()
+  File "/usr/lib/python2.7/dist-packages/tensorflow/python/training/saver.py", line 1081, in build
+    restore_sequentially=self._restore_sequentially)
+  File "/usr/lib/python2.7/dist-packages/tensorflow/python/training/saver.py", line 673, in build
+    save_tensor = self._AddSaveOps(filename_tensor, saveables)
+  File "/usr/lib/python2.7/dist-packages/tensorflow/python/training/saver.py", line 271, in _AddSaveOps
+    save = self.save_op(filename_tensor, saveables)
+  File "/usr/lib/python2.7/dist-packages/tensorflow/python/training/saver.py", line 214, in save_op
+    tensors)
+  File "/usr/lib/python2.7/dist-packages/tensorflow/python/ops/gen_io_ops.py", line 779, in save_v2
+  File "/usr/lib/python2.7/dist-packages/tensorflow/python/framework/op_def_library.py", line 763, in apply_op
+  File "/usr/lib/python2.7/dist-packages/tensorflow/python/framework/ops.py", line 2395, in create_op
+    original_op=self._default_original_op, op_def=op_def)
+  File "/usr/lib/python2.7/dist-packages/tensorflow/python/framework/ops.py", line 1264, in __init__
+    self._traceback = _extract_stack()
+
+ResourceExhaustedError (see above for traceback): ./weights/rnn_embed=35_l2=0.020000_lr=0.010000.weights.temp.data-00000-of-00001.tempstate8969456073803428797
+	 [[Node: save_1/SaveV2 = SaveV2[dtypes=[DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT], _device="/job:localhost/replica:0/task:0/cpu:0"](_recv_save_1/Const_0, save_1/SaveV2/tensor_names, save_1/SaveV2/shape_and_slices, Composition/b1/_3313, Composition/b1/adam_optimizer/_3315, Composition/b1/adam_optimizer_1/_3317, Composition/embedding/_3319, Composition/embedding/adam_optimizer/_3321, Composition/embedding/adam_optimizer_1/_3323, Composition/w1/_3325, Composition/w1/adam_optimizer/_3327, Composition/w1/adam_optimizer_1/_3329, Projection/U/_3331, Projection/U/adam_optimizer/_3333, Projection/U/adam_optimizer_1/_3335, Projection/bs/_3337, Projection/bs/adam_optimizer/_3339, Projection/bs/adam_optimizer_1/_3341, beta1_power/_3343, beta2_power/_3345)]]
+
