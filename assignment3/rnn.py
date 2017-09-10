@@ -332,7 +332,7 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                 for i in range(RESET_AFTER):
                     if step>=len(self.train_data):
                         break
-                    if i == 0: # this is GLORIOUS
+                    if i == 0: # this is GLORIOUS :(
                         self.add_model_vars()
                     # Define training operations in the graph
                     tree = self.train_data[step]
@@ -340,7 +340,6 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                     labels = [l for l in tree.labels if l!=2]
                     loss = self.loss(logits, labels)
                     train_op = self.training(loss)
-
                     # Figure out if this is a new model or we are reusing parameters
                     if i == 0:
                         if new_model:
