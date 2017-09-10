@@ -49,3 +49,8 @@ source ./aws_setup/commands.sh to have some basic commands that perform:
 `login` to the instance
 `terminate` it when you are done;
 
+#### Login
+When running N multiple instances choose which one to login to by providing an
+instance number from 0-N.
+`./aws_setup/login.sh 0` to login to the 1st instance
+
