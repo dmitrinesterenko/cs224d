@@ -28,6 +28,7 @@ class Config(object):
     l2 = 0.02
     model_name = 'rnn_embed=%d_l2=%f_lr=%f.weights'%(embed_size, l2, lr)
     root_logdir = './logs'
+    weights_path = "./weights/new_adam"
 
 
 class RNN_Model():
@@ -347,7 +348,7 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                         else:
                             print("-----------Old model------------")
                             saver = tf.train.Saver()
-                            saver.restore(sess, './weights/%s.temp'%self.config.model_name)
+                            saver.restore(sess, self.temp_weights_path())
 
                     loss, _ = sess.run([loss, train_op], options=run_options, run_metadata=run_metadata)
                     loss_history.append(loss)
@@ -362,17 +363,18 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                     step += 1
 
                 saver = tf.train.Saver()
-                if not os.path.exists("./weights"):
-                    os.makedirs("./weights")
-                saver.save(sess, './weights/%s.temp'%self.config.model_name)
+                if not os.path.exists(self.config.weights_path):
+                    os.makedirs(self.config.weights_path)
+                saver.save(sess, self.temp_weights_path())
                 # write timeline data for debugging
                 #tl = timeline.Timeline(run_metadata.step_stats)
                 #ctf = tl.generate_chrome_trace_format()
                 #with open('timeline.json', 'w') as f:
                 #    f.write(ctf)
-
-        train_preds, _ = self.predict(self.train_data, './weights/%s.temp'%self.config.model_name)
-        val_preds, val_losses = self.predict(self.dev_data, './weights/%s.temp'%self.config.model_name, get_loss=True)
+        train_preds, _ = self.predict(self.train_data, self.temp_weights_path())
+        val_preds, val_losses = self.predict(self.dev_data,
+                self.temp_weights_path(),
+                get_loss=True)
         train_labels = [t.root.label for t in self.train_data]
         val_labels = [t.root.label for t in self.dev_data]
         train_acc = np.equal(train_preds, train_labels).mean()
@@ -414,17 +416,14 @@ Neutral, Positive. This HW uses only two labels: negative and positive
 
             #save if model has improved on val
             if val_loss < best_val_loss:
-                 shutil.copyfile('./weights/%s.temp.data-00000-of-00001'%self.config.model_name, './weights/%s.data-00000-of-00001'%self.config.model_name)
-                 shutil.copyfile('./weights/%s.temp.index'%self.config.model_name, './weights/%s.index'%self.config.model_name)
-                 shutil.copyfile('./weights/%s.temp.meta'%self.config.model_name, './weights/%s.meta'%self.config.model_name)
-
-                 best_val_loss = val_loss
-                 best_val_epoch = epoch
+                self.save_weights()
+                best_val_loss = val_loss
+                best_val_epoch = epoch
 
             # if model has not imprvoved for a while stop
             if epoch - best_val_epoch > self.config.early_stopping:
                 stopped = epoch
-                #break
+                break
         if verbose:
                 sys.stdout.write('\r')
                 sys.stdout.flush()
@@ -436,7 +435,27 @@ Neutral, Positive. This HW uses only two labels: negative and positive
             'val_acc_history': val_acc_history,
             }
 
+    def save_weights(self):
+         """Save the best weights in their more permanent state"""
+         shutil.copyfile("{}.data-00000-of-00001".format(self.temp_weights_path()),
+                         "{}.data-00000-of-00001".format(self.weights_path()))
+         shutil.copyfile("{}.index".format(self.temp_weights_path()),
+                         "{}.index".format(self.weights_path()))
+         shutil.copyfile("{}.meta".format(self.temp_weights_path()),
+                         "{}.meta".format(self.weights_path()))
+
+    def temp_weights_path(self):
+        """The path to the temporary weights while we are still training"""
+        return "{}/{}.temp".format(self.config.weights_path,
+self.config.model_name)
+
+    def weights_path(self):
+        """The path to the weights after training is complete"""
+        return "{}/{}".format(self.config.weights_path, self.config.model_name)
+
+
     def make_conf(self, labels, predictions):
+        """Identify matches between labels and predictions"""
         confmat = np.zeros([2, 2])
         for l,p in zip(labels, predictions):
             confmat[l, p] += 1
@@ -458,7 +477,7 @@ def test_RNN():
 
     print('Test')
     print('=-=-=')
-    predictions, _ = model.predict(model.test_data, './weights/%s.temp'%model.config.model_name)
+    predictions, _ = model.predict(model.test_data, model.weights_path())
     labels = [t.root.label for t in model.test_data]
     test_acc = np.equal(predictions, labels).mean()
     print('Test acc: {}'.format(test_acc))
