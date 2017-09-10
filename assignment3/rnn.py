@@ -363,6 +363,7 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                         file_writer = tf.summary.FileWriter(self.logdir, tf.get_default_graph())
                         summary_str = loss_summary.eval()
                         file_writer.add_summary(summary_str, step)
+                        file_writer.close()
                     step += 1
 
                 saver = tf.train.Saver()
