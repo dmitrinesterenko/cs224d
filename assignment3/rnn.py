@@ -13,12 +13,12 @@ import pdb
 from utils import Vocab
 
 
-RESET_AFTER = 100 #50
+RESET_AFTER = 100
 class Config(object):
     """Holds model hyperparams and data information.
        Model objects are passed a Config() object at instantiation.
     """
-    embed_size = 35
+    embed_size = 70
     label_size = 2
     early_stopping = 2
     anneal_threshold = 0.99
@@ -403,9 +403,9 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         new_model = False
         for epoch in range(self.config.max_epochs):
             print('epoch {}'.format(epoch))
-            #if epoch==0:
-            #    #TODO use the presence of absence of weights to determine if the model is new
-            #    new_model = True
+            if epoch==0:
+                #TODO use the presence of absence of weights to determine if the model is new
+                new_model = True
             start_time = time.time()
             train_acc, val_acc, loss_history, val_loss = self.run_epoch(new_model)
             duration = time.time() - start_time
