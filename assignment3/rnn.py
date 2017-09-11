@@ -31,7 +31,7 @@ class Config(object):
     l2 = 0.02
     model_name = 'rnn_embed=%d_l2=%f_lr=%f.weights'%(embed_size, l2, lr)
     root_logdir = './logs'
-    weights_path = "./weights/new_adam"
+    weights_path = "./weights/adam"
 
 
 class RNN_Model():
@@ -308,7 +308,7 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                     results.append(root_prediction)
         return results, losses
 
-    def run_epoch(self, new_model = False, verbose=10):
+    def run_epoch(self, new_model = False, verbose=50):
         step = 0
         loss_history = []
         run_options = tf.RunOptions(trace_level=tf.RunOptions.FULL_TRACE)
