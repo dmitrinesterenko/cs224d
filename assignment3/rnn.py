@@ -18,17 +18,17 @@ class Config(object):
     """Holds model hyperparams and data information.
        Model objects are passed a Config() object at instantiation.
     """
-    embed_size = 35
+    embed_size = 25
     label_size = 2
     early_stopping = 2
     anneal_threshold = 0.99
     anneal_by = 1.5
     max_epochs = 30
-    lr = 0.01
+    lr = 0.001
     l2 = 0.02
     model_name = 'rnn_embed=%d_l2=%f_lr=%f.weights'%(embed_size, l2, lr)
     root_logdir = './logs'
-    weights_path = "./weights/new_adam"
+    weights_path = "./weights/adam"
 
 
 class RNN_Model():
@@ -346,6 +346,7 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                             print("-----------New model------------")
                             init = tf.global_variables_initializer()
                             sess.run(init)
+                            new_model = False
                         else:
                             print("-----------Reuse model------------")
                             saver = tf.train.Saver()
@@ -403,9 +404,11 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         new_model = False
         for epoch in range(self.config.max_epochs):
             print('epoch {}'.format(epoch))
-            #if epoch==0:
-            #    #TODO use the presence of absence of weights to determine if the model is new
-            #    new_model = True
+            if epoch==0:
+                #TODO use the presence of absence of weights to determine if the model is new
+                new_model = True
+            else:
+                new_model = False
             start_time = time.time()
             train_acc, val_acc, loss_history, val_loss = self.run_epoch(new_model)
             duration = time.time() - start_time
