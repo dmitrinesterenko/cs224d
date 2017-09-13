@@ -222,7 +222,7 @@ self.config.embed_size)))
         # As our stated goal is to return a 0-D tensor let's do thee next best
         # thing and take a mean of all of the accuracies.
         loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(labels=labels,
-logits=logits, name="sparse_softmax_loss")) + tf.nn.l2_loss(logits)
+logits=logits, name="sparse_softmax_loss")) + self.config.l2 * tf.nn.l2_loss(logits)
         # END YOUR CODE
         return loss
 
