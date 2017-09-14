@@ -13,12 +13,12 @@ import pdb
 from utils import Vocab
 
 
-RESET_AFTER = 100 #50
+RESET_AFTER = 50 #100
 class Config(object):
     """Holds model hyperparams and data information.
        Model objects are passed a Config() object at instantiation.
     """
-    embed_size = 35
+    embed_size = 45
     label_size = 2
     early_stopping = 2
     anneal_threshold = 1.0
@@ -413,7 +413,7 @@ Neutral, Positive. This HW uses only two labels: negative and positive
             train_acc, val_acc, loss_history, val_loss = self.run_epoch(new_model)
             duration = time.time() - start_time
             print('epoch time {} sec., time left {}'.format(duration,
-                duration *(self.config.max_epochs - epoch)))
+                time_in_scale(duration *(self.config.max_epochs - epoch))))
 
             complete_loss_history.extend(loss_history)
             train_acc_history.append(train_acc)
@@ -473,19 +473,32 @@ self.config.model_name)
             confmat[l, p] += 1
         return confmat
 
+def time_in_minutes(time_in_seconds):
+    return time_in_seconds / 60
+
+def time_in_hours(time_in_minutes):
+    return time_in_minutes / 60
+
+def time_in_scale(time_in_seconds):
+    if time_in_seconds > 10000:
+        return '{} hrs'.format(time_in_hours(time_in_minutes(time_in_seconds)))
+    else:
+        return '{} mns'.format(time_in_minutes(time_in_seconds))
+
 
 def test_RNN():
     """Test RNN model implementation.
 
-    You can use this function to test your implementation of the Named Entity
-    Recognition network. When debugging, set max_epochs in the Config object to 1
+    You can use this function to test your implementation of the Sentiment analysis
+    network. When debugging, set max_epochs in the Config object to 1
     so you can rapidly iterate.
     """
     config = Config()
     model = RNN_Model(config)
     start_time = time.time()
+    print('Start and finish in {}'.format(time_in_scale(time.time() - start_time)))
     stats = model.train(verbose=True)
-    print('Training time: {}'.format(time.time() - start_time))
+    print('Training time: {}'.format(time_in_scale(time.time() - start_time)))
 
     print('Test')
     print('=-=-=')
