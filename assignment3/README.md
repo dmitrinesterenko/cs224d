@@ -14,3 +14,9 @@ Test set acc: 0.535
 Embed size 35, learning rate .001 
 
 Validation acc gets to be .71 after epoch 11, however drops off to .56 by epoch 13 and the result test acc is .64
+
+Embed size 35, learning rate .001, l2 reg 0.02
+
+Validation acc gets to be .63 acc after epoch 4. Fast results not as good as our priors however
+
+Test set acc: 0.675
