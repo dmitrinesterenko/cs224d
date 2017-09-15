@@ -18,7 +18,7 @@ class Config(object):
     """Holds model hyperparams and data information.
        Model objects are passed a Config() object at instantiation.
     """
-    embed_size = 350
+    embed_size = 700
     label_size = 2
     early_stopping = 2
     anneal_threshold = 1.0
