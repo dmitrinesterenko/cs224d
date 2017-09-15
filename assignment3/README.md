@@ -20,3 +20,22 @@ Embed size 35, learning rate .001, l2 reg 0.02
 Validation acc gets to be .63 acc after epoch 4. Fast results not as good as our priors however
 
 Test set acc: 0.675
+
+Embed size 350, lr .001, l2 .05
+
+Training acc (only root node): 0.954285714286
+Validation acc (only root node): 0.71
+[[ 326.   24.]
+ [   8.  342.]]
+[[ 48.   2.]
+ [ 27.  23.]]
+
+stopped at 4
+
+Training time: 90.9717063189 mns
+
+Test
+=-=-=
+Test acc: 0.745
+
+
