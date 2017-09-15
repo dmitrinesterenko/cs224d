@@ -25,7 +25,7 @@ class Config(object):
     anneal_by = 1.5
     max_epochs = 30
     lr = 0.001
-    l2 = 0.02
+    l2 = 0.05
     model_name = 'rnn_embed=%d_l2=%f_lr=%f.weights'%(embed_size, l2, lr)
     root_logdir = './logs'
     weights_path = "./weights/adam"
