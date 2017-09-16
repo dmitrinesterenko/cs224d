@@ -22,7 +22,7 @@ function mail(){
 }
 
 function shutdown(){
-    sudo shutdown -k 2 "System is done for the day, shutdown in 2"
+    sudo shutdown -h 2 "System is done for the day, shutdown in 2"
 }
 
 save
