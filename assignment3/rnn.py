@@ -18,14 +18,14 @@ class Config(object):
     """Holds model hyperparams and data information.
        Model objects are passed a Config() object at instantiation.
     """
-    embed_size = 2800
+    embed_size = 140
     label_size = 2
     early_stopping = 2
     anneal_threshold = 1.0
     anneal_by = 1.5
     max_epochs = 30
     lr = 0.001
-    l2 = 0.05
+    l2 = 0.2
     model_name = 'rnn_embed=%d_l2=%f_lr=%f.weights'%(embed_size, l2, lr)
     root_logdir = './logs'
     weights_path = "./weights/adam"
@@ -420,11 +420,11 @@ Neutral, Positive. This HW uses only two labels: negative and positive
             val_acc_history.append(val_acc)
 
             #lr annealing
-            #epoch_loss = np.mean(loss_history)
-            #if epoch_loss>prev_epoch_loss*self.config.anneal_threshold:
-            #    self.config.lr/=self.config.anneal_by
-            #    print('annealed lr to %f'%self.config.lr)
-            #prev_epoch_loss = epoch_loss
+            epoch_loss = np.mean(loss_history)
+            if epoch_loss>prev_epoch_loss*self.config.anneal_threshold:
+                self.config.lr/=self.config.anneal_by
+                print('annealed lr to %f'%self.config.lr)
+            prev_epoch_loss = epoch_loss
 
             #save if model has improved on val
             if val_loss < best_val_loss:
