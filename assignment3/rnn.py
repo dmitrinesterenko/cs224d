@@ -133,40 +133,14 @@ self.config.embed_size))
 
         if node.isLeaf:
             ### YOUR CODE HERE
-            #tr.print_leaf(node)
-            # this code should assign to curr_node_tensor a vector representation of the leaf node.
-
-            #node.tensor = tf.gather([self.vocab.encode(node.word)],
-            #range(self.config.embed_size))
-            #node.tensor = tf.cast(node.tensor, dtype=tf.float32)
-
-            # Going to try this with an actual word embedding
-            #embeddings = tf.Variable(
-#tf.random_uniform([len(self.vocab), self.config.embed_size], -1.0, 1.0))
             node.tensor = tf.nn.embedding_lookup(embedding,
 self.vocab.encode(node.word))
-
             curr_node_tensor = node.tensor
             ### END YOUR CODE
         else:
-            #tr.print_root(node)
-            # this will cause an update to the dictionary node_tensor[node.left] ==
-            # self.add_model(node.left)
             node_tensors.update(self.add_model(node.left))
             node_tensors.update(self.add_model(node.right))
             ### YOUR CODE HERE
-            # This attempt tried to stack the models recursively which would
-            # unravel the stack all the way to the leaves to get the tensor
-            # value from the word vectors.
-            #hidden_layer = tf.stack(self.add_model(node.left),
-            #self.add_model(node.right)) * w1 + b1
-
-            # This attempt tries to calculate the root's tensor just from the
-            # left and right leaves and relies on there being a node.tensor
-            # property in each one.
-            # Note here I had at first used tf.stack (think stacking the tensors
-            # one on top of the other) but based on feedback from the resulting
-            # shape I had instead used a concat
             node.left.tensor = tf.reshape(node.left.tensor, [-1,
 self.config.embed_size])
             node.right.tensor = tf.reshape(node.right.tensor, [-1,
@@ -179,7 +153,6 @@ node.right.tensor], axis=0)
 2*self.config.embed_size])
             # the output here is [1,35] if embed_size is 35
             node.tensor = tf.matmul(reshaped_tensors, w1) + b1
-            #TODO: this probably has to be node.tensor
             # prior to node.tensor this was just curr_node_tensor
             node.tensor =  tf.maximum(node.tensor, tf.zeros(shape=(1,
 self.config.embed_size)))
@@ -194,13 +167,10 @@ self.config.embed_size)))
         Hint: Reuse the "Projection" variable_scope here
         Args:
             node_tensors: tensor(?, embed_size)
-<<<<<<< HEAD
             When we are evaluating just on the root node then the first
             dimension would be 1, if we are looking through a hierarchy of terms in a
             sentence then that would be equal to the number of words we want to include i.e.
             5
-=======
->>>>>>> master
         Returns:
             output: tensor(?, label_size)
         """
@@ -283,10 +253,7 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         """
         predictions = None
         # YOUR CODE HERE
-        # NOTE This looks to only return 0s, something smells
-        #predictions = tf.argmax(tf.nn.softmax(y))
-        #predictions = tf.argmax(y)
-        # However this works so supplying the axis is important
+        # Supplying the axis is important
         predictions = tf.argmax(y, axis=1, name="prediction")
         # END YOUR CODE
         return predictions
@@ -320,29 +287,12 @@ Neutral, Positive. This HW uses only two labels: negative and positive
         config = tf.ConfigProto(log_device_placement=False)
         while step < len(self.train_data):
             with tf.Graph().as_default(), tf.Session(config=config) as sess:
-                #self.add_model_vars()
-                #if new_model:
-                #    print("-----------New model------------")
-                #    #import pdb; pdb.set_trace()
-                #    #init = tf.global_variables_initializer()
-                #    #sess.run(init)
-                #else:
-                #    print("-----------Old model------------")
-                #    saver = tf.train.Saver()
-                #    saver.restore(sess, './weights/%s.temp'%self.config.model_name)
-                ## The RESET_AFTER essentially controls batching of our training
-                # When RESET_AFTER == len(self.train_data) then this is for loop
-                # is executed once. Otherwise it is run len(self.train_data /
-                # RESET_AFTER)
-                # This allows to save the trained model parameters every
-                # RESET_AFTER
                 for i in range(RESET_AFTER):
                     if step>=len(self.train_data):
                         break
                     if i == 0: # this is GLORIOUS :(
                         self.add_model_vars()
                     # Define training operations in the graph
-
                     tree = self.train_data[step]
                     logits = self.inference(tree)
                     labels = [l for l in tree.labels if l!=2]
