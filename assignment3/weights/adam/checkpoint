@@ -1,2 +1,2 @@
-model_checkpoint_path: "rnn_embed=1400_l2=0.050000_lr=0.001000.weights.temp"
-all_model_checkpoint_paths: "rnn_embed=1400_l2=0.050000_lr=0.001000.weights.temp"
+model_checkpoint_path: "rnn_embed=2800_l2=0.050000_lr=0.001000.weights.temp"
+all_model_checkpoint_paths: "rnn_embed=2800_l2=0.050000_lr=0.001000.weights.temp"
