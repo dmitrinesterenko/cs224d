@@ -54,3 +54,19 @@ When running N multiple instances choose which one to login to by providing an
 instance number from 0-N.
 `./aws_setup/login.sh 0` to login to the 1st instance
 
+### Assignment 3
+The best executions were trained in 90 minutes on p2.xlarge and had accuracy of
+.745 on validation.
+
+Updating the embed size up to 2800 from the starting 35 did little to change the
+resulting accuracy.
+
+The l2 regularization was as it should be super important in getting good
+validation results.
+
+The training set and the validation set accuracies were still wide apart, the
+training set accuracy would frequently be above %92
+
+All of the results of running Assignment 3 and individual write ups are in
+assignment3/output and [assignment3/README.md](assignment3/README.md)
+
