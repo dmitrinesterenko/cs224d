@@ -38,4 +38,20 @@ Test
 =-=-=
 Test acc: 0.745
 
+Embed size 140, lr .001 with annealing, l2 0.2
+
+Training acc (only root node): 0.928571428571
+Validation acc (only root node): 0.71
+[[ 319.   31.]
+ [  19.  331.]]
+[[ 49.   1.]
+ [ 28.  22.]]
+epoch time 934.882878065 sec., time left 5.97286283208 hrs
+
+stopped at 7
+
+Training time: 127.54835122 mns
+Test
+=-=-=
+Test acc: 0.695
 
