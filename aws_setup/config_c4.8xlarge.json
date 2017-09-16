@@ -19,7 +19,7 @@
             "DeleteOnTermination": true,
             "VolumeType": "io1",
             "VolumeSize": 100,
-            "SnapshotId": "snap-07a718cb535184f17",
+            "SnapshotId": "snap-0266f4a655d3bcfc1",
             "Iops": 100
           }
         }
