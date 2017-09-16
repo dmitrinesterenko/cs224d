@@ -1,6 +1,7 @@
 import sys
 import os
 import numpy as np
+#import matplotlib.pyplot as plt
 import math
 import time
 import itertools
@@ -187,17 +188,19 @@ self.config.embed_size)))
         node_tensors[node] = curr_node_tensor
         return node_tensors
 
-
     def add_projections(self, node_tensors):
         """Add projections to the composition vectors to compute the raw sentiment scores
 
         Hint: Reuse the "Projection" variable_scope here
         Args:
             node_tensors: tensor(?, embed_size)
+<<<<<<< HEAD
             When we are evaluating just on the root node then the first
             dimension would be 1, if we are looking through a hierarchy of terms in a
             sentence then that would be equal to the number of words we want to include i.e.
             5
+=======
+>>>>>>> master
         Returns:
             output: tensor(?, label_size)
         """
@@ -339,6 +342,7 @@ Neutral, Positive. This HW uses only two labels: negative and positive
                     if i == 0: # this is GLORIOUS :(
                         self.add_model_vars()
                     # Define training operations in the graph
+
                     tree = self.train_data[step]
                     logits = self.inference(tree)
                     labels = [l for l in tree.labels if l!=2]
@@ -494,6 +498,14 @@ def test_RNN():
     labels = [t.root.label for t in model.test_data]
     test_acc = np.equal(predictions, labels).mean()
     print('Test acc: {}'.format(test_acc))
+
+    #plt.plot(stats['loss_history'])
+    #plt.title('Loss history')
+    #plt.xlabel('Iteration')
+    #plt.ylabel('Loss')
+    #plt.savefig("loss_history.png")
+    #plt.show()
+
 
 if __name__ == "__main__":
         test_RNN()

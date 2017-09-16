@@ -22,7 +22,6 @@ class Vocab(object):
             self.add_word(word)
         self.total_words = float(sum(self.word_freq.values()))
         print('{} total words with {} uniques'.format(self.total_words, len(self.word_freq)))
-
     def encode(self, word):
         if word not in self.word_to_index:
             word = self.unknown

@@ -81,6 +81,7 @@ class Tree:
 def leftTraverse(node, nodeFn=None, args=None):
     """
     Recursive function traverses tree
+<<<<<<< HEAD
     from left to right.
     Calls nodeFn at each node
     """
@@ -149,7 +150,7 @@ def simplified_data(num_train, num_dev, num_test):
     rndstate = random.getstate()
     random.seed(0)
     trees = loadTrees('train') + loadTrees('dev') + loadTrees('test')
-    
+
     #filter extreme trees
     pos_trees = [t for t in trees if t.root.label==4]
     neg_trees = [t for t in trees if t.root.label==0]
