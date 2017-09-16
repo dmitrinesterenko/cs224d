@@ -11,7 +11,7 @@ Test set acc: 0.535
 
 (Almost as good as guessing on validation and test mean, however really good at training. So we are overfitting the data)
 
-Embed size 35, learning rate .001 
+Embed size 35, learning rate .001
 
 Validation acc gets to be .71 after epoch 11, however drops off to .56 by epoch 13 and the result test acc is .64
 
@@ -55,3 +55,25 @@ Test
 =-=-=
 Test acc: 0.695
 
+
+Embed size 350, lr 0.001 without annealing, l2 0.5 -- It actually forgets things that it learned :(
+
+Training acc (only root node): 0.925714285714
+Validation acc (only root node): 0.57
+[[ 315.   35.]
+ [  17.  333.]]
+ [[ 39.  11.]
+  [ 32.  18.]]
+  epoch time 1146.48967886 sec., time left 7.32479517049 hrs
+  epoch 8
+
+
+Training acc (only root node): 0.814285714286
+Validation acc (only root node): 0.51
+[[ 329.   21.]
+ [ 109.  241.]]
+ [[ 49.   1.]
+  [ 48.   2.]]
+  epoch time 1183.56133604 sec., time left 7.23287483136 hrs
+  epoch 9
+  )
