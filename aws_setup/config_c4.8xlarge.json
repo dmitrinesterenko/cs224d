@@ -8,7 +8,7 @@
   "TerminateInstancesWithExpiration": true,
   "LaunchSpecifications": [
     {
-      "ImageId": "ami-27152c5c",
+      "ImageId": "ami-4d26c637",
       "InstanceType": "c4.8xlarge",
       "KeyName": "aws01",
       "SpotPrice": "0.9",
@@ -20,7 +20,7 @@
             "VolumeType": "io1",
             "VolumeSize": 100,
             "SnapshotId": "snap-07a718cb535184f17",
-            "Iops": 300
+            "Iops": 100
           }
         }
       ],
