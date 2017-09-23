@@ -1,4 +1,5 @@
 import random
+import pdb
 UNK = 'UNK'
 # This file contains the dataset in a useful way. We populate a list of
 # Trees to train/test our Neural Nets such that each Tree contains any
@@ -15,6 +16,7 @@ class Node:  # a node in the tree
         self.parent = None  # reference to parent
         self.left = None  # reference to left child
         self.right = None  # reference to right child
+        self.tensor = None # reference to the tensor of the current node
         # true if I am a leaf (could have probably derived this from if I have
         # a word)
         self.isLeaf = False
@@ -79,7 +81,7 @@ class Tree:
 def leftTraverse(node, nodeFn=None, args=None):
     """
     Recursive function traverses tree
-    from left to right. 
+    from left to right.
     Calls nodeFn at each node
     """
     if node is None:
@@ -97,6 +99,30 @@ def getLeaves(node):
     else:
         return getLeaves(node.left) + getLeaves(node.right)
 
+def print_leaves(node, args=None):
+    if node is None:
+        print("")
+    if node.isLeaf:
+        print("{0}({1})".format(node.word, node.label))
+    else:
+        print_leaves(node.left)
+        print_leaves(node.right)
+
+def print_leaf(node):
+    print("leaf {0}".format(node.word))
+
+def print_root(node):
+    leaves = ""
+    root = " root "
+    if node.left is not None and node.left.word is not None:
+        leaves += node.left.word + " -"
+    if node.right is not None and node.right.word is not None:
+        leaves += "- " + node.right.word
+    if node.word is not None:
+        root += node.word
+    print(" {0} ".format(root))
+    print("  | ")
+    print(leaves)
 
 def get_labels(node):
     if node is None:
@@ -113,7 +139,7 @@ def loadTrees(dataSet='train'):
     Loads training trees. Maps leaf node words to word ids.
     """
     file = 'trees/%s.txt' % dataSet
-    print "Loading %s trees.." % dataSet
+    print("Loading {} trees..".format(dataSet))
     with open(file, 'r') as fid:
         trees = [Tree(l) for l in fid.readlines()]
 
@@ -123,7 +149,7 @@ def simplified_data(num_train, num_dev, num_test):
     rndstate = random.getstate()
     random.seed(0)
     trees = loadTrees('train') + loadTrees('dev') + loadTrees('test')
-    
+
     #filter extreme trees
     pos_trees = [t for t in trees if t.root.label==4]
     neg_trees = [t for t in trees if t.root.label==0]
@@ -131,14 +157,14 @@ def simplified_data(num_train, num_dev, num_test):
     #binarize labels
     binarize_labels(pos_trees)
     binarize_labels(neg_trees)
-    
+
     #split into train, dev, test
-    print len(pos_trees), len(neg_trees)
+    print("{} {}".format(len(pos_trees), len(neg_trees)))
     pos_trees = sorted(pos_trees, key=lambda t: len(t.get_words()))
     neg_trees = sorted(neg_trees, key=lambda t: len(t.get_words()))
-    num_train/=2
-    num_dev/=2
-    num_test/=2
+    num_train = int(num_train/2)
+    num_dev   = int(num_dev/2)
+    num_test  = int(num_test/2)
     train = pos_trees[:num_train] + neg_trees[:num_train]
     dev = pos_trees[num_train : num_train+num_dev] + neg_trees[num_train : num_train+num_dev]
     test = pos_trees[num_train+num_dev : num_train+num_dev+num_test] + neg_trees[num_train+num_dev : num_train+num_dev+num_test]

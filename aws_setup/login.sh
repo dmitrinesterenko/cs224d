@@ -1,15 +1,15 @@
 #!/bin/bash
-STATUS=$(aws ec2 describe-spot-instance-requests --profile dmitripersonal | jq .SpotInstanceRequests[0].Status.Code)
+source "./aws_setup/commands.sh"
+INSTANCE_ID=$1
+STATUS=$(active | jq .SpotInstanceRequests[$INSTANCE_ID].Status.Code)
 echo $STATUS
-if [ $STATUS != "fulfilled" ]; then
-    print "Not yet fulfilled"
-fi
 
-until [ $STATUS != "fulfilled" ]; do
-    STATUS=$(aws ec2 describe-spot-instance-requests --profile dmitripersonal | jq .SpotInstanceRequests[0].Status.Code)
+until [ "$STATUS" == "\"fulfilled\"" ]; do
+    STATUS=$(active | jq .SpotInstanceRequests[$INSTANCE_ID].Status.Code)
     echo -n "."
 done
-INSTANCE_ID=$(aws ec2 describe-spot-instance-requests --profile dmitripersonal | jq -r .SpotInstanceRequests[0].InstanceId)
+
+INSTANCE_ID=$(active | jq -r .SpotInstanceRequests[$INSTANCE_ID].InstanceId)
 echo $INSTANCE_ID
 PUBLIC_IP=$(aws ec2 describe-instances --instance-id $INSTANCE_ID --profile dmitripersonal | jq -r .Reservations[0].Instances[0].PublicIpAddress)
 echo "SSHing you into $PUBLIC_IP"

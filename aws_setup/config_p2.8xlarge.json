@@ -8,7 +8,7 @@
   "TerminateInstancesWithExpiration": true,
   "LaunchSpecifications": [
     {
-      "ImageId": "ami-1fca9b09",
+      "ImageId": "ami-4d26c637",
       "InstanceType": "p2.8xlarge",
       "KeyName": "aws01",
       "SpotPrice": "7.2",
@@ -16,11 +16,11 @@
         {
           "DeviceName": "/dev/xvda",
           "Ebs": {
-            "DeleteOnTermination": false,
+            "DeleteOnTermination": true,
             "VolumeType": "io1",
-            "VolumeSize": 50,
-            "SnapshotId": "snap-32fb8628",
-            "Iops": 300
+            "VolumeSize": 100,
+            "SnapshotId": "snap-0266f4a655d3bcfc1",
+            "Iops": 100
           }
         }
       ],
@@ -28,96 +28,6 @@
         {
           "DeviceIndex": 0,
           "SubnetId": "subnet-4fd86439",
-          "DeleteOnTermination": true,
-          "Groups": [
-            "sg-38353646",
-            "sg-c43437ba"
-          ],
-          "AssociatePublicIpAddress": true
-        }
-      ]
-    },
-    {
-      "ImageId": "ami-1fca9b09",
-      "InstanceType": "p2.8xlarge",
-      "KeyName": "aws01",
-      "SpotPrice": "7.2",
-      "BlockDeviceMappings": [
-        {
-          "DeviceName": "/dev/xvda",
-          "Ebs": {
-            "DeleteOnTermination": false,
-            "VolumeType": "io1",
-            "VolumeSize": 50,
-            "SnapshotId": "snap-32fb8628",
-            "Iops": 300
-          }
-        }
-      ],
-      "NetworkInterfaces": [
-        {
-          "DeviceIndex": 0,
-          "SubnetId": "subnet-495f8811",
-          "DeleteOnTermination": true,
-          "Groups": [
-            "sg-38353646",
-            "sg-c43437ba"
-          ],
-          "AssociatePublicIpAddress": true
-        }
-      ]
-    },
-    {
-      "ImageId": "ami-1fca9b09",
-      "InstanceType": "p2.8xlarge",
-      "KeyName": "aws01",
-      "SpotPrice": "7.2",
-      "BlockDeviceMappings": [
-        {
-          "DeviceName": "/dev/xvda",
-          "Ebs": {
-            "DeleteOnTermination": false,
-            "VolumeType": "io1",
-            "VolumeSize": 50,
-            "SnapshotId": "snap-32fb8628",
-            "Iops": 300
-          }
-        }
-      ],
-      "NetworkInterfaces": [
-        {
-          "DeviceIndex": 0,
-          "SubnetId": "subnet-2af03200",
-          "DeleteOnTermination": true,
-          "Groups": [
-            "sg-38353646",
-            "sg-c43437ba"
-          ],
-          "AssociatePublicIpAddress": true
-        }
-      ]
-    },
-    {
-      "ImageId": "ami-1fca9b09",
-      "InstanceType": "p2.8xlarge",
-      "KeyName": "aws01",
-      "SpotPrice": "7.2",
-      "BlockDeviceMappings": [
-        {
-          "DeviceName": "/dev/xvda",
-          "Ebs": {
-            "DeleteOnTermination": false,
-            "VolumeType": "io1",
-            "VolumeSize": 50,
-            "SnapshotId": "snap-32fb8628",
-            "Iops": 300
-          }
-        }
-      ],
-      "NetworkInterfaces": [
-        {
-          "DeviceIndex": 0,
-          "SubnetId": "subnet-cf67fcf2",
           "DeleteOnTermination": true,
           "Groups": [
             "sg-38353646",

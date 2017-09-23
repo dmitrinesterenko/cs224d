@@ -1,0 +1,42 @@
+{
+  "IamFleetRole": "arn:aws:iam::770534373353:role/aws-ec2-spot-fleet-role",
+  "AllocationStrategy": "lowestPrice",
+  "TargetCapacity": 1,
+  "SpotPrice": "0.9",
+  "ValidFrom": "2017-06-03T20:31:50Z",
+  "ValidUntil": "2018-06-03T20:31:50Z",
+  "TerminateInstancesWithExpiration": true,
+  "LaunchSpecifications": [
+    {
+      "ImageId": "ami-4d26c637",
+      "InstanceType": "c4.8xlarge",
+      "KeyName": "aws01",
+      "SpotPrice": "0.9",
+      "BlockDeviceMappings": [
+        {
+          "DeviceName": "/dev/xvda",
+          "Ebs": {
+            "DeleteOnTermination": true,
+            "VolumeType": "io1",
+            "VolumeSize": 100,
+            "SnapshotId": "snap-0266f4a655d3bcfc1",
+            "Iops": 100
+          }
+        }
+      ],
+      "NetworkInterfaces": [
+        {
+          "DeviceIndex": 0,
+          "SubnetId": "subnet-4fd86439",
+          "DeleteOnTermination": true,
+          "Groups": [
+            "sg-38353646",
+            "sg-c43437ba"
+          ],
+          "AssociatePublicIpAddress": true
+        }
+      ]
+    }
+  ],
+  "Type": "request"
+}
