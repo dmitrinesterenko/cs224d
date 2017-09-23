@@ -81,7 +81,6 @@ class Tree:
 def leftTraverse(node, nodeFn=None, args=None):
     """
     Recursive function traverses tree
-<<<<<<< HEAD
     from left to right.
     Calls nodeFn at each node
     """
